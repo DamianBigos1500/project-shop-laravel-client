@@ -1,11 +1,19 @@
 import { useState } from 'react';
 import useAuthContext from '../context/authContext';
+import AuthFormInput from '../components/UI/AuthFormInput';
+import usePasswordToggle from '../hooks/usePasswordToggle';
+import Link from 'next/link';
 
 export default function register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password_confirmation, setPasswordConfirmation] = useState('');
+
+  const [PasswordInputType, TogglePasswordIcon]: any = usePasswordToggle();
+  const [PasswordConfirmationInputType, TogglePasswordConfirmationIcon]: any =
+    usePasswordToggle();
+
   const { register, errors } = useAuthContext();
 
   const handleRegister = (event: any) => {
@@ -14,82 +22,71 @@ export default function register() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleRegister} noValidate>
-        <div className="mb-6">
-          <input
-            type="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
-            className="border-2"
-          />
-          <div className="flex">
-            {errors.name && (
-              <span className="text-red-400 text-sm m-2 p-2">
-                {errors.name[0]}
-              </span>
-            )}
-          </div>
-        </div>
+    <div className="app-container my-[8rem]">
+      <div className="relative py-3 sm:max-w-xl sm:mx-auto">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-300 to-red-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl" />
 
-        <div className="mb-6">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            className="border-2"
-          />
-          <div className="flex">
-            {errors.email && (
-              <span className="text-red-400 text-sm m-2 p-2">
-                {errors.email[0]}
-              </span>
-            )}
-          </div>
-        </div>
+        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:py-14 sm:px-18">
+          <form className="max-w-md mx-auto" onSubmit={handleRegister}>
+            <h1 className="text-2xl font-semibold">Register Form</h1>
+            <div className="py-8 text-base space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+              <AuthFormInput
+                id="name"
+                name="name"
+                setInput={setName}
+                value={name}
+                type="name"
+                placeholder="Name"
+                error={errors?.name}
+              />
 
-        <div className="mb-6">
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            className="border-2"
-          />
-          <div className="flex">
-            {errors.password && (
-              <span className="text-red-400 text-sm m-2 p-2">
-                {errors.password[0]}
-              </span>
-            )}
-          </div>
-        </div>
+              <AuthFormInput
+                id="email"
+                name="email"
+                setInput={setEmail}
+                value={email}
+                type="email"
+                placeholder="Email Address"
+                error={errors?.email}
+              />
 
-        <div className="mb-6">
-          <input
-            type="password"
-            value={password_confirmation}
-            onChange={(e) => setPasswordConfirmation(e.target.value)}
-            placeholder="Password Confirmation"
-            className="border-2"
-          />
-          <div className="flex">
-            {errors.password && (
-              <span className="text-red-400 text-sm m-2 p-2">
-                {errors.password[0]}
-              </span>
-            )}
-          </div>
-        </div>
+              <AuthFormInput
+                id="password"
+                name="password"
+                setInput={setPassword}
+                value={password}
+                type={PasswordInputType}
+                placeholder="Password"
+                error={errors?.password}
+                ToggleIcon={TogglePasswordIcon}
+              />
 
-        <div className="mb-10">
-          <button type="submit" className="">
-            Login
-          </button>
+              <AuthFormInput
+                id="password_confirmation"
+                name="password_confirmation"
+                setInput={setPasswordConfirmation}
+                value={password_confirmation}
+                type={PasswordConfirmationInputType}
+                placeholder="Password Confirmation"
+                ToggleIcon={TogglePasswordConfirmationIcon}
+              />
+
+              <button className="bg-gradient-to-r from-red-500 to-orange-400 text-white rounded-xl px-6 py-2 text-sm font-semibold">
+                Submit
+              </button>
+
+              <div className="flex justify-start text-sm sm:pt-2">
+                <span>
+                  Already have an account?{' '}
+                  <Link href="/login">
+                    <span className="text-red-500">Click here</span>
+                  </Link>
+                </span>
+              </div>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
