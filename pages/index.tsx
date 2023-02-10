@@ -1,16 +1,14 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import useAuth from '../hooks/useAuth';
+import useAuthContext from '../context/authContext';
 
 const Home: NextPage = () => {
-  const { user, logout } = useAuth();
-
-  console.log(user)
+  const { user } = useAuthContext();
+  
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Shopify</title>
       </Head>
 
       <div>

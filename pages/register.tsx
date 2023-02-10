@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import useAuth from '../hooks/useAuth';
+import useAuthContext from '../context/authContext';
 
 export default function register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password_confirmation, setPasswordConfirmation] = useState('');
-  const { register, errors } = useAuth();
+  const { register, errors } = useAuthContext();
 
   const handleRegister = (event: any) => {
     event.preventDefault();

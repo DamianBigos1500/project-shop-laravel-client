@@ -38,15 +38,20 @@ export default function useAuth() {
     }
   };
 
-  const logout = () => {
-    axios.post('/logout').then(() => {
+  const logout = async () => {
+    try {
+      await axios.post('/logout');
       setUser(null);
-    });
+    } catch (error) {
+      console.log('you are logged out');
+    }
   };
 
   const getUser = async () => {
-    const { data } = await axios.get('/api/user');
-    setUser(data);
+    try {
+      const { data } = await axios.get('/api/user');
+      setUser(data);
+    } catch (error: any) {}
     setLoading(false);
   };
 
@@ -54,7 +59,7 @@ export default function useAuth() {
     if (!user) {
       getUser();
     }
-  }, [user, loading]);
+  }, [user]);
 
   return { user, register, login, logout, getUser, loading, errors };
 }

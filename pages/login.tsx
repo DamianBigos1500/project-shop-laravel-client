@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import useAuth from '../hooks/useAuth';
+import useAuthContext from '../context/authContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login, errors } = useAuth();
+  const { login, errors } = useAuthContext();
 
   const handleLogin = (event: any) => {
     event.preventDefault();
 
     login({ email, password });
   };
-
-  useEffect(() => {
-    console.log("hello");
-  }, []);
 
   return (
     <div>
