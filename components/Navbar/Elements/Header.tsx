@@ -6,7 +6,7 @@ import Logo from '../Elements/Logo';
 export default function Header() {
   return (
     <div className="app-container">
-      <div className="flex justify-between items-center sm:h-[4rem] flex-row sm:flex-nowrap flex-wrap h-[8rem]">
+      <div className="grid md:grid-cols-[auto_1fr_auto] grid-cols-2 grid-rows-[4rem_4rem] md:grid-rows-1">
         <Logo />
         <Search />
         <HeaderIcons />

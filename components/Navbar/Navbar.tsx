@@ -6,7 +6,7 @@ import Toolbar from './Elements/Toolbar';
 export default function Navbar() {
 
   return (
-    <div >
+    <div className="" >
       <Header />
       <Toolbar />
     </div>

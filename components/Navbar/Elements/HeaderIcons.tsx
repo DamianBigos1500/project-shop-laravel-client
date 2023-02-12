@@ -6,7 +6,7 @@ import HeaderIcon from '../../UI/HeaderIcon';
 
 export default function HeaderIcons() {
   return (
-    <div className="relative sm:px-8 px-4 flex items-center justify-center">
+    <div className="relative sm:px-6 px-4 flex items-center justify-end">
       <div className="flex items-center sm:w-auto gap-x-5">
         <Link href="/login">
           <BiUser className="text-3xl hover:text-orange-600 transition-colors duration-300 " />
