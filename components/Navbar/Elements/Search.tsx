@@ -3,7 +3,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 
 export default function Search() {
   return (
-    <div className="md:row-start-1 md:row-end-2 row-start-2 row-end-3 md:col-start-2 md:col-end-3 col-start-1 col-end-3 px-12 flex items-center justify-center">
+    <div className="md:row-start-1 md:row-end-2 row-start-2 row-end-3 md:col-start-2 md:col-end-3 col-start-1 col-end-3 md:px-12 px-4 flex items-center justify-center">
       <div className="md:max-w-[28rem] w-full">
         <div className="relative flex items-center justify-center w-full">
           <input

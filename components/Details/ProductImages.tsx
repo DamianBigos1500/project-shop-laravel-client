@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ImageModal from '../Modals/ImageModal';
+import { AnimatePresence } from 'framer-motion';
 
 const imagesArray = [
   '/product-1-1.jpg',
@@ -13,36 +14,41 @@ const imagesArray = [
 export default function ImagesDisplay() {
   const [images, setImages] = useState<string[]>(imagesArray);
   const [imageShow, setImageShow] = useState<number>(0);
-  const [showModal, setShowModal] = useState(false);
-  console.log(setShowModal);
+
+  const modalRef = useRef<any>();
 
   return (
     <div className="md:row-start-1 md:row-end-3 row-start-2 row-end-3">
       <div className="grid grid-cols-6 grid-row-7 gap-2 mt-2">
-        <img
-          onClick={() => setShowModal(true)}
-          src={images[imageShow]}
-          alt=""
-          className="w-full rounded-xl border-transparent cursor-pointer image-animation col-start-1 col-end-7"
-        />
+        <AnimatePresence>
+          <img
+            onClick={() => modalRef?.current.open()}
+            src={images[imageShow]}
+            alt=""
+            className="w-full rounded-xl border-transparent cursor-pointer image-animation col-start-1 col-end-7"
+          />
+        </AnimatePresence>
 
         {images.map((__, index) => (
           <img
             key={index}
             src={images[index]}
-            onClick={() => setShowModal(true)}
+            onClick={() => modalRef?.current.open()}
             onMouseOver={() => setImageShow(index)}
             alt=""
-            className={`min-w-auto cursor-pointer border rounded-md transform-border duration-200 ${
+            className={`min-w-auto cursor-pointer border rounded-md transform-border duration-300 ${
               index === imageShow && 'border-gray-600'
             }`}
           />
         ))}
       </div>
 
-      {showModal && (
-        <ImageModal showModal={showModal} closeModal={setShowModal} />
-      )}
+      <ImageModal
+        activeImage={imageShow}
+        images={images}
+        setImageShow={setImageShow}
+        ref={modalRef}
+      />
     </div>
   );
 }

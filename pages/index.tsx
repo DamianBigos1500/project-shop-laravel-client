@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
-        <title>Shopify</title>
+        <title>{process.env.NEXT_PUBLIC_FRONTEND_PROJECT_NAME}</title>
       </Head>
 
       <div>

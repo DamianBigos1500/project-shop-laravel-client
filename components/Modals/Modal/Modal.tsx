@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useImperativeHandle, useState } from 'react';
 import Background from './Background';
+import { AnimatePresence } from 'framer-motion';
+import ModalContent from './ModalContent';
 
-export default function Modal({ children, showModal, closeModal }: any) {
+export const Modal = React.forwardRef(({ children }: any, ref: any) => {
+  const [open, setOpen] = useState(false);
 
-  if (!showModal) return null;
+  useImperativeHandle(ref, () => {
+    return {
+      open: () => setOpen(true),
+      close: () => setOpen(false),
+    };
+  });
+
   return (
-    <div>
-      <Background closeModal={closeModal} />
-      {children}
-    </div>
+    <AnimatePresence>
+      {open && (
+        <>
+          <Background closeModal={ref.current.close} />
+          <ModalContent>{children}</ModalContent>
+        </>
+      )}
+    </AnimatePresence>
   );
-}
+});
+
+export default Modal;
