@@ -1,9 +1,11 @@
-import React, { useImperativeHandle, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useState } from 'react';
 import Background from './Background';
 import { AnimatePresence } from 'framer-motion';
 import ModalContent from './ModalContent';
+import ReactDOM from 'react-dom';
 
 export const Modal = React.forwardRef(({ children }: any, ref: any) => {
+  const [isBrowser, setIsBrowser] = useState(false);
   const [open, setOpen] = useState(false);
 
   useImperativeHandle(ref, () => {
@@ -12,8 +14,13 @@ export const Modal = React.forwardRef(({ children }: any, ref: any) => {
       close: () => setOpen(false),
     };
   });
+  useEffect(() => {
+    setIsBrowser(true);
+  }, []);
 
-  return (
+  if (!isBrowser) return null;
+
+  return ReactDOM.createPortal(
     <AnimatePresence>
       {open && (
         <>
@@ -21,7 +28,8 @@ export const Modal = React.forwardRef(({ children }: any, ref: any) => {
           <ModalContent>{children}</ModalContent>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.getElementById('modal-container')!
   );
 });
 
