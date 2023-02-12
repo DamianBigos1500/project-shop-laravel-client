@@ -29,7 +29,7 @@ export default function Toolobar() {
             <Link href="/collections">Our Collection</Link>
           </li>
           <li className="hover:text-orange-600 transition-colors duration-200">
-            <Link href="/blog">Blog</Link>
+            <Link href="/details">Details</Link>
           </li>
           <li className="hover:text-orange-600 transition-colors duration-200">
             <Link href="/contact">Contact</Link>

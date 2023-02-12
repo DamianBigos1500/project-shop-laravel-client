@@ -12,8 +12,10 @@ const Home: NextPage = () => {
       </Head>
 
       <div>
-        <p>asdasd</p>
-        {user && <h1>{user.name}</h1>}
+        {/* <p>asdasd</p>
+        {user && <h1>{user.name}</h1>} */}
+
+        {/* AdvertiseCarousel */}
       </div>
     </div>
   );
