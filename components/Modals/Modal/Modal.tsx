@@ -3,15 +3,23 @@ import Background from './Background';
 import { AnimatePresence } from 'framer-motion';
 import ModalContent from './ModalContent';
 import ReactDOM from 'react-dom';
+import useBodyScrollLock from '../../../hooks/useBodyScrollLock';
 
 export const Modal = React.forwardRef(({ children }: any, ref: any) => {
   const [isBrowser, setIsBrowser] = useState(false);
+  const [_, toggle]: any = useBodyScrollLock();
   const [open, setOpen] = useState(false);
 
   useImperativeHandle(ref, () => {
     return {
-      open: () => setOpen(true),
-      close: () => setOpen(false),
+      open: () => {
+        setOpen(true);
+        toggle();
+      },
+      close: () => {
+        setOpen(false);
+        toggle();
+      },
     };
   });
   useEffect(() => {
@@ -23,10 +31,10 @@ export const Modal = React.forwardRef(({ children }: any, ref: any) => {
   return ReactDOM.createPortal(
     <AnimatePresence>
       {open && (
-        <>
+        <div>
           <Background closeModal={ref.current.close} />
           <ModalContent>{children}</ModalContent>
-        </>
+        </div>
       )}
     </AnimatePresence>,
     document.getElementById('modal-container')!

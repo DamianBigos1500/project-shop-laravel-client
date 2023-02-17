@@ -66,9 +66,9 @@ export const ImageModal = React.forwardRef(
                     transition: { duration: 0.1 },
                   }}
                   exit={{ width: 0, transition: { duration: 0.1 } }}
-                  className="w-[500px] border-l h-screen"
+                  className="w-[500px] border-l h-screen overflow-y-scroll"
                 >
-                  <div className="p-5 grid grid-cols-4 gap-2">
+                  <div className="p-5 grid grid-cols-4 gap-2 ">
                     {images.map((__: null, index: number) => (
                       <img
                         key={index}

@@ -7,35 +7,3 @@
     @apply m-auto max-w-[90rem];
   }
 }
-
-.asd {
-  animation-name: aaa;
-  animation-duration: 1s;
-}
-
-@keyframes aaa {
-  from {
-    background-color: red;
-  }
-  to {
-    background-color: yellow;
-  }
-}
-
-.example-enter {
-  opacity: 0;
-}
-
-.example-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-
-.example-exit {
-  opacity: 1;
-}
-
-.example-exit-active {
-  opacity: 0;
-  transition: opacity 300ms ease-in;
-}

@@ -4,4 +4,4 @@ export default function profile() {
   return <div>profile</div>;
 }
 
-export function getServerSideProps() {}
+// export function getServerSideProps() {}

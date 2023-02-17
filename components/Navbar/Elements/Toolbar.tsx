@@ -34,9 +34,11 @@ export default function Toolobar() {
           <li className="hover:text-orange-600 transition-colors duration-200">
             <Link href="/contact">Contact</Link>
           </li>
-          <li className="hover:text-orange-600 transition-colors duration-200">
-            <Link href="/profile">My Account</Link>
-          </li>
+          {user && (
+            <li className="hover:text-orange-600 transition-colors duration-200">
+              <Link href="/profile">My Account</Link>
+            </li>
+          )}
         </ul>
 
         <div className="flex pl-6 items-center text-nowrap">

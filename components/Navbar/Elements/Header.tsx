@@ -9,7 +9,7 @@ export default function Header() {
       <div className="grid md:grid-cols-[auto_1fr_auto] grid-cols-2 grid-rows-[4rem_4rem] md:grid-rows-1">
         <Logo />
         <Search />
-        <HeaderIcons />
+        <HeaderIcons  />
       </div>
     </div>
   );

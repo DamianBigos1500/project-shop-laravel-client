@@ -1,4 +1,4 @@
-import Layout from '../components/layout/Layout';
+import AppLayout from '../components/layout/AppLayout';
 import { AuthProvider } from '../context/authContext';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
@@ -6,9 +6,9 @@ import type { AppProps } from 'next/app';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <Layout>
+      <AppLayout>
         <Component {...pageProps} />
-      </Layout>
+      </AppLayout>
     </AuthProvider>
   );
 }
