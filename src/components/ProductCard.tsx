@@ -3,6 +3,8 @@ import styles from '../../styles/ProductCard.module.css';
 import { AiFillStar } from 'react-icons/ai';
 import Router from 'next/router';
 
+const IMAGE_URL = 'http://localhost:8000';
+
 type Details = {
   procesor: string;
   memory: string;
@@ -10,21 +12,21 @@ type Details = {
   screen: string;
 };
 
-export type Product = {
+export type productType = {
   id: number;
   title: string;
   images: string[];
-  priceDiscount?: number;
-  price: number;
+  discount_price?: number;
+  regular_price: number;
   inStock: number;
   details: Details;
 };
 
-const product: Product = {
+const product: productType = {
   id: 1,
   title: 'Samsung Galaxy S20 FE 5G Fan Edition Niebieski',
   images: ['/product-1-1.jpg', '/product-1-2.jpg'],
-  // priceDiscount: 129.99,
+  // discount_price: 129.99,
   price: 129.99,
   inStock: 13123,
 
@@ -36,7 +38,9 @@ const product: Product = {
   },
 };
 
-export default function ProductCard() {
+export default function ProductCard({ product }: any) {
+  console.log(product.images[0].filename);
+
   const navigateToProductPage = () => {
     // TODO
     Router.push('/details/');
@@ -49,11 +53,16 @@ export default function ProductCard() {
     >
       {/* Images */}
       <div className="relative h-[20rem]">
-        <img src={product.images[0]} className="w-full h-full object-cover" />
         <img
-          src={product.images[1]}
-          className="w-full h-full object-cover absolute inset-0 group-hover:opacity-[1] opacity-0 transition"
+          src={IMAGE_URL + product.images[0].filename}
+          className="w-full h-full object-cover"
         />
+        {product?.images[1] && (
+          <img
+            src={IMAGE_URL + product?.images[1].filename}
+            className="w-full h-full object-cover absolute inset-0 group-hover:opacity-[1] opacity-0 transition"
+          />
+        )}
       </div>
       {/* Details */}
       <div className="flex flex-col p-4 text-ellipsis overflow-hidden gap-2">
@@ -77,23 +86,24 @@ export default function ProductCard() {
         <div className="flex items-center gap-4">
           <span
             className={` font-semibold text-xl ${
-              product.priceDiscount
+              product.discount_price
                 ? 'line-through sm:text-[1rem] text-gray-500'
                 : 'font-semibold'
             }`}
           >
-            {product.price} zl
+            {product.regular_price} zl
           </span>
-          {product.priceDiscount && (
+          {product.discount_price && (
             <span className="font-semibold sm:text-xl text-2xl">
-              {product.priceDiscount} zl
+              {product.discount_price} zl
             </span>
           )}
         </div>
 
         {/* DescriptionShort */}
         <div className="text-gray-500 text-xs">
-          {Object.keys(product.details).map((key: string, index: number) => (
+          {product.long_description}
+          {/* {Object.keys(product.details).map((key: string, index: number) => (
             <div
               key={index}
               className="w-full overflow-hidden whitespace-nowrap text-ellipsis "
@@ -101,7 +111,7 @@ export default function ProductCard() {
               <span className="first-letter:uppercase">{key}: </span>
               <span className="">{product?.details[key]}</span>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
       {/* Icons */}

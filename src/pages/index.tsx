@@ -1,20 +1,20 @@
 import Head from 'next/head';
-import CardLayout from '@/components/CardLayout';
+import CardLayout from '@/components/ProductCardGrid';
 import GuestLayout from '@/layouts/GuestLayout';
-import AdvertiseCarousel from '@/components/AdvertiseCarousel';
+import HomePageCarousel from '@/components/HomePageCarousel';
+import axios from '@/lib/axios';
+import { useEffect } from 'react';
 
 export async function getStaticProps() {
-  
-
   return {
-    props: {
-      advertiseCarousel: [],
-    },
+    props: {},
     revalidate: 180,
   };
 }
 
-export default function index({ advertiseCarousel }: any) {
+export default function index() {
+
+
   return (
     <>
       <Head>
@@ -24,7 +24,7 @@ export default function index({ advertiseCarousel }: any) {
       <GuestLayout>
         <div className="flex lg:flex-row flex-col-reverse ">
           <div className="w-full">
-            <AdvertiseCarousel advertiseCarousel={advertiseCarousel} />
+            <HomePageCarousel />
           </div>
         </div>
 

@@ -62,7 +62,7 @@ export default function ImageModal({
         </div>
 
         {/* Right */}
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {showGalery && (
             <motion.div
               initial={{ width: 0 }}

@@ -50,7 +50,6 @@ export default function useAuth() {
   const getUser = async () => {
     try {
       const { data } = await axios.get('/api/user');
-      console.log(data);
       setUser(data);
     } catch (error: any) {}
     setLoading(false);
