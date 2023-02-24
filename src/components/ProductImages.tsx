@@ -4,10 +4,11 @@ import { imagesArray } from 'src/data/imagesArray';
 import Modal from './Modal';
 import useModal from '@/hooks/useModal';
 import Backdrop from './Backdrop';
+import { IMAGE_URL } from './ProductCard';
 
-const images = imagesArray;
+// const images = imagesArray;
 
-export default function ImagesDisplay() {
+export default function ImagesDisplay({ images }: any) {
   const [imageShow, setImageShow] = useState<number>(0);
   const [isShowing, openModal, closeModal] = useModal();
 
@@ -16,23 +17,29 @@ export default function ImagesDisplay() {
       <div className="grid grid-cols-6 grid-row-7 gap-2 mt-2">
         <img
           onClick={(_e) => openModal()}
-          src={images[imageShow]}
+          src={IMAGE_URL + images[imageShow].filename}
           alt=""
-          className="w-full rounded-xl border-transparent cursor-pointer image-animation col-start-1 col-end-7"
+          className="w-full aspect-[10_/_12] object-cover rounded-xl border-transparent cursor-pointer col-start-1 col-end-7"
         />
 
-        {images.map((image, index) => (
-          <img
-            key={index}
-            src={images[index]}
-            onClick={(_e) => openModal()}
-            onMouseOver={() => setImageShow(index)}
-            alt={image}
-            className={`min-w-auto cursor-pointer border rounded-md transform-border duration-300 ${
-              index === imageShow && 'border-gray-600'
-            }`}
-          />
-        ))}
+        {images.map((image: any, index: number) => {
+          if (index >= 6) return;
+          return (
+            <img
+              key={index}
+              src={IMAGE_URL + images[index].filename}
+              onClick={(_e) => openModal()}
+              onMouseOver={() => setImageShow(index)}
+              alt={image}
+              className={`relative w-full aspect-[10_/_12] object-cover cursor-pointer border rounded-md transform-border duration-300 ${
+                index === imageShow && 'border-gray-600'
+              } ${
+                index === 5 &&
+                'before:absolute before:content-["hello"] before:h-screen before:w-screen before:block'
+              } `}
+            />
+          );
+        })}
       </div>
 
       <Modal isOpen={isShowing}>

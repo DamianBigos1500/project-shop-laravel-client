@@ -3,13 +3,17 @@ import styles from '../../styles/ProductCard.module.css';
 import { AiFillStar } from 'react-icons/ai';
 import Router from 'next/router';
 
-const IMAGE_URL = 'http://localhost:8000';
+export const IMAGE_URL = 'http://localhost:8000';
 
 type Details = {
   procesor: string;
   memory: string;
   graphic: string;
   screen: string;
+};
+
+export type productImagesType = {
+  id: number;
 };
 
 export type productType = {
@@ -22,28 +26,11 @@ export type productType = {
   details: Details;
 };
 
-const product: productType = {
-  id: 1,
-  title: 'Samsung Galaxy S20 FE 5G Fan Edition Niebieski',
-  images: ['/product-1-1.jpg', '/product-1-2.jpg'],
-  // discount_price: 129.99,
-  price: 129.99,
-  inStock: 13123,
-
-  details: {
-    procesor: 'Intel core i7-11300H',
-    memory: '32GB',
-    graphic: 'NVIDIA GeForce RTX 3050 Ti + Intel Iris Xe Graphics',
-    screen: 'Matowy, LED, IPS',
-  },
-};
-
 export default function ProductCard({ product }: any) {
-  console.log(product.images[0].filename);
 
   const navigateToProductPage = () => {
     // TODO
-    Router.push('/details/');
+    Router.push('/details/' + product.id);
   };
 
   return (
@@ -66,7 +53,7 @@ export default function ProductCard({ product }: any) {
       </div>
       {/* Details */}
       <div className="flex flex-col p-4 text-ellipsis overflow-hidden gap-2">
-        <div className="text-ellipsis">{product.title}</div>
+        <div className="text-ellipsis font-semibold">{product.name.toUpperCase()}</div>
         {/* Stars */}
         <div className="flex items-center justify-start">
           <div className="flex space-x-1 text-yellow-500">

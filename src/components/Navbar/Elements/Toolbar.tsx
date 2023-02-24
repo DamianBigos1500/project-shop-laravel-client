@@ -12,7 +12,7 @@ export default function Toolobar() {
   // if (scrollYProgress) console.log(scrollYProgress);
 
   return (
-    <nav className="border-d-1 my-2 border-b">
+    <nav className="max-w-[90rem] mx-auto border-d-1 border-b">
       <div className="flex justify-center items-center  h-10">
         <div className="flex pl-6 items-center text-nowrap">
           <BiCategory />

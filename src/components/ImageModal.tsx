@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { BiArrowToLeft } from 'react-icons/bi';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { IoCloseOutline } from 'react-icons/io5';
+import { IMAGE_URL } from './ProductCard';
 
 export default function ImageModal({
   images,
@@ -21,8 +22,8 @@ export default function ImageModal({
   return (
     <motion.div
       initial={{ y: '100%', opacity: 0.4 }}
-      animate={{ y: 0, opacity: 1, transition: { duration: 0.2 } }}
-      exit={{ y: '100%', opacity: 0.4, transition: { duration: 0.2 } }}
+      animate={{ y: 0, opacity: 1, transition: { duration: 0.15 } }}
+      exit={{ y: '100%', opacity: 0.4, transition: { duration: 0.15 } }}
       className="fixed bg-white inset-0 z-40"
     >
       <div className="flex">
@@ -35,13 +36,15 @@ export default function ImageModal({
             <IoCloseOutline className="text-[5vh] cursor-pointer" />
           </div>
           <div
-            className="absolute top-[1vh] right-0 p-2  w-16 rounded-l-lg border border-black/40 hover:bg-black/30 text-black transition duration-300 trans"
+            className="absolute top-[2vh] right-[-1px] p-2 w-16 rounded-l-lg border border-gray-500 border-r-transparent hover:bg-gray-300 bg-white text-black transition duration-300 trans"
             onClick={() => setShowGalery((prev: boolean) => !prev)}
           >
-            <BiArrowToLeft className='text-center' />
+            <BiArrowToLeft
+              className={`"text-center text-lg ${showGalery && 'scale-[-1]'}`}
+            />
           </div>
           <img
-            src={images[activeImage]}
+            src={IMAGE_URL + images[activeImage].filename}
             alt="product detail image"
             className="w-full h-full object-contain border-transparent col-start-1 col-end-7"
           />
@@ -57,7 +60,7 @@ export default function ImageModal({
             className="absolute top-[50%] right-[1vh] translate-y-[-50%] p-[0.6vh] rounded-full shadow-2xl hover:bg-black/30 bg-black/10 text-black transition duration-300"
             onClick={() => handleImageChange(+1)}
           >
-            <FiChevronRight className="text-[5vh] cursor-pointer" />
+            <FiChevronRight className=" text-[5vh] cursor-pointer" />
           </div>
         </div>
 
@@ -68,19 +71,19 @@ export default function ImageModal({
               initial={{ width: 0 }}
               animate={{
                 width: '500px',
-                transition: { duration: 0.1 },
+                transition: { duration: 0.15 },
               }}
-              exit={{ width: 0, transition: { duration: 0.1 } }}
+              exit={{ width: 0, transition: { duration: 0.15 } }}
               className="w-[500px] border-l border-black/40 h-screen overflow-y-scroll"
             >
               <div className="p-5 grid grid-cols-4 gap-2 ">
                 {images.map((_image: string, index: number) => (
                   <img
                     key={index}
-                    src={images[index]}
+                    src={IMAGE_URL + images[index].filename}
                     onClick={() => setImageShow(index)}
                     alt={'product detail image ' + index}
-                    className={`cursor-pointer rounded-md border hover:border-gray-600 transform-border duration-300 ${
+                    className={` w-full aspect-[10_/_12] cursor-pointer rounded-md border hover:border-gray-600 transform-border duration-300 ${
                       index === activeImage && 'border-gray-600 '
                     }`}
                   />

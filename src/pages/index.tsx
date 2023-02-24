@@ -3,18 +3,9 @@ import CardLayout from '@/components/ProductCardGrid';
 import GuestLayout from '@/layouts/GuestLayout';
 import HomePageCarousel from '@/components/HomePageCarousel';
 import axios from '@/lib/axios';
-import { useEffect } from 'react';
-
-export async function getStaticProps() {
-  return {
-    props: {},
-    revalidate: 180,
-  };
-}
+import { createCategoriesTree } from 'src/utils/createCategoriesTree';
 
 export default function index() {
-
-
   return (
     <>
       <Head>
@@ -22,10 +13,8 @@ export default function index() {
       </Head>
 
       <GuestLayout>
-        <div className="flex lg:flex-row flex-col-reverse ">
-          <div className="w-full">
-            <HomePageCarousel />
-          </div>
+        <div className="mt-8 flex lg:flex-row flex-col-reverse ">
+          <HomePageCarousel />
         </div>
 
         <div className="mt-10 xmd:flex container mx-auto">
@@ -35,4 +24,20 @@ export default function index() {
       </GuestLayout>
     </>
   );
+}
+
+export async function getStaticProps() {
+  try {
+    const categories = await axios.get('http://localhost:8000/api/categories');
+    // console.log(categories.data.categories);
+    const categoriesTree = createCategoriesTree(categories.data.categories);
+    return {
+      props: { categories: categoriesTree },
+      revalidate: 300,
+    };
+  } catch (error) {}
+  return {
+    props: { categories: [] },
+    revalidate: 300,
+  };
 }

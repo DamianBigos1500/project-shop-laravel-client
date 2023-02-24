@@ -1,5 +1,4 @@
 import React from 'react';
-import PageLayout from '../components/layout/PageLayout';
 import CartItemCard from '../components/UI/Card/CartItemCard';
 import { cartItems } from 'src/data/cartItems';
 import GuestLayout from '@/layouts/GuestLayout';

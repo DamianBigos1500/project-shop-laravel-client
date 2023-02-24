@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { cartItem } from '../../../pages/cart';
 import Router from 'next/router';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 type props = {
-  cartItem: cartItem;
+  cartItem: any;
 };
 
 export default function CartItemCard({ cartItem }: props) {
   const [quantity, setQuantity] = useState(cartItem.quantity);
 
   const updateQuantity = (value: number) => {
-    setQuantity((prev) => prev + value);
+    setQuantity((prev: number) => prev + value);
   };
 
   const redirectToPage = () => {

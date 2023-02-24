@@ -14,34 +14,35 @@ import {
 import ProductImages from '../../components/ProductImages';
 import Head from 'next/head';
 import GuestLayout from '@/layouts/GuestLayout';
+import axios from '@/lib/axios';
+import { GetStaticPropsContext } from 'next';
 
-const name = 'Meryl Lounge Chairs';
-
-export default function details() {
+export default function details({ product }: any) {
+  console.log(product);
   return (
     <>
       <Head>
         <title>
-          {name} - {process.env.NEXT_PUBLIC_FRONTEND_PROJECT_NAME}
+          {product.name} - {process.env.NEXT_PUBLIC_FRONTEND_PROJECT_NAME}
         </title>
       </Head>
       <GuestLayout>
         {/* Category Chain */}
         <div className="text-sm flex items-center">
           <span className="text-gray-400/40">Chair &nbsp;</span>
-          <span>/ {name}</span>
+          <span>/ {product.name}</span>
         </div>
 
         {/* Top */}
         <div className=" mt-4">
           <div className="max-w-7xl grid gap-y-4 gap-x-8 md:grid-cols-[12fr_13fr] md:grid-rows-[auto_1fr]">
             {/* Image */}
-            <ProductImages />
+            <ProductImages images={product.images} />
 
             {/* Title */}
             <div className="row-start-1 row-end-2">
               <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-semibold ">{name}</h1>
+                <h1 className="text-2xl font-semibold ">{product.name}</h1>
                 <div className="flex items-center gap-4">
                   <button className="flex items-center py-[0.75rem] px-6 space-x-2 text-md font-semibold rounded-full bg-white border-2 text-red-500 border-red-500 hover:bg-red-600 hover:text-white hover:border-transparent transform duration-200">
                     <AiOutlineHeart className="text-2xl" />
@@ -77,15 +78,12 @@ export default function details() {
               <div className="flex justify-start items-center mt-4">
                 <span className="text-4xl md:text-2xl pr-2">Price:</span>
                 <div className="text-4xl md:text-2xl font-semibold">
-                  $149.99
+                  {product.regular_price} $
                 </div>
               </div>
 
               <p className="pt-8 leading-relaxed text-sm">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in
-                sodales purus, eu laoreet velit. Ut a eros lobortis, eleifend
-                metus sed, blandit ipsum. Etiam ac pharetra erat. Fusce pharetra
-                gravida magna.
+                {product.short_description}
               </p>
 
               <div className="flex mt-6 space-x-4 rounded-3xl">
@@ -125,6 +123,10 @@ export default function details() {
                   <AiOutlineInstagram />
                 </button>
               </div>
+
+              <p className="pt-8 leading-relaxed text-sm">
+                {product.long_description}
+              </p>
             </div>
           </div>
         </div>
@@ -140,4 +142,33 @@ export default function details() {
       </GuestLayout>
     </>
   );
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const product = await axios.get(
+      'http://localhost:8000/api/products/' + context.params?.id
+    );
+
+    return {
+      props: { product: product.data.product },
+      revalidate: 180,
+    };
+  } catch (error) {
+    return {
+      props: {},
+      revalidate: 180,
+    };
+  }
+}
+
+export async function getStaticPaths() {
+  const paths: any = await axios.get(
+    'http://localhost:8000/api/products-paths'
+  );
+
+  return {
+    paths: paths.data.productsPaths,
+    fallback: false,
+  };
 }
