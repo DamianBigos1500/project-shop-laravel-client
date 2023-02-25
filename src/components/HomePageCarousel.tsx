@@ -55,45 +55,47 @@ export default function HomePageCarousel() {
   };
 
   return (
-    <div className="relative h-[20rem] w-full overflow-hidden">
-      <AnimatePresence initial={false} custom={direction}>
-        <motion.img
-          key={page}
-          src={images[imageIndex]}
-          custom={direction}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{
-            x: { type: 'spring', stiffness: 300, damping: 30 },
-            opacity: { duration: 0.2 },
-          }}
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={1}
-          onDragEnd={(e, { offset, velocity }) => {
-            const swipe = swipePower(offset.x, velocity.x);
-            if (swipe < -swipeConfidenceThreshold) {
-              paginate(1);
-            } else if (swipe > swipeConfidenceThreshold) {
-              paginate(-1);
-            }
-          }}
-          className="absolute inset-0 object-cover w-full h-full"
-        />
-      </AnimatePresence>
-      <div
-        className="absolute z-10 top-[50%] translate-y-[-50%] right-2 rounded-full bg-white/70 p-4 cursor-pointer"
-        onClick={() => paginate(1)}
-      >
-        <AiFillCaretRight />
-      </div>
-      <div
-        className="absolute z-10 top-[50%] translate-y-[-50%] left-2 rounded-full bg-white/70 p-4 cursor-pointer"
-        onClick={() => paginate(-1)}
-      >
-        <AiFillCaretLeft />
+    <div className="mt-8 flex lg:flex-row flex-col-reverse ">
+      <div className="relative h-[20rem] w-full overflow-hidden">
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.img
+            key={page}
+            src={images[imageIndex]}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: 'spring', stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
+              if (swipe < -swipeConfidenceThreshold) {
+                paginate(1);
+              } else if (swipe > swipeConfidenceThreshold) {
+                paginate(-1);
+              }
+            }}
+            className="absolute inset-0 object-cover w-full h-full"
+          />
+        </AnimatePresence>
+        <div
+          className="absolute z-10 top-[50%] translate-y-[-50%] right-2 rounded-full bg-white/70 p-4 cursor-pointer"
+          onClick={() => paginate(1)}
+        >
+          <AiFillCaretRight />
+        </div>
+        <div
+          className="absolute z-10 top-[50%] translate-y-[-50%] left-2 rounded-full bg-white/70 p-4 cursor-pointer"
+          onClick={() => paginate(-1)}
+        >
+          <AiFillCaretLeft />
+        </div>
       </div>
     </div>
   );

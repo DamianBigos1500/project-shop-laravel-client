@@ -6,7 +6,7 @@ type props = {
   value: string;
   type: string;
   placeholder: string;
-  setInput: any;
+  onChange: any;
   error?: string[];
   ToggleIcon?: any;
 };
@@ -17,20 +17,16 @@ export default function AuthFormInput({
   value,
   type,
   placeholder,
-  setInput,
+  onChange,
   error,
   ToggleIcon,
 }: props) {
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-
   return (
     <div className="relative">
       <input
         id={id}
         name={name}
-        onChange={onChangeInput}
+        onChange={onChange}
         value={value}
         type={type}
         className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 text-sm focus:outline-none focus:borer-rose-600"

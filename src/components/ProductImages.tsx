@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import ImageModal from '@/components/ImageModal';
-import { imagesArray } from 'src/data/imagesArray';
 import Modal from './Modal';
 import useModal from '@/hooks/useModal';
 import Backdrop from './Backdrop';
-import { IMAGE_URL } from './ProductCard';
 
 // const images = imagesArray;
 
@@ -17,7 +15,9 @@ export default function ImagesDisplay({ images }: any) {
       <div className="grid grid-cols-6 grid-row-7 gap-2 mt-2">
         <img
           onClick={(_e) => openModal()}
-          src={IMAGE_URL + images[imageShow].filename}
+          src={
+            process.env.NEXT_PUBLIC_BACKEND_IMG_URL + images[imageShow].filename
+          }
           alt=""
           className="w-full aspect-[10_/_12] object-cover rounded-xl border-transparent cursor-pointer col-start-1 col-end-7"
         />
@@ -27,7 +27,9 @@ export default function ImagesDisplay({ images }: any) {
           return (
             <img
               key={index}
-              src={IMAGE_URL + images[index].filename}
+              src={
+                process.env.NEXT_PUBLIC_BACKEND_IMG_URL + images[index].filename
+              }
               onClick={(_e) => openModal()}
               onMouseOver={() => setImageShow(index)}
               alt={image}

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { BiArrowToLeft } from 'react-icons/bi';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { IoCloseOutline } from 'react-icons/io5';
-import { IMAGE_URL } from './ProductCard';
 
 export default function ImageModal({
   images,
@@ -44,7 +43,7 @@ export default function ImageModal({
             />
           </div>
           <img
-            src={IMAGE_URL + images[activeImage].filename}
+            src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + images[activeImage].filename}
             alt="product detail image"
             className="w-full h-full object-contain border-transparent col-start-1 col-end-7"
           />
@@ -80,7 +79,7 @@ export default function ImageModal({
                 {images.map((_image: string, index: number) => (
                   <img
                     key={index}
-                    src={IMAGE_URL + images[index].filename}
+                    src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + images[index].filename}
                     onClick={() => setImageShow(index)}
                     alt={'product detail image ' + index}
                     className={` w-full aspect-[10_/_12] cursor-pointer rounded-md border hover:border-gray-600 transform-border duration-300 ${

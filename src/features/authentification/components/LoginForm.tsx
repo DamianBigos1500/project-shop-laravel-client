@@ -3,16 +3,21 @@ import AuthFormInput from '@/features/authentification/components/AuthFormInput'
 import Link from 'next/link';
 import useAuthContext from '@/context/useAuthContext';
 import usePasswordToggle from '@/hooks/usePasswordToggle';
+import useInput from '@/hooks/useInput';
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const email = useInput('');
+  const password = useInput('');
   const [PasswordInputType, ToggleIcon]: any = usePasswordToggle();
   const { login, errors } = useAuthContext();
 
   const handleLogin = (event: any) => {
     event.preventDefault();
-    login({ email, password });
+    console.log(email.value, password.value);
+    login({
+      email: email.value,
+      password: password.value,
+    });
   };
 
   return (
@@ -22,8 +27,7 @@ export default function LoginForm() {
         <AuthFormInput
           id="email"
           name="email"
-          setInput={setEmail}
-          value={email}
+          {...email}
           type="email"
           placeholder="Email Address"
           error={errors?.email}
@@ -32,8 +36,7 @@ export default function LoginForm() {
         <AuthFormInput
           id="password"
           name="password"
-          setInput={setPassword}
-          value={password}
+          {...password}
           type={PasswordInputType}
           placeholder="Password"
           error={errors?.email}

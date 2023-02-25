@@ -15,13 +15,13 @@ import {
   AiOutlineTwitter,
 } from 'react-icons/ai';
 
-import ProductImages from '../../components/ProductImages';
 import Head from 'next/head';
 import GuestLayout from '@/layouts/GuestLayout';
 import { GetStaticPropsContext } from 'next';
+import ProductImages from '@/components/ProductImages';
+import { useRouter } from 'next/router';
 
 export default function details({ product }: any) {
-  console.log(product);
   return (
     <>
       <Head>

@@ -19,7 +19,7 @@ export default function Toolobar() {
           <span className="font-semibold px-4">Categories</span>
         </div>
 
-        <ul className="md:flex justify-center bg-white flex-row sm:gap-x-3  md:text-sm font-semibold gap-x-5 w-full whitespace-nowrap hidden">
+        <ul className="md:flex justify-center bg-white flex-row sm:gap-x-3 md:text-sm font-semibold gap-x-5 w-full whitespace-nowrap hidden">
           <li className="hover:text-orange-600 transition-colors duration-200">
             <Link href="/">Home</Link>
           </li>

@@ -3,12 +3,13 @@ import AuthFormInput from '@/features/authentification/components/AuthFormInput'
 import Link from 'next/link';
 import useAuthContext from '@/context/useAuthContext';
 import usePasswordToggle from '@/hooks/usePasswordToggle';
+import useInput from '@/hooks/useInput';
 
 export default function RegisterForm() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password_confirmation, setPasswordConfirmation] = useState('');
+  const name = useInput('');
+  const email = useInput('');
+  const password = useInput('');
+  const password_confirmation = useInput('');
 
   const [PasswordInputType, TogglePasswordIcon]: any = usePasswordToggle();
   const [PasswordConfirmationInputType, TogglePasswordConfirmationIcon]: any =
@@ -18,7 +19,12 @@ export default function RegisterForm() {
 
   const handleRegister = (event: any) => {
     event.preventDefault();
-    register({ name, email, password, password_confirmation });
+    register({
+      name: name.value,
+      email: email.value,
+      password: password.value,
+      password_confirmation: password_confirmation.value,
+    });
   };
 
   return (
@@ -28,8 +34,7 @@ export default function RegisterForm() {
         <AuthFormInput
           id="name"
           name="name"
-          setInput={setName}
-          value={name}
+          {...name}
           type="name"
           placeholder="Name"
           error={errors?.name}
@@ -38,8 +43,7 @@ export default function RegisterForm() {
         <AuthFormInput
           id="email"
           name="email"
-          setInput={setEmail}
-          value={email}
+          {...email}
           type="email"
           placeholder="Email Address"
           error={errors?.email}
@@ -48,8 +52,7 @@ export default function RegisterForm() {
         <AuthFormInput
           id="password"
           name="password"
-          setInput={setPassword}
-          value={password}
+          {...password}
           type={PasswordInputType}
           placeholder="Password"
           error={errors?.password}
@@ -59,8 +62,7 @@ export default function RegisterForm() {
         <AuthFormInput
           id="password_confirmation"
           name="password_confirmation"
-          setInput={setPasswordConfirmation}
-          value={password_confirmation}
+          {...password_confirmation}
           type={PasswordConfirmationInputType}
           placeholder="Password Confirmation"
           ToggleIcon={TogglePasswordConfirmationIcon}

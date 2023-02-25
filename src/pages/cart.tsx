@@ -12,7 +12,7 @@ export default function cart() {
       </Head>
 
       <GuestLayout>
-        <div className="tracking-wide font-semibold text-2xl ">
+        <div className="tracking-wide font-semibold text-2xl mt-6">
           Your Cart <span className="text-gray-500">(3)</span>
         </div>
 

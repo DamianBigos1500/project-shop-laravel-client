@@ -1,20 +1,26 @@
 import { useEffect, useState } from 'react';
 import Router from 'next/router';
-
 import csrf from '@/lib/csrf';
 import axios from '@/lib/axios';
 import navigateBack from '@/lib/helper';
+import { loginDataType, registerDataType } from '../types';
+import {
+  getUserData,
+  postLogin,
+  postLogout,
+  postRegister,
+} from '../service/authService';
 
 export default function useAuth() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState<any>([]);
 
-  const register = async ({ ...data }: any) => {
+  const register = async ({ ...data }: registerDataType) => {
     await csrf();
     setErrors([]);
     try {
-      await axios.post('/register', data);
+      await postRegister(data);
       await getUser();
       Router.push('/');
     } catch (e: any) {
@@ -24,11 +30,11 @@ export default function useAuth() {
     }
   };
 
-  const login = async ({ ...data }) => {
+  const login = async ({ ...data }: loginDataType) => {
     await csrf();
     setErrors([]);
     try {
-      await axios.post('/login', data);
+      await postLogin(data);
       await getUser();
       navigateBack();
     } catch (e: any) {
@@ -40,7 +46,7 @@ export default function useAuth() {
 
   const logout = async () => {
     try {
-      await axios.post('/logout');
+      await postLogout();
       setUser(null);
     } catch (error) {
       console.log('you are logged out');
@@ -49,9 +55,9 @@ export default function useAuth() {
 
   const getUser = async () => {
     try {
-      const { data } = await axios.get('/api/user');
+      const { data }: any = await getUserData();
       setUser(data);
-    } catch (error: any) {}
+    } catch (error) {}
     setLoading(false);
   };
 

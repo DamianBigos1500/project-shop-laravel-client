@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import AuthCard from '@/features/authentification/components/AuthCard';
 import GuestLayout from '@/layouts/GuestLayout';
-import LoginForm from '@/features/authentification/components/RegisterForm';
+import RegisterForm from '@/features/authentification/components/RegisterForm';
 
 export default function register() {
   return (
@@ -14,7 +14,7 @@ export default function register() {
 
       <GuestLayout>
         <AuthCard>
-          <LoginForm />
+          <RegisterForm />
         </AuthCard>
       </GuestLayout>
     </>

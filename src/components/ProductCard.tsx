@@ -1,9 +1,7 @@
 import React from 'react';
-import styles from '../../styles/ProductCard.module.css';
 import { AiFillStar } from 'react-icons/ai';
-import Router from 'next/router';
-
-export const IMAGE_URL = 'http://localhost:8000';
+import { useRouter } from 'next/router';
+import { productType } from '@/types/productType';
 
 type Details = {
   procesor: string;
@@ -12,25 +10,18 @@ type Details = {
   screen: string;
 };
 
-export type productImagesType = {
-  id: number;
+type propsType = {
+  product: productType;
 };
 
-export type productType = {
-  id: number;
-  title: string;
-  images: string[];
-  discount_price?: number;
-  regular_price: number;
-  inStock: number;
-  details: Details;
-};
-
-export default function ProductCard({ product }: any) {
+export default function ProductCard({ product }: propsType) {
+  const router = useRouter();
 
   const navigateToProductPage = () => {
-    // TODO
-    Router.push('/details/' + product.id);
+    router.push(
+      `/category/${router.query.category_slug}/${router.query.sub_category_slug}/` +
+        product.id
+    );
   };
 
   return (
@@ -41,19 +32,26 @@ export default function ProductCard({ product }: any) {
       {/* Images */}
       <div className="relative h-[20rem]">
         <img
-          src={IMAGE_URL + product.images[0].filename}
+          src={
+            process.env.NEXT_PUBLIC_BACKEND_IMG_URL + product.images[0].filename
+          }
           className="w-full h-full object-cover"
         />
         {product?.images[1] && (
           <img
-            src={IMAGE_URL + product?.images[1].filename}
+            src={
+              process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
+              product?.images[1].filename
+            }
             className="w-full h-full object-cover absolute inset-0 group-hover:opacity-[1] opacity-0 transition"
           />
         )}
       </div>
       {/* Details */}
       <div className="flex flex-col p-4 text-ellipsis overflow-hidden gap-2">
-        <div className="text-ellipsis font-semibold">{product.name.toUpperCase()}</div>
+        <div className="text-ellipsis font-semibold">
+          {product.name.toUpperCase()}
+        </div>
         {/* Stars */}
         <div className="flex items-center justify-start">
           <div className="flex space-x-1 text-yellow-500">

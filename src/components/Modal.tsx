@@ -1,7 +1,13 @@
 import { createPortal } from 'react-dom';
 import { AnimatePresence } from 'framer-motion';
+import { ReactNode } from 'react';
 
-export default function Modal({ children, isOpen }: any) {
+type propsType = {
+  children: ReactNode;
+  isOpen: boolean;
+};
+
+export default function Modal({ children, isOpen }: propsType) {
   return createPortal(
     <AnimatePresence>
       {isOpen ? (

@@ -1,7 +1,6 @@
-import { productType } from '@/features/products/productType';
-import { getProducts } from '@/features/products/services/product';
+import { productType } from '@/types/productType';
+import { getProducts } from '@/features/products/services/productService';
 import AdminLayout from '@/layouts/AdminLayout';
-import DashboardSidebar from '@/layouts/components/AdminSidebar';
 import Head from 'next/head';
 
 export default function index({ products }: any) {
@@ -10,7 +9,6 @@ export default function index({ products }: any) {
       <Head>
         <title>Profile Admin Dashboard - </title>
       </Head>
-      {/* <DashboardSidebar /> */}
 
       <AdminLayout>
         <div className="elative overflow-x-auto">
