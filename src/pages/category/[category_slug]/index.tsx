@@ -25,15 +25,13 @@ export default function index({ category }: propsType) {
       </Head>
 
       <GuestLayout>
-        <div>
-          <div className="tracking-wide font-semibold text-2xl mt-6">
-            {category.title}{' '}
-            <span className="text-gray-500">({category.children.length})</span>
-          </div>
+        <div className="tracking-wide font-semibold text-2xl mt-6">
+          {category.title}{' '}
+          <span className="text-gray-500">({category.children.length})</span>
+        </div>
 
-          <div className="">
-            <CategoryGrid categories={category.children} />
-          </div>
+        <div className="">
+          <CategoryGrid categories={category.children} />
         </div>
       </GuestLayout>
     </>
@@ -44,9 +42,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   let categoriesRes: any;
 
   try {
-    categoriesRes = await getCategoryBySlug(
-      context.params?.category_slug!
-    );
+    categoriesRes = await getCategoryBySlug(context.params?.category_slug!);
   } catch (error) {
     return {
       props: {},
@@ -54,7 +50,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     };
   }
 
-  console.log(categoriesRes);
   return {
     props: { category: categoriesRes.data.category },
     revalidate: 600,

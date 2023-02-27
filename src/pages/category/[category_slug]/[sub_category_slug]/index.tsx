@@ -5,28 +5,33 @@ import { productType } from '@/types/productType';
 import ProductGrid from '@/components/ProductGrid';
 import { GetStaticPropsContext } from 'next';
 import { getCategories } from '@/features/category/service/categoryService';
-import {
-  getProductsByCategory,
-} from '@/features/products/services/productService';
+import { getProductsByCategory } from '@/features/products/services/productService';
 import { useRouter } from 'next/router';
+import { categoryType } from '@/types/categoryType';
 
 type propsType = {
   products: { data: productType[] };
+  category: categoryType;
 };
 
-export default function index({ products }: propsType) {
-  const router = useRouter();
+export default function index({ products, category }: propsType) {
+  const { query } = useRouter();
 
   return (
     <>
       <Head>
         <title>
-          {router.query.sub_category_slug} -{' '}
+          {category.title} -{' '}
           {process.env.NEXT_PUBLIC_FRONTEND_PROJECT_NAME}
         </title>
       </Head>
 
       <GuestLayout>
+        <div className="tracking-wide font-semibold text-xl mt-6">
+          <span>{category.title}  &nbsp;</span>
+          <span className="text-gray-500">({products.data.length})</span>
+        </div>
+
         {/* <div className="w-80">asdasd</div> */}
         <ProductGrid products={products} />
       </GuestLayout>
@@ -42,11 +47,11 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       context.params?.sub_category_slug!
     );
   } catch (error) {}
-  console.log(productsRes.data.products.data);
 
   return {
     props: {
       products: productsRes.data.products,
+      category: productsRes.data.category,
     },
     revalidate: 600,
   };
@@ -61,11 +66,11 @@ export async function getStaticPaths() {
     return { paths: [], fallback: 'blocking' };
   }
 
-  const paths = res.data.categories.map((category: any) => {
-    return {
-      params: { category_slug: category.category_slug, sub_category_slug: '' },
-    };
-  });
+  // const paths = res.data.categories.map((category: any) => {
+  //   return {
+  //     params: { category_slug: category.category_slug, sub_category_slug: '' },
+  //   };
+  // });
 
   return {
     paths: [

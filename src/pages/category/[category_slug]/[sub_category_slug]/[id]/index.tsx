@@ -20,8 +20,11 @@ import GuestLayout from '@/layouts/GuestLayout';
 import { GetStaticPropsContext } from 'next';
 import ProductImages from '@/components/ProductImages';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function details({ product }: any) {
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -32,8 +35,21 @@ export default function details({ product }: any) {
       <GuestLayout>
         {/* Category Chain */}
         <div className="text-sm flex items-center mt-6">
-          <span className="text-gray-400/40">Chair &nbsp;</span>
-          <span>/ {product.name}</span>
+          <Link href={`/category/${router.query.category_slug}`}>
+            <span className="text-gray-400 cursor-pointer">
+              {router.query.category_slug} &nbsp;
+            </span>
+          </Link>
+          <span> / &nbsp;</span>
+          <Link
+            href={`/category/${router.query.category_slug}/${router.query.sub_category_slug}`}
+          >
+            <span className="text-gray-400 cursor-pointer">
+              {router.query.sub_category_slug} &nbsp;
+            </span>
+          </Link>
+          <span> / &nbsp;</span>
+          <span>{product.name}</span>
         </div>
 
         {/* Top */}
