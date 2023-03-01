@@ -1,7 +1,9 @@
 import React from 'react';
 import { AiFillStar } from 'react-icons/ai';
-import { useRouter } from 'next/router';
 import { productType } from '@/types/productType';
+import { navigateToProductDetails } from 'src/utils/navigateToProductDetails';
+import { FaCartPlus } from 'react-icons/fa';
+import useCartContext from '@/context/useCartContext';
 
 type Details = {
   procesor: string;
@@ -15,19 +17,12 @@ type propsType = {
 };
 
 export default function ProductCard({ product }: propsType) {
-  const router = useRouter();
-
-  const navigateToProductPage = () => {
-    router.push(
-      `/category/${router.query.category_slug}/${router.query.sub_category_slug}/` +
-        product.id
-    );
-  };
+  const { addItemToCart } = useCartContext();
 
   return (
     <div
-      onClick={navigateToProductPage}
-      className="group cursor-pointer hover:shadow-xl hover:rounded-xl rounded-t-xl border-b hover:border-none border-b-black/20 overflow-hidden text-ellipsis hover:scale-105 transition duration-300"
+      onClick={() => navigateToProductDetails(product.id)}
+      className="group cursor-pointer custom-shadow hover:border hover:rounded-xl rounded-t-xl border-b hover:border-none border-b-black/20 overflow-hidden text-ellipsis hover:scale-105 transition duration-300"
     >
       {/* Images */}
       <div className="relative h-[20rem]">
@@ -99,6 +94,17 @@ export default function ProductCard({ product }: propsType) {
           ))} */}
         </div>
       </div>
+
+      <button
+        className="px-4 mb-4 text-green-500 cursor-pointer w-full"
+        type="button"
+        onClick={() => addItemToCart({ product_id: product.id, quantity: 1 })}
+      >
+        <span className="h-[3rem] px-2 border-2 border-green-500 rounded-full flex items-center justify-center">
+          <span>Add to cart</span>
+          <FaCartPlus className="text-[1.8rem] translate-x-[-1px] pl-2" />
+        </span>
+      </button>
       {/* Icons */}
     </div>
   );

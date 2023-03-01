@@ -1,14 +1,21 @@
-import { createContext, useEffect } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { childrenType } from '@/types/childrenType';
 import { signal } from '@preact/signals-react';
-import { getCartItems, getCartItemsCount } from '../services/cartService';
+import {
+  addToCart,
+  clearCart,
+  getCartItems,
+  getCartItemsCount,
+} from '../services/cartService';
 
 export const CartContext = createContext<any>({});
 
 const cartCount = signal(0);
-const cartItems = signal(0);
+const cartItems = signal([]);
 
 export function CartProvider({ children }: childrenType) {
+  const [count, setCount] = useState(0);
+
   useEffect(() => {
     async function getData() {
       const [res1, res2] = await Promise.all([
@@ -21,10 +28,27 @@ export function CartProvider({ children }: childrenType) {
     }
 
     getData();
-  }, []);
+  }, [count]);
+
+  const addItemToCart = async (data: any) => {
+    await addToCart(data);
+    setCount((prev) => ++prev);
+  };
+
+  const removeItems = async (data: any) => {
+    await clearCart();
+    setCount((prev) => ++prev);
+  };
 
   return (
-    <CartContext.Provider value={{ cartCount, cartItems }}>
+    <CartContext.Provider
+      value={{
+        cartCount: cartCount.value,
+        cartItems: cartItems.value,
+        removeItems,
+        addItemToCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

@@ -2,8 +2,15 @@ import Head from 'next/head';
 import GuestLayout from '@/layouts/GuestLayout';
 import HomePageCarousel from '@/components/HomePageCarousel';
 import axios from '@/lib/axios';
+import { productType } from '@/types/productType';
+import FeaturedProductCard from '@/components/FeaturedProductCard';
 
-export default function index({ categories }: any) {
+type propsType = {
+  products: productType[];
+};
+
+export default function index({ products }: propsType) {
+  console.log("sadasd")
   return (
     <>
       <Head>
@@ -13,9 +20,13 @@ export default function index({ categories }: any) {
       <GuestLayout>
         <HomePageCarousel />
 
-        <div className="mt-10 xmd:flex container mx-auto">
-          {/* <div className="w-80">asdasd</div> */}
-          {/* <ProductGrid /> */}
+        <div className="mx-7xl">
+          <div className="mt-10 mb-6 font-semibold text-xl">Featured Products:</div>
+          <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+            {products.map((product) => (
+              <FeaturedProductCard product={product} />
+            ))}
+          </div>
         </div>
       </GuestLayout>
     </>
@@ -24,15 +35,15 @@ export default function index({ categories }: any) {
 
 export async function getStaticProps() {
   try {
-    const categories = await axios.get('http://localhost:8000/api/categories');
+    const res = await axios.get('http://localhost:8000/api/index');
 
     return {
-      props: { categories: categories.data.categories },
+      props: { products: res.data.products },
       revalidate: 300,
     };
   } catch (error) {}
   return {
-    props: { categories: [] },
+    props: { products: [] },
     revalidate: 300,
   };
 }

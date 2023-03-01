@@ -18,9 +18,7 @@ export default function HeaderIcons() {
         </Link>
         {user && (
           <Link href="/favourit" className="relative">
-            <HeaderIcon number={2}>
-              <BiHeart className="text-3xl hover:text-orange-600 transition-colors duration-300" />
-            </HeaderIcon>
+            <BiHeart className="text-3xl hover:text-orange-600 transition-colors duration-300" />
           </Link>
         )}
         <Link href="/cart" className="relative">
