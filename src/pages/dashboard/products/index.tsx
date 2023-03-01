@@ -58,7 +58,6 @@ export default function index({ products }: any) {
 
 export async function getServerSideProps(_context: any) {
   const res = await getProducts();
-  console.log(res.data);
 
   return {
     props: { products: res.data.products.data },

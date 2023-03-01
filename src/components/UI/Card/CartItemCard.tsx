@@ -17,13 +17,15 @@ export default function CartItemCard({ cartItem }: props) {
     Router.push('/details');
   };
 
+  console.log(cartItem)
+
   return (
     <>
       <div className="flex sm:flex-row flex-col mt-6">
         <div className="flex flex-row w-full">
           <img
             onClick={redirectToPage}
-            src={cartItem.mainImage}
+            src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL +cartItem.picture}
             alt={cartItem.name}
             className=" w-[8rem] h-[8rem] text-center object-contain cursor-pointer"
           />
@@ -55,15 +57,15 @@ export default function CartItemCard({ cartItem }: props) {
           <div className="whitespace-nowrap flex justify-center items-center flex-col w-20 text-center sm:text-sm text-2xl ">
             <span
               className={`font-semibold ${
-                cartItem.priceDiscount
+                cartItem.discount_price
                   ? 'line-through sm:text-[0.75rem] text-xl text-gray-500'
                   : ''
               }`}
             >
-              {cartItem.price} zl
+              {cartItem.regular_price} zl
             </span>
-            {cartItem.priceDiscount && (
-              <span className="font-semibold">{cartItem.priceDiscount} zl</span>
+            {cartItem.discount_price && (
+              <span className="font-semibold">{cartItem.discount_price} zl</span>
             )}
           </div>
         </div>

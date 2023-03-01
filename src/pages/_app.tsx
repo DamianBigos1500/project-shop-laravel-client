@@ -1,13 +1,16 @@
 import type { AppProps } from 'next/app';
 import { AuthProvider } from '@/features/authentification/context/authContext';
-import '@/styles/globals.css';
 import { CategoryProvider } from '@/features/category/context/categoryContext';
+import { CartProvider } from '@/features/cart/context/cartContext';
+import '@/styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <CategoryProvider>
-        <Component {...pageProps} />
+        <CartProvider>
+          <Component {...pageProps} />
+        </CartProvider>
       </CategoryProvider>
     </AuthProvider>
   );

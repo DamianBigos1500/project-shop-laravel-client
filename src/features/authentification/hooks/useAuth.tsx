@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Router from 'next/router';
 import csrf from '@/lib/csrf';
-import axios from '@/lib/axios';
 import navigateBack from '@/lib/helper';
 import { loginDataType, registerDataType } from '../types';
 import {
@@ -10,6 +9,7 @@ import {
   postLogout,
   postRegister,
 } from '../service/authService';
+import { moveCartToDb } from '@/features/cart/services/cartService';
 
 export default function useAuth() {
   const [user, setUser] = useState<any>(null);
@@ -42,6 +42,10 @@ export default function useAuth() {
         setErrors(e.response.data.errors);
       }
     }
+
+    try {
+      await moveCartToDb();
+    } catch (error) {}
   };
 
   const logout = async () => {

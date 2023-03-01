@@ -21,6 +21,7 @@ import { GetStaticPropsContext } from 'next';
 import ProductImages from '@/components/ProductImages';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { addToCart } from '@/features/cart/services/cartService';
 
 export default function details({ product }: any) {
   const router = useRouter();
@@ -124,7 +125,14 @@ export default function details({ product }: any) {
 
                 <button className="flex items-center py-[0.75rem] px-6 space-x-2 text-md font-semibold rounded-full bg-white border-2 text-green-500 border-green-500 hover:bg-green-500 hover:text-white hover:border-transparent transform duration-200">
                   <MdAddShoppingCart className="text-2xl" />
-                  <span className="whitespace-nowrap">Add to cart</span>
+                  <span
+                    className="whitespace-nowrap"
+                    onClick={() =>
+                      addToCart({ product_id: product.id, quantity: 1 })
+                    }
+                  >
+                    Add to cart
+                  </span>
                 </button>
               </div>
 
