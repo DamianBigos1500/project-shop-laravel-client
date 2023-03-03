@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import Router from 'next/router';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-
+import { navigateToProductDetails } from '@/utils/navigateToProductDetails';
 type props = {
   cartItem: any;
 };
@@ -13,25 +12,24 @@ export default function CartItemCard({ cartItem }: props) {
     setQuantity((prev: number) => prev + value);
   };
 
-  const redirectToPage = () => {
-    Router.push('/details');
-  };
-
-  console.log(cartItem)
+  console.log(cartItem);
 
   return (
     <>
       <div className="flex sm:flex-row flex-col mt-6">
         <div className="flex flex-row w-full">
           <img
-            onClick={redirectToPage}
-            src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL +cartItem.picture}
+            onClick={() => navigateToProductDetails(cartItem.id)}
+            src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + cartItem.picture}
             alt={cartItem.name}
             className=" w-[8rem] h-[8rem] text-center object-contain cursor-pointer"
           />
 
           <div className="px-2 w-full flex items-center justify-start">
-            <span onClick={redirectToPage} className=" text-sm cursor-pointer">
+            <span
+              onClick={() => navigateToProductDetails(cartItem.id)}
+              className=" text-sm cursor-pointer"
+            >
               {cartItem.name}
             </span>
           </div>
@@ -47,6 +45,7 @@ export default function CartItemCard({ cartItem }: props) {
                 type="text"
                 value={quantity}
                 className="w-4 bg-transparent text-center justify-center"
+                onChange={(e: any) => updateQuantity(e.target.value)}
               />
               <button className="cursor-pointer flex justify-center items-center p-2">
                 <AiOutlinePlus />
@@ -65,7 +64,9 @@ export default function CartItemCard({ cartItem }: props) {
               {cartItem.regular_price} zl
             </span>
             {cartItem.discount_price && (
-              <span className="font-semibold">{cartItem.discount_price} zl</span>
+              <span className="font-semibold">
+                {cartItem.discount_price} zl
+              </span>
             )}
           </div>
         </div>

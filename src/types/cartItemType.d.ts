@@ -6,3 +6,8 @@ export type cartItem = {
   priceDiscount?: number;
   quantity: number;
 };
+
+export type addToCartType = {
+  product_id: number;
+  quantity?: number;
+};

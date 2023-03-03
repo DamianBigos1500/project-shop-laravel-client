@@ -1,44 +1,54 @@
 import { createContext, useEffect, useState } from 'react';
 import { childrenType } from '@/types/childrenType';
-import { signal } from '@preact/signals-react';
+import { useSignal } from '@preact/signals-react';
 import {
   addToCart,
   clearCart,
+  deleteCartItem,
   getCartItems,
-  getCartItemsCount,
 } from '../services/cartService';
+import { addToCartType } from '@/types/cartItemType';
 
 export const CartContext = createContext<any>({});
 
-const cartCount = signal(0);
-const cartItems = signal([]);
-
 export function CartProvider({ children }: childrenType) {
-  const [count, setCount] = useState(0);
+  const cartCount = useSignal(0);
+  const cartItems = useSignal([]);
+  const loading = useSignal(true);
+
+  async function getData() {
+    loading.value = true;
+
+    const res = await getCartItems();
+
+    cartCount.value = res.data.cartCount;
+    cartItems.value = res.data.cartItems;
+
+    loading.value = false;
+  }
+
+  const addItemToCart = async ({ product_id, quantity = 1 }: addToCartType) => {
+    const res = await addToCart({ product_id, quantity });
+    console.log(res.data.cartItems);
+    cartCount.value = res.data.cartCount;
+    cartItems.value = res.data.cartItems;
+  };
+
+  const removeItems = async () => {
+    await clearCart();
+    cartCount.value = 0;
+    cartItems.value = [];
+  };
+
+  const removeItemById = async (productId: number) => {
+    await deleteCartItem(productId);
+    cartCount.value = 0;
+    cartItems.value = [];
+  };
 
   useEffect(() => {
-    async function getData() {
-      const [res1, res2] = await Promise.all([
-        getCartItemsCount(),
-        getCartItems(),
-      ]);
-
-      cartCount.value = res1.data.itemsCount;
-      cartItems.value = res2.data.cartItems;
-    }
-
     getData();
-  }, [count]);
-
-  const addItemToCart = async (data: any) => {
-    await addToCart(data);
-    setCount((prev) => ++prev);
-  };
-
-  const removeItems = async (data: any) => {
-    await clearCart();
-    setCount((prev) => ++prev);
-  };
+  }, []);
 
   return (
     <CartContext.Provider
@@ -47,6 +57,7 @@ export function CartProvider({ children }: childrenType) {
         cartItems: cartItems.value,
         removeItems,
         addItemToCart,
+        loading,
       }}
     >
       {children}

@@ -25,7 +25,7 @@ import { addToCart } from '@/features/cart/services/cartService';
 
 export default function details({ product }: any) {
   const router = useRouter();
-
+  console.log(product);
   return (
     <>
       <Head>

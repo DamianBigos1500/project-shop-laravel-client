@@ -3,9 +3,7 @@ import {
   getCategories,
   getCategoryBySlug,
 } from '@/features/category/service/categoryService';
-import { getProducts } from '@/features/products/services/productService';
 import GuestLayout from '@/layouts/GuestLayout';
-import axios from '@/lib/axios';
 import { categoryType } from '@/types/categoryType';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';

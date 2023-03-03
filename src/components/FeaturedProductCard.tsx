@@ -12,7 +12,7 @@ export default function FeaturedProductCard({ product }: propsType) {
   const { addItemToCart } = useCartContext();
 
   return (
-    <div className="rounded-xl overflow-hidden  w-full transition custom-shadow z-0">
+    <div key={product.id} className="rounded-xl overflow-hidden  w-full transition custom-shadow z-0">
       <img
         src={
           process.env.NEXT_PUBLIC_BACKEND_IMG_URL + product?.images[0].filename

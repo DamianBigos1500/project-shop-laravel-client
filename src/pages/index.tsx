@@ -10,7 +10,6 @@ type propsType = {
 };
 
 export default function index({ products }: propsType) {
-  console.log("sadasd")
   return (
     <>
       <Head>
@@ -21,10 +20,12 @@ export default function index({ products }: propsType) {
         <HomePageCarousel />
 
         <div className="mx-7xl">
-          <div className="mt-10 mb-6 font-semibold text-xl">Featured Products:</div>
+          <div className="mt-10 mb-6 font-semibold text-xl">
+            Featured Products:
+          </div>
           <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
             {products.map((product) => (
-              <FeaturedProductCard product={product} />
+              <FeaturedProductCard key={product.id} product={product} />
             ))}
           </div>
         </div>

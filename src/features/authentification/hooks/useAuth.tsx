@@ -10,36 +10,37 @@ import {
   postRegister,
 } from '../service/authService';
 import { moveCartToDb } from '@/features/cart/services/cartService';
+import { useSignal } from '@preact/signals-react';
 
 export default function useAuth() {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [errors, setErrors] = useState<any>([]);
+  const user = useSignal<any>(null);
+  const loading = useSignal(true);
+  const errors = useSignal<any>([]);
 
   const register = async ({ ...data }: registerDataType) => {
     await csrf();
-    setErrors([]);
+    errors.value = [];
     try {
       await postRegister(data);
       await getUser();
       Router.push('/');
     } catch (e: any) {
       if (e.response.status === 422) {
-        setErrors(e.response.data.errors);
+        errors.value = e.response.data.errors;
       }
     }
   };
 
   const login = async ({ ...data }: loginDataType) => {
     await csrf();
-    setErrors([]);
+    errors.value = [];
     try {
       await postLogin(data);
       await getUser();
       navigateBack();
     } catch (e: any) {
       if (e?.response.status === 422) {
-        setErrors(e.response.data.errors);
+        errors.value = e.response.data.errors;
       }
     }
 
@@ -51,7 +52,7 @@ export default function useAuth() {
   const logout = async () => {
     try {
       await postLogout();
-      setUser(null);
+      user.value = null;
     } catch (error) {
       console.log('you are logged out');
     }
@@ -60,16 +61,25 @@ export default function useAuth() {
   const getUser = async () => {
     try {
       const { data }: any = await getUserData();
-      setUser(data);
+      user.value = data;
+      console.log(data);
     } catch (error) {}
-    setLoading(false);
+    loading.value = false;
   };
 
   useEffect(() => {
-    if (!user) {
+    if (!user.value) {
       getUser();
     }
-  }, [user]);
+  }, [user.value]);
 
-  return { user, register, login, logout, getUser, loading, errors };
+  return {
+    user: user.value,
+    loading: loading.value,
+    errors: errors.value,
+    register,
+    login,
+    logout,
+    getUser,
+  };
 }

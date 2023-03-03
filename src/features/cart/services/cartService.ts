@@ -1,4 +1,5 @@
 import axios from '@/lib/axios';
+import { addItemToCartType } from '@/types/cartItemType';
 
 export const getCartItems = async () => {
   return await axios.get('/api/cart');
@@ -7,7 +8,10 @@ export const getCartItemsCount = async () => {
   return await axios.get('/api/cart-count');
 };
 
-export const addToCart = async (data: any) => {
+export const addToCart = async ({
+  product_id,
+  quantity,
+}: addToCartType) => {
   return await axios.post('/api/cart', data);
 };
 
@@ -17,4 +21,8 @@ export const moveCartToDb = async () => {
 
 export const clearCart = async () => {
   return await axios.delete('/api/cart');
+};
+
+export const deleteCartItem = async (productId: number) => {
+  return await axios.delete('/api/cart/' + productId);
 };

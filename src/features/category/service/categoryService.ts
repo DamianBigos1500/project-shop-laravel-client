@@ -5,5 +5,7 @@ export async function getCategories() {
 }
 
 export async function getCategoryBySlug(slug: string | string[]) {
-  return await axios.get('/api/category-slug/' + slug);
+  return await axios.get(
+    process.env.NEXT_PUBLIC_BACKEND_URL + '/api/category-slug/' + slug
+  );
 }
