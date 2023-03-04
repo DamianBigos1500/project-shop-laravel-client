@@ -5,40 +5,38 @@ import {
   getProductById,
 } from '@/features/products/services/productService';
 
-import {
-  AiOutlineInstagram,
-  AiOutlineMinus,
-  AiOutlinePlus,
-  AiOutlineTwitter,
-} from 'react-icons/ai';
+import { AiOutlineInstagram, AiOutlineTwitter } from 'react-icons/ai';
 
 import Head from 'next/head';
 import GuestLayout from '@/layouts/GuestLayout';
 import { GetStaticPropsContext } from 'next';
 import ProductImages from '@/components/detailPageComponents/ProductImages';
-import { useSignal } from '@preact/signals-react';
 import CategoryChain from '@/components/detailPageComponents/CategoryChain';
-import { FaCartPlus } from 'react-icons/fa';
 import useCartContext from '@/context/useCartContext';
 import ProductTitleComponent from '@/components/detailPageComponents/ProductTitleComponent';
 import ProductReview from '@/components/detailPageComponents/ProductReview';
 import { productType } from '@/types/productType';
 import SelectQuantity from '@/components/cartPageComponenets/SelectQuantity';
+import AddToCard from '@/components/AddToCard';
 
 type propsType = {
   product: productType;
 };
 
 export default function details({ product }: propsType) {
-  const { addItemToCart } = useCartContext();
-  const input = useSignal(1);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState<number>(1);
 
-  const updateQuantity = (value: number) => {
-    setQuantity((prev: number) => prev + value);
+  const { addItemToCart } = useCartContext();
+
+  const handleChange = (quantity: number) => {
+    setQuantity(quantity);
   };
 
-  console.log(input);
+  const handleAddToCart = () => {
+    // const quantity = set();
+    addItemToCart({ product_id: product.id, quantity: quantity });
+  };
+
   return (
     <>
       <Head>
@@ -76,20 +74,8 @@ export default function details({ product }: propsType) {
             </p>
 
             <div className="flex mt-6 space-x-4 rounded-3xl">
-              <SelectQuantity />
-
-              <button
-                className="px-4 mb-4 text-green-500 cursor-pointer w-full"
-                type="button"
-                onClick={() =>
-                  addItemToCart({ product_id: product.id, quantity: 1 })
-                }
-              >
-                <span className="h-[3rem] px-2 border-2 border-green-500 rounded-full flex items-center justify-center">
-                  <span>Add to cart</span>
-                  <FaCartPlus className="text-[1.8rem] translate-x-[-1px] pl-2" />
-                </span>
-              </button>
+              <SelectQuantity handleChange={handleChange} quantity={quantity} />
+              <AddToCard handleAddToCart={handleAddToCart} />
             </div>
 
             <div className="flex items-center space-x-6 mt-8">

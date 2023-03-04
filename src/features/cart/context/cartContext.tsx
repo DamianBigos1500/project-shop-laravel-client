@@ -15,6 +15,7 @@ export function CartProvider({ children }: childrenType) {
   const cartCount = useSignal(0);
   const cartItems = useSignal([]);
   const loading = useSignal(true);
+  const addCartLoading = useSignal(false);
 
   async function getData() {
     loading.value = true;
@@ -28,9 +29,13 @@ export function CartProvider({ children }: childrenType) {
   }
 
   const addItemToCart = async ({ product_id, quantity = 1 }: addToCartType) => {
+    addCartLoading.value = true;
+
     const res = await addToCart({ product_id, quantity });
     cartCount.value = res.data.cartCount;
     cartItems.value = res.data.cartItems;
+
+    addCartLoading.value = false;
   };
 
   const removeItems = async () => {
@@ -40,9 +45,9 @@ export function CartProvider({ children }: childrenType) {
   };
 
   const removeItemById = async (productId: number) => {
-    await deleteCartItem(productId);
-    cartCount.value = 0;
-    cartItems.value = [];
+    const res = await deleteCartItem(productId);
+    cartCount.value = res.data.cartCount;
+    cartItems.value = res.data.cartItems;
   };
 
   useEffect(() => {
@@ -54,9 +59,11 @@ export function CartProvider({ children }: childrenType) {
       value={{
         cartCount: cartCount.value,
         cartItems: cartItems.value,
+        loading: loading.value,
+        addCartLoading: addCartLoading.value,
         removeItems,
+        removeItemById,
         addItemToCart,
-        loading,
       }}
     >
       {children}

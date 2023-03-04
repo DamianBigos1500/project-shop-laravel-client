@@ -1,7 +1,14 @@
-export function createCategoriesTree(categories: any, parent_id: number = 0) {
+import { categoryType } from '@/types/categoryType';
+
+
+
+export function createCategoriesTree(
+  categories: categoryType[],
+  parent_id: number = 0
+): any {
   const arr = categories
-    .filter((category: any) => category.parent_id == parent_id)
-    .map((child: any) => ({
+    .filter((category: categoryType) => category.parent_id == parent_id)
+    .map((child: categoryType) => ({
       ...child,
       children: createCategoriesTree(categories, child.id),
     }));

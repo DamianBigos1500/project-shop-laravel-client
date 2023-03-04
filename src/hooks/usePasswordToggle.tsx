@@ -1,7 +1,7 @@
-import { HTMLInputTypeAttribute, useState } from 'react';
+import { HTMLInputTypeAttribute, ReactNode, useState } from 'react';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 
-export default function usePasswordToggle() {
+export default function usePasswordToggle(): [string, ReactNode] {
   const [visible, setVisible] = useState(false);
 
   const changeVisibility = () => {

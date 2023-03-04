@@ -8,7 +8,7 @@ export default function Navbar() {
   const isScrollPositive = scrollPosition > 4;
 
   return (
-    <div className={`fixed top-0 z-20 w-full bg-white :`}>
+    <div className={`fixed z-10 top-0 w-full bg-white`}>
       <Header />
       <Toolobar isScrollPositive={isScrollPositive} />
       <Categories />

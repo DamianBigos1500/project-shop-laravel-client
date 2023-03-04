@@ -3,7 +3,11 @@ import { getProducts } from '@/features/products/services/productService';
 import AdminLayout from '@/layouts/AdminLayout';
 import Head from 'next/head';
 
-export default function index({ products }: any) {
+type propsType = {
+  products: productType[];
+};
+
+export default function index({ products }: propsType) {
   return (
     <>
       <Head>
@@ -56,7 +60,7 @@ export default function index({ products }: any) {
   );
 }
 
-export async function getServerSideProps(_context: any) {
+export async function getStaticProps() {
   const res = await getProducts();
 
   return {

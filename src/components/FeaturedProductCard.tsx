@@ -3,16 +3,20 @@ import React from 'react';
 import { navigateToProductDetails } from 'src/utils/navigateToProductDetails';
 import { FaCartPlus } from 'react-icons/fa';
 import useCartContext from '@/context/useCartContext';
+import LoadingSpinner from './LoadingSpinner';
 
 type propsType = {
   product: productType;
 };
 
 export default function FeaturedProductCard({ product }: propsType) {
-  const { addItemToCart } = useCartContext();
+  const { addItemToCart, addCartLoading } = useCartContext();
 
   return (
-    <div key={product.id} className="rounded-xl overflow-hidden  w-full transition custom-shadow z-0">
+    <div
+      key={product.id}
+      className="rounded-xl overflow-hidden  w-full transition custom-shadow z-0"
+    >
       <img
         src={
           process.env.NEXT_PUBLIC_BACKEND_IMG_URL + product?.images[0].filename
@@ -33,8 +37,9 @@ export default function FeaturedProductCard({ product }: propsType) {
           onClick={() => addItemToCart({ product_id: product.id, quantity: 1 })}
         >
           <span className="h-[3rem] px-2 border-2 border-green-500 rounded-full flex items-center justify-center">
-            <span>Add to cart</span>
-            <FaCartPlus className="text-[1.8rem] translate-x-[-1px] pl-2" />
+            <span className="pr-2">Add to cart</span>
+
+            <FaCartPlus className="text-[1.8rem] translate-x-[-1px]" />
           </span>
         </button>
       </div>

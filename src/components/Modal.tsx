@@ -11,7 +11,7 @@ export default function Modal({ children, isOpen }: propsType) {
   return createPortal(
     <AnimatePresence>
       {isOpen ? (
-        <div className="fixed w-full h-full inset-0">{children}</div>
+        <div className="fixed w-full h-full inset-0 z-50">{children}</div>
       ) : null}
     </AnimatePresence>,
     document.getElementById('modal-container')!

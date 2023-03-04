@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import AuthFormInput from '@/features/authentification/components/AuthFormInput';
 import Link from 'next/link';
 import useAuthContext from '@/context/useAuthContext';
 import usePasswordToggle from '@/hooks/usePasswordToggle';
 import useInput from '@/hooks/useInput';
+import { onSubmitType } from '@/types/onSubmitType';
 
 export default function LoginForm() {
   const email = useInput('');
   const password = useInput('');
-  const [PasswordInputType, ToggleIcon]: any = usePasswordToggle();
+  const [PasswordInputType, ToggleIcon] = usePasswordToggle();
   const { login, errors } = useAuthContext();
 
-  const handleLogin = (event: any) => {
-    event.preventDefault();
-    console.log(email.value, password.value);
+  const handleLogin = (e: onSubmitType) => {
+    e.preventDefault();
     login({
       email: email.value,
       password: password.value,

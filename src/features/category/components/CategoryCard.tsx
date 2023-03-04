@@ -7,8 +7,6 @@ export default function CategoryCard({ category }: propTypes) {
   const router = useRouter();
 
   const navigateToCategoryProducts = () => {
-    console.log(`/${router.query.category_slug}/${category.category_slug}`);
-
     router.push(
       `/category/${router.query.category_slug}/${category.category_slug}`
     );

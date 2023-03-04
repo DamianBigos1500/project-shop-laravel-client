@@ -5,6 +5,7 @@ import {
 } from '@/features/category/service/categoryService';
 import GuestLayout from '@/layouts/GuestLayout';
 import { categoryType } from '@/types/categoryType';
+import { AxiosResponse } from 'axios';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import React from 'react';
@@ -37,7 +38,7 @@ export default function index({ category }: propsType) {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  let categoriesRes: any;
+  let categoriesRes: AxiosResponse;
 
   try {
     categoriesRes = await getCategoryBySlug(context.params?.category_slug!);
@@ -55,7 +56,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 export async function getStaticPaths() {
-  let res: any;
+  let res: AxiosResponse;
 
   try {
     res = await getCategories();
@@ -63,8 +64,8 @@ export async function getStaticPaths() {
     return { paths: [], fallback: 'blocking' };
   }
 
-  const paths = res.data.categories.map((cat: any) => {
-    return { params: { category_slug: cat.category_slug } };
+  const paths = res.data.categories.map((category: categoryType) => {
+    return { params: { category_slug: category.category_slug } };
   });
 
   return { paths: [], fallback: 'blocking' };

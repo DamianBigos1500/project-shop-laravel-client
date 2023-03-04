@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion';
 
-export default function Backdrop({ closeModal }: any) {
+type propsType = {
+  closeModal(): void;
+};
+
+export default function Backdrop({ closeModal }: propsType) {
   return (
     <motion.div
       initial={{ opacity: 0 }}

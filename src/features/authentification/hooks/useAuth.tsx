@@ -54,7 +54,6 @@ export default function useAuth() {
       await postLogout();
       user.value = null;
     } catch (error) {
-      console.log('you are logged out');
     }
   };
 
@@ -62,7 +61,6 @@ export default function useAuth() {
     try {
       const { data }: any = await getUserData();
       user.value = data;
-      console.log(data);
     } catch (error) {}
     loading.value = false;
   };

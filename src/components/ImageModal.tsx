@@ -1,15 +1,23 @@
+import { imageType } from '@/types/imageType';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { BiArrowToLeft } from 'react-icons/bi';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { IoCloseOutline } from 'react-icons/io5';
 
+type propsType = {
+  closeModal(): void;
+  setImageShow: any;
+  activeImage: number;
+  images: imageType[];
+};
+
 export default function ImageModal({
   images,
   activeImage,
   setImageShow,
   closeModal,
-}: any) {
+}: propsType) {
   const [showGalery, setShowGalery] = useState(true);
 
   const handleImageChange = (value: number) => {
@@ -43,7 +51,10 @@ export default function ImageModal({
             />
           </div>
           <img
-            src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + images[activeImage].filename}
+            src={
+              process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
+              images[activeImage].filename
+            }
             alt="product detail image"
             className="w-full h-full object-contain border-transparent col-start-1 col-end-7"
           />
@@ -76,10 +87,13 @@ export default function ImageModal({
               className="w-[500px] border-l border-black/40 h-screen overflow-y-scroll"
             >
               <div className="p-5 grid grid-cols-4 gap-2 ">
-                {images.map((_image: string, index: number) => (
+                {images.map((image: imageType, index: number) => (
                   <img
                     key={index}
-                    src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + images[index].filename}
+                    src={
+                      process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
+                      images[index].filename
+                    }
                     onClick={() => setImageShow(index)}
                     alt={'product detail image ' + index}
                     className={` w-full aspect-[10_/_12] cursor-pointer rounded-md border hover:border-gray-600 transform-border duration-300 ${

@@ -11,7 +11,6 @@ export default function useScrollPosition(delay = 1000) {
   }, delay);
 
   useEffect(() => {
-    console.log(scrollPosition);
   }, [scrollPosition]);
 
   useEffect(() => {

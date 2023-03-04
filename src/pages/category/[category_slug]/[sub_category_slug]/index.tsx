@@ -7,6 +7,7 @@ import { getCategories } from '@/features/category/service/categoryService';
 import { getProductsByCategory } from '@/features/products/services/productService';
 import { useRouter } from 'next/router';
 import { categoryType } from '@/types/categoryType';
+import { AxiosResponse } from 'axios';
 
 type propsType = {
   products: { data: productType[] };
@@ -55,7 +56,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 export async function getStaticPaths() {
-  let res: any;
+  let res: AxiosResponse;
 
   try {
     res = await getCategories();

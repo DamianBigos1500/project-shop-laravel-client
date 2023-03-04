@@ -1,4 +1,5 @@
-import React from 'react';
+import { onChangeType } from '@/types/onChangeType';
+import React, { ChangeEvent } from 'react';
 
 type props = {
   id: string;
@@ -6,7 +7,7 @@ type props = {
   value: string;
   type: string;
   placeholder: string;
-  onChange: any;
+  onChange: (e: onChangeType) => void;
   error?: string[];
   ToggleIcon?: any;
 };

@@ -1,21 +1,38 @@
-import React, { useState } from 'react';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import React from 'react';
 import { navigateToProductDetails } from '@/utils/navigateToProductDetails';
 import { BsTrash } from 'react-icons/bs';
 import SelectQuantity from '@/components/cartPageComponenets/SelectQuantity';
 import CartPrice from '@/components/cartPageComponenets/CartPrice';
-type props = {
-  cartItem: any;
+import useCartContext from '@/context/useCartContext';
+import { useSignal } from '@preact/signals-react';
+import { cartItemType } from '@/types/cartItemType';
+
+type propsType = {
+  cartItem: cartItemType;
 };
 
-export default function CartItemCard({ cartItem }: props) {
-  const [quantity, setQuantity] = useState(cartItem.quantity);
+export default function CartItemCard({ cartItem }: propsType) {
+  const { removeItemById, addItemToCart } = useCartContext();
+  const quantity = useSignal<number>(cartItem.quantity);
 
-  const updateQuantity = (value: number) => {
-    setQuantity((prev: number) => prev + value);
+  const handleChange = (value: number) => {
+    quantity.value = value;
   };
 
-  console.log(cartItem);
+  const changeQuantityRequest = () => {
+    addItemToCart({
+      product_id: cartItem.id,
+      quantity: quantity.value - cartItem.quantity,
+    });
+  };
+
+  const onBlur = () => {
+    changeQuantityRequest();
+  };
+  const onSubmit = (e: HTMLFormElement) => {
+    e.preventDefault();
+    changeQuantityRequest();
+  };
 
   return (
     <div className="">
@@ -39,14 +56,22 @@ export default function CartItemCard({ cartItem }: props) {
           <div className="whitespace-nowrap flex items-center sm:items-end justify-start sm:col-start-1 sm:col-end-2 col-start-2 col-end-3">
             <CartPrice
               regular_price={cartItem.regular_price}
-              discount_price={123}
+              discount_price={cartItem.discount_price}
             />
           </div>
           <div className="flex items-center sm:items-start sm:col-start-1 sm:col-end-2 col-start-1 col-end-2 row-start-1 row-end-2 sm:row-start-2 sm:row-end-3  sm:pl-0 pl-4">
-            <SelectQuantity />
+            <SelectQuantity
+              handleChange={handleChange}
+              quantity={quantity.value}
+              onBlur={onBlur}
+              onSubmit={onSubmit}
+            />
           </div>
           <div className="sm:col-start-2 sm:col-end-3 sm:row-start-1 sm:row-end-3 col-start-3 col-end-4 row-start-1 row-end-2 flex items-center justify-end p-4">
-            <BsTrash className='cursor-pointer text-[1.4rem]' />
+            <BsTrash
+              onClick={() => removeItemById(cartItem.id)}
+              className="cursor-pointer text-[1.4rem]"
+            />
           </div>
         </div>
       </div>

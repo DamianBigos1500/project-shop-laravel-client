@@ -1,6 +1,14 @@
 import React from 'react';
 
-export default function CartPrice({ regular_price, discount_price }: any) {
+type propsType = {
+  regular_price: number;
+  discount_price: number;
+};
+
+export default function CartPrice({
+  regular_price,
+  discount_price,
+}: propsType) {
   return (
     <div className="flex justify-center items-center flex-row  sm:flex-col text-[1.2rem] mx-auto whitespace-nowrap">
       <span
@@ -10,10 +18,10 @@ export default function CartPrice({ regular_price, discount_price }: any) {
             : ''
         }`}
       >
-        {regular_price} zl
+        {regular_price} $
       </span>
       {discount_price && (
-        <span className="font-semibold">{discount_price} zl</span>
+        <span className="font-semibold">{discount_price} $</span>
       )}
     </div>
   );

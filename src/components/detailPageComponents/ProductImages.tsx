@@ -3,10 +3,13 @@ import ImageModal from '@/components/ImageModal';
 import Modal from '../Modal';
 import useModal from '@/hooks/useModal';
 import Backdrop from '../Backdrop';
+import { imageType } from '@/types/imageType';
 
-// const images = imagesArray;
+type propsType = {
+  images: imageType[];
+};
 
-export default function ImagesDisplay({ images }: any) {
+export default function ImagesDisplay({ images }: propsType) {
   const [imageShow, setImageShow] = useState<number>(0);
   const [isShowing, openModal, closeModal] = useModal();
 
@@ -22,7 +25,7 @@ export default function ImagesDisplay({ images }: any) {
           className="w-full aspect-[10_/_12] object-cover rounded-xl border-transparent cursor-pointer col-start-1 col-end-7"
         />
 
-        {images.map((image: any, index: number) => {
+        {images.map((image: imageType, index: number) => {
           if (index >= 6) return;
           return (
             <img
@@ -32,7 +35,7 @@ export default function ImagesDisplay({ images }: any) {
               }
               onClick={(_e) => openModal()}
               onMouseOver={() => setImageShow(index)}
-              alt={image}
+              alt={images[index].filename}
               className={`relative w-full aspect-[10_/_12] object-cover cursor-pointer border rounded-md transform-border duration-300 ${
                 index === imageShow && 'border-gray-600'
               } ${
@@ -45,7 +48,7 @@ export default function ImagesDisplay({ images }: any) {
       </div>
 
       <Modal isOpen={isShowing}>
-        <Backdrop closeModal={closeModal} isOpen={isShowing} />
+        <Backdrop closeModal={closeModal} />
         <ImageModal
           images={images}
           activeImage={imageShow}

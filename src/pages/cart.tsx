@@ -5,10 +5,13 @@ import Head from 'next/head';
 import useCartContext from '@/context/useCartContext';
 import { TbArrowBigLeft } from 'react-icons/tb';
 import Router from 'next/router';
-import CartHeader from '@/components/cartPageComponenets/CartHeader';
+import LoadingSpinner from '@/components/LoadingSpinner';
+import { BsTrash } from 'react-icons/bs';
+import { cartItemType } from '@/types/cartItemType';
 
-export default function cart({}: any) {
-  const { cartItems, cartCount, removeItems } = useCartContext();
+export default function cart() {
+  const { cartItems, cartCount, removeItems, loading } = useCartContext();
+
   return (
     <>
       <Head>
@@ -16,21 +19,16 @@ export default function cart({}: any) {
       </Head>
 
       <GuestLayout>
-        {cartCount ? (
+        {loading && (
           <>
-            <CartHeader cartCount={cartCount} removeItems={removeItems} />
-            <div className="flex justify-between xmd:flex-row flex-col gap-10 mt-4">
-              {/* Cart Items */}
-              <div className="xmd:w-2/3 w-full">
-                {cartItems.map((cartItem: any, index: number) => (
-                  <CartItemCard key={index} cartItem={cartItem} />
-                ))}
-              </div>
-
-              <div className="w-1/3 shadow-xl">Checkout</div>
+            <div className="tracking-wide font-semibold text-2xl">
+              Your Cart:
             </div>
+            <LoadingSpinner />
           </>
-        ) : (
+        )}
+
+        {cartCount == 0 && !loading && (
           <>
             <div className="mt-10 text-center text-xl font-semibold">
               Your Cart is Empty
@@ -44,16 +42,34 @@ export default function cart({}: any) {
             </div>
           </>
         )}
+
+        {cartCount > 0 && (
+          <>
+            <div className="tracking-wide font-semibold text-2xl">
+              Your Cart: <span className="text-gray-500">({cartCount})</span>
+            </div>
+
+            <span
+              onClick={() => removeItems()}
+              className="flex items-center cursor-pointer mt-4"
+            >
+              <BsTrash className="pr-4 text-[2rem]" />
+              <span>Reset Cart</span>
+            </span>
+
+            <div className="flex justify-between xmd:flex-row flex-col gap-10 mt-4">
+              {/* Cart Items */}
+              <div className="xmd:w-2/3 w-full">
+                {cartItems.map((cartItem: cartItemType) => (
+                  <CartItemCard key={cartItem.id} cartItem={cartItem} />
+                ))}
+              </div>
+
+              <div className="w-1/3 shadow-xl">Checkout</div>
+            </div>
+          </>
+        )}
       </GuestLayout>
     </>
   );
 }
-
-// export async function getStaticProps() {
-//   const res = await getCartItems();
-//   console.log(res);
-//   return {
-//     props: { cartItems: res.data.cartItems },
-//     revalidate: 300,
-//   };
-// }
