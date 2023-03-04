@@ -1,5 +1,5 @@
 import axios from '@/lib/axios';
-import { addItemToCartType } from '@/types/cartItemType';
+import { addToCartType } from '@/types/cartItemType';
 
 export const getCartItems = async () => {
   return await axios.get('/api/cart');
@@ -8,11 +8,8 @@ export const getCartItemsCount = async () => {
   return await axios.get('/api/cart-count');
 };
 
-export const addToCart = async ({
-  product_id,
-  quantity,
-}: addToCartType) => {
-  return await axios.post('/api/cart', data);
+export const addToCart = async ({ product_id, quantity }: addToCartType) => {
+  return await axios.post('/api/cart', { product_id, quantity });
 };
 
 export const moveCartToDb = async () => {

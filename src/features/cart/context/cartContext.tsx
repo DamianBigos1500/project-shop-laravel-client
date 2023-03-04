@@ -29,7 +29,6 @@ export function CartProvider({ children }: childrenType) {
 
   const addItemToCart = async ({ product_id, quantity = 1 }: addToCartType) => {
     const res = await addToCart({ product_id, quantity });
-    console.log(res.data.cartItems);
     cartCount.value = res.data.cartCount;
     cartItems.value = res.data.cartItems;
   };

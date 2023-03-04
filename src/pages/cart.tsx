@@ -5,7 +5,7 @@ import Head from 'next/head';
 import useCartContext from '@/context/useCartContext';
 import { TbArrowBigLeft } from 'react-icons/tb';
 import Router from 'next/router';
-import { BsTrash } from 'react-icons/bs';
+import CartHeader from '@/components/cartPageComponenets/CartHeader';
 
 export default function cart({}: any) {
   const { cartItems, cartCount, removeItems } = useCartContext();
@@ -18,28 +18,23 @@ export default function cart({}: any) {
       <GuestLayout>
         {cartCount ? (
           <>
-            <div className="tracking-wide font-semibold text-2xl mt-6">
-              Your Cart: <span className="text-gray-500">({cartCount})</span>
-            </div>
-
-            <div className="flex justify-between md:flex-row flex-col gap-10 mt-4">
-              <span onClick={() => removeItems()}>
-                <BsTrash />
-              </span>
-
+            <CartHeader cartCount={cartCount} removeItems={removeItems} />
+            <div className="flex justify-between xmd:flex-row flex-col gap-10 mt-4">
               {/* Cart Items */}
-              <div className="md:w-2/3 w-full">
+              <div className="xmd:w-2/3 w-full">
                 {cartItems.map((cartItem: any, index: number) => (
                   <CartItemCard key={index} cartItem={cartItem} />
                 ))}
               </div>
 
-              <div className="w-1/3 shadow-xl">asdasd</div>
+              <div className="w-1/3 shadow-xl">Checkout</div>
             </div>
           </>
         ) : (
           <>
-            <div className="mt-10 text-center text-xl font-semibold">Your Cart is Empty</div>
+            <div className="mt-10 text-center text-xl font-semibold">
+              Your Cart is Empty
+            </div>
             <div
               className="text-green h-full flex items-center hover:text-orange-500 cursor-pointer"
               onClick={() => Router.push('/')}

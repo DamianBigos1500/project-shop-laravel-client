@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ImageModal from '@/components/ImageModal';
-import Modal from './Modal';
+import Modal from '../Modal';
 import useModal from '@/hooks/useModal';
-import Backdrop from './Backdrop';
+import Backdrop from '../Backdrop';
 
 // const images = imagesArray;
 

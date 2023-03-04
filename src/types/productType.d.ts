@@ -1,3 +1,4 @@
+import { categoryType } from './categoryType';
 import { imageType } from './imageType';
 
 export type productType = {
@@ -10,4 +11,5 @@ export type productType = {
   regular_price: number;
   inStock: number;
   details: Details;
+  category?: categoryType;
 };

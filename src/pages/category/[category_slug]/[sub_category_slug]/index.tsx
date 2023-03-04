@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import GuestLayout from '@/layouts/GuestLayout';
-import axios from '@/lib/axios';
 import { productType } from '@/types/productType';
 import ProductGrid from '@/components/ProductGrid';
 import { GetStaticPropsContext } from 'next';
@@ -15,8 +14,6 @@ type propsType = {
 };
 
 export default function index({ products, category }: propsType) {
-  const { query } = useRouter();
-
   return (
     <>
       <Head>

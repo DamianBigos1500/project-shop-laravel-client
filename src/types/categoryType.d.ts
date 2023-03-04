@@ -7,4 +7,5 @@ export type categoryType = {
   parent_id: number;
   children: categoryType[];
   category_image?: imageType;
+  parent?: categoryType;
 };
