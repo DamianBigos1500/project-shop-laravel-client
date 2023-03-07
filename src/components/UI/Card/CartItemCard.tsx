@@ -35,7 +35,7 @@ export default function CartItemCard({ cartItem }: propsType) {
   };
 
   return (
-    <div className="">
+    <>
       <div className="flex justify-between sm:flex-row flex-col p-2">
         <div className=" flex items-center">
           <img
@@ -53,12 +53,10 @@ export default function CartItemCard({ cartItem }: propsType) {
         </div>
 
         <div className="grid gap-2 sm:grid-cols-[min-content_min-content] grid-cols-[auto_min-content_min-content]  grid-rows-1 sm:grid-rows-2">
-          <div className="whitespace-nowrap flex items-center sm:items-end justify-start sm:col-start-1 sm:col-end-2 col-start-2 col-end-3">
-            <CartPrice
-              regular_price={cartItem.regular_price}
-              discount_price={cartItem.discount_price}
-            />
-          </div>
+          <CartPrice
+            regular_price={cartItem.regular_price}
+            discount_price={cartItem.discount_price}
+          />
           <div className="flex items-center sm:items-start sm:col-start-1 sm:col-end-2 col-start-1 col-end-2 row-start-1 row-end-2 sm:row-start-2 sm:row-end-3  sm:pl-0 pl-4">
             <SelectQuantity
               handleChange={handleChange}
@@ -70,13 +68,13 @@ export default function CartItemCard({ cartItem }: propsType) {
           <div className="sm:col-start-2 sm:col-end-3 sm:row-start-1 sm:row-end-3 col-start-3 col-end-4 row-start-1 row-end-2 flex items-center justify-end p-4">
             <BsTrash
               onClick={() => removeItemById(cartItem.id)}
-              className="cursor-pointer text-[1.4rem]"
+              className="cursor-pointer text-[1.4rem] text-red-600"
             />
           </div>
         </div>
       </div>
 
       <div className="border-b border-black/40 mb-8" />
-    </div>
+    </>
   );
 }

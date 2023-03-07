@@ -12,7 +12,13 @@ module.exports = {
       xmd: '900px',
       ...defaultTheme.screens,
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        acme: ['acme', 'sans-serif'],
+        'signika-negative': ['Signika Negative', 'sans-serif'],
+        sono: ['Sono', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };

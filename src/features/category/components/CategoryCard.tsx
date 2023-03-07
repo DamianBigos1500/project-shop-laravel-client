@@ -24,7 +24,7 @@ export default function CategoryCard({ category }: propTypes) {
         }
         className="h-[70%] w-full object-cover"
       />
-      <div className=" h-[30%] flex items-center justify-center font-semibold text-lg group-hover:text-orange-500 transition-colors duration-200">
+      <div className=" h-[30%] flex items-center justify-center font-semibold text-lg group-hover:text-violet-500 transition-colors duration-200">
         {category.title}
       </div>
     </div>

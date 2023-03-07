@@ -1,21 +1,29 @@
 import React from 'react';
 import { FaCartPlus } from 'react-icons/fa';
+import LoadingSpinner from './LoadingSpinner';
 
 type propsType = {
   handleAddToCart(): void;
+  disabled?: boolean;
 };
 
-export default function AddToCard({ handleAddToCart }: propsType) {
+export default function AddToCard({
+  handleAddToCart,
+  disabled = false,
+}: propsType) {
   return (
     <button
-      className="px-4 mb-4 text-green-500 cursor-pointer w-full"
+      className="p-2 mb-4 w-full bg-gradient-to-r from-green-800 to-green-500 cursor-pointer flex justify-center items-center text-white rounded-md hover:from-green-700 hover:to-green-600 duration:200"
       type="button"
       onClick={handleAddToCart}
+      disabled={disabled}
     >
-      <span className="h-[3rem] px-2 border-2 border-green-500 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white hover:border-transparent transform duration-200">
-        <span>Add to cart</span>
-        <FaCartPlus className="text-[1.8rem] translate-x-[-1px] pl-2" />
-      </span>
+      <span className="pr-2 font-semibold">Add to cart</span>
+      {disabled ? (
+        <LoadingSpinner className="w-6 h-6" />
+      ) : (
+        <FaCartPlus className="text-[1.4rem] translate-x-[-1px]" />
+      )}
     </button>
   );
 }

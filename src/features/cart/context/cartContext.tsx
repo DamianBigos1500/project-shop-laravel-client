@@ -15,7 +15,7 @@ export function CartProvider({ children }: childrenType) {
   const cartCount = useSignal(0);
   const cartItems = useSignal([]);
   const loading = useSignal(true);
-  const addCartLoading = useSignal(false);
+  const addCartLoading = useSignal(0);
 
   async function getData() {
     loading.value = true;
@@ -29,13 +29,13 @@ export function CartProvider({ children }: childrenType) {
   }
 
   const addItemToCart = async ({ product_id, quantity = 1 }: addToCartType) => {
-    addCartLoading.value = true;
+    addCartLoading.value = product_id;
 
     const res = await addToCart({ product_id, quantity });
     cartCount.value = res.data.cartCount;
     cartItems.value = res.data.cartItems;
 
-    addCartLoading.value = false;
+    addCartLoading.value = 0;
   };
 
   const removeItems = async () => {

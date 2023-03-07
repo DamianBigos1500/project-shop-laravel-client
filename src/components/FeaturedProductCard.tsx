@@ -1,9 +1,8 @@
 import { productType } from '@/types/productType';
 import React from 'react';
 import { navigateToProductDetails } from 'src/utils/navigateToProductDetails';
-import { FaCartPlus } from 'react-icons/fa';
 import useCartContext from '@/context/useCartContext';
-import LoadingSpinner from './LoadingSpinner';
+import AddToCard from './AddToCard';
 
 type propsType = {
   product: productType;
@@ -15,7 +14,7 @@ export default function FeaturedProductCard({ product }: propsType) {
   return (
     <div
       key={product.id}
-      className="rounded-xl overflow-hidden  w-full transition custom-shadow z-0"
+      className="rounded-xl overflow-hidden w-full transition custom-shadow z-0"
     >
       <img
         src={
@@ -31,17 +30,14 @@ export default function FeaturedProductCard({ product }: propsType) {
         >
           {product.name}
         </div>
-        <button
-          className="px-4 mb-4 text-green-500 cursor-pointer w-full"
-          type="button"
-          onClick={() => addItemToCart({ product_id: product.id, quantity: 1 })}
-        >
-          <span className="h-[3rem] px-2 border-2 border-green-500 rounded-full flex items-center justify-center">
-            <span className="pr-2">Add to cart</span>
-
-            <FaCartPlus className="text-[1.8rem] translate-x-[-1px]" />
-          </span>
-        </button>
+        <div className="mx-2">
+          <AddToCard
+            handleAddToCart={() =>
+              addItemToCart({ product_id: product.id, quantity: 1 })
+            }
+            disabled={product.id == addCartLoading}
+          />
+        </div>
       </div>
     </div>
   );

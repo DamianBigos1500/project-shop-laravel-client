@@ -2,8 +2,8 @@ import React from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import { productType } from '@/types/productType';
 import { navigateToProductDetails } from 'src/utils/navigateToProductDetails';
-import { FaCartPlus } from 'react-icons/fa';
 import useCartContext from '@/context/useCartContext';
+import AddToCard from '../AddToCard';
 
 type Details = {
   procesor: string;
@@ -17,15 +17,15 @@ type propsType = {
 };
 
 export default function ProductCard({ product }: propsType) {
-  const { addItemToCart } = useCartContext();
+  const { addItemToCart, addCartLoading } = useCartContext();
 
   return (
-    <div
-      onClick={() => navigateToProductDetails(product.id)}
-      className="group cursor-pointer custom-shadow hover:border hover:rounded-xl rounded-t-xl border-b hover:border-none border-b-black/20 overflow-hidden text-ellipsis hover:scale-105 transition duration-300"
-    >
+    <div className="flex flex-col group custom-shadow hover:border hover:rounded-xl rounded-t-xl border-b hover:border-none border-b-black/20 overflow-hidden text-ellipsis hover:scale-105 transition duration-300">
       {/* Images */}
-      <div className="relative h-[20rem]">
+      <div
+        className="relative h-[20rem] cursor-pointer"
+        onClick={() => navigateToProductDetails(product.id)}
+      >
         <img
           src={
             process.env.NEXT_PUBLIC_BACKEND_IMG_URL + product.images[0].filename
@@ -44,7 +44,10 @@ export default function ProductCard({ product }: propsType) {
       </div>
       {/* Details */}
       <div className="flex flex-col p-4 text-ellipsis overflow-hidden gap-2">
-        <div className="text-ellipsis font-semibold">
+        <div
+          className="cursor-pointer text-ellipsis font-semibold "
+          onClick={() => navigateToProductDetails(product.id)}
+        >
           {product.name.toUpperCase()}
         </div>
         {/* Stars */}
@@ -95,16 +98,15 @@ export default function ProductCard({ product }: propsType) {
         </div>
       </div>
 
-      <button
-        className="px-4 mb-4 text-green-500 cursor-pointer w-full"
-        type="button"
-        onClick={() => addItemToCart({ product_id: product.id, quantity: 1 })}
-      >
-        <span className="h-[3rem] px-2 border-2 border-green-500 rounded-full flex items-center justify-center">
-          <span>Add to cart</span>
-          <FaCartPlus className="text-[1.8rem] translate-x-[-1px] pl-2" />
-        </span>
-      </button>
+      <div className="mx-4">
+        <AddToCard
+          handleAddToCart={() =>
+            addItemToCart({ product_id: product.id, quantity: 1 })
+          }
+          disabled={product.id === addCartLoading}
+        />
+      </div>
+
       {/* Icons */}
     </div>
   );

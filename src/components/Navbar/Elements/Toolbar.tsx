@@ -9,15 +9,23 @@ type propsType = {
   isScrollPositive: boolean;
 };
 
+const navigation = [
+  { href: '/', name: 'Home' },
+  { href: '/about', name: 'About' },
+  { href: '/dashboard', name: 'Dashboard' },
+  { href: '/details', name: 'Details' },
+  { href: '/contact', name: 'Contact' },
+];
+
 export default function Toolobar({ isScrollPositive }: propsType) {
   const { user, logout } = useAuthContext();
 
   return (
     <AnimatePresence>
       <motion.nav
-        className={
-          'max-w-[90rem] mx-auto border-d-1 border-b ' + isScrollPositive && ''
-        }
+        className={`max-w-[90rem] mx-auto border-d-1 border-b ${
+          isScrollPositive && ''
+        }`}
       >
         <div className="flex justify-center items-center h-10">
           <div className="flex pl-6 items-center text-nowrap">
@@ -26,30 +34,17 @@ export default function Toolobar({ isScrollPositive }: propsType) {
           </div>
 
           <ul className="md:flex justify-center bg-white flex-row sm:gap-x-3 md:text-sm font-semibold gap-x-5 w-full whitespace-nowrap hidden">
-            <li className="hover:text-orange-600 transition-colors duration-200">
-              <Link href="/">Home</Link>
-            </li>
-            <li className="hover:text-orange-600 transition-colors duration-200">
-              <Link href="/about">About</Link>
-            </li>
-            <li className="hover:text-orange-600 transition-colors duration-200">
-              <Link href="/shop">Shop</Link>
-            </li>
-            <li className="hover:text-orange-600 transition-colors duration-200">
-              <Link href="/dashboard">Dashboard</Link>
-            </li>
-            <li className="hover:text-orange-600 transition-colors duration-200">
-              <Link href="/details">Details</Link>
-            </li>
-            <li className="hover:text-orange-600 transition-colors duration-200">
-              <Link href="/contact">Contact</Link>
-            </li>
+            {navigation.map((navItem) => (
+              <li className="hover:text-green-700 transition-colors duration-200">
+                <Link href={navItem.href}>{navItem.name}</Link>
+              </li>
+            ))}
             {user && (
               <>
-                <li className="hover:text-orange-600 transition-colors duration-200">
+                <li className="hover:text-green-700 transition-colors duration-200">
                   <Link href="/profile">My Account</Link>
                 </li>
-                <li className="hover:text-orange-600 transition-colors duration-200">
+                <li className="hover:text-green-700 transition-colors duration-200">
                   <button onClick={logout}>Logout</button>
                 </li>
               </>

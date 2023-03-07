@@ -5,6 +5,7 @@ import useAuthContext from '@/context/useAuthContext';
 import usePasswordToggle from '@/hooks/usePasswordToggle';
 import useInput from '@/hooks/useInput';
 import { onSubmitType } from '@/types/onSubmitType';
+import AuthSubmitButton from '@/components/UI/Button/AuthSubmitButton';
 
 export default function LoginForm() {
   const email = useInput('');
@@ -43,9 +44,7 @@ export default function LoginForm() {
           ToggleIcon={ToggleIcon}
         />
 
-        <button className="bg-gradient-to-r from-red-500 to-orange-400 text-white rounded-xl px-6 py-2 text-sm font-semibold">
-          Submit
-        </button>
+        <AuthSubmitButton>Submit</AuthSubmitButton>
 
         <div className="flex justify-between text-sm sm:pt-2">
           <span>

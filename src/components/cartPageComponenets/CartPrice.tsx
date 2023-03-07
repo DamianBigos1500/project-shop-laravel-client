@@ -2,7 +2,7 @@ import React from 'react';
 
 type propsType = {
   regular_price: number;
-  discount_price: number;
+  discount_price: number | null | undefined;
 };
 
 export default function CartPrice({
@@ -10,7 +10,7 @@ export default function CartPrice({
   discount_price,
 }: propsType) {
   return (
-    <div className="flex justify-center items-center flex-row  sm:flex-col text-[1.2rem] mx-auto whitespace-nowrap">
+    <div className="flex justify-center items-center flex-row  sm:flex-col text-[1.2rem] whitespace-nowrap">
       <span
         className={`font-semibold ${
           discount_price

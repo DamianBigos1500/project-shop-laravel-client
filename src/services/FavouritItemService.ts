@@ -19,13 +19,8 @@ export async function postFavourit({
   });
 }
 
-export async function deleteFavourit({
-  collection_id,
-  product_id,
-}: postFavouritType) {
-  return await axios.delete('/api/favourit/' + collection_id + product_id);
+export async function deleteFavourit({ collection_id, product_id }: any) {
+  return await axios.delete(
+    '/api/favourit-product/' + collection_id + '/' + product_id
+  );
 }
-
-// export async function getFavourit() {
-//   return await axios.get('/api/favourit');
-// }

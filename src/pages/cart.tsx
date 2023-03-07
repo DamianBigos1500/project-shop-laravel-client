@@ -34,7 +34,7 @@ export default function cart() {
               Your Cart is Empty
             </div>
             <div
-              className="text-green h-full flex items-center hover:text-orange-500 cursor-pointer"
+              className="text-green h-full flex items-center hover:text-green-700 cursor-pointer"
               onClick={() => Router.push('/')}
             >
               <TbArrowBigLeft className="h-full flex items-center justify-center pr-2 text-[5rem] hover:" />
@@ -51,7 +51,7 @@ export default function cart() {
 
             <span
               onClick={() => removeItems()}
-              className="flex items-center cursor-pointer mt-4"
+              className="flex items-center cursor-pointer mt-4 text-red-600"
             >
               <BsTrash className="pr-4 text-[2rem]" />
               <span>Reset Cart</span>

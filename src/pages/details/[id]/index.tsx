@@ -26,7 +26,7 @@ type propsType = {
 export default function details({ product }: propsType) {
   const [quantity, setQuantity] = useState<number>(1);
 
-  const { addItemToCart } = useCartContext();
+  const { addItemToCart, addCartLoading } = useCartContext();
 
   const handleChange = (quantity: number) => {
     setQuantity(quantity);
@@ -74,8 +74,16 @@ export default function details({ product }: propsType) {
             </p>
 
             <div className="flex mt-6 space-x-4 rounded-3xl">
-              <SelectQuantity handleChange={handleChange} quantity={quantity} />
-              <AddToCard handleAddToCart={handleAddToCart} />
+              <SelectQuantity
+                handleChange={handleChange}
+                quantity={quantity}
+                onSubmit={() => {}}
+                onBlur={() => {}}
+              />
+              <AddToCard
+                handleAddToCart={handleAddToCart}
+                disabled={product.id == addCartLoading}
+              />
             </div>
 
             <div className="flex items-center space-x-6 mt-8">

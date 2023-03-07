@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import GuestLayout from '@/layouts/GuestLayout';
 import { productType } from '@/types/productType';
-import ProductGrid from '@/components/ProductGrid';
+import ProductGrid from '@/components/product/ProductGrid';
 import { GetStaticPropsContext } from 'next';
 import { getCategories } from '@/features/category/service/categoryService';
 import { getProductsByCategory } from '@/features/products/services/productService';

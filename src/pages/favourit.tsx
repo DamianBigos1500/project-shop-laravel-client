@@ -32,7 +32,7 @@ export default function favourit() {
               {favourit.map((favouritItem: any) => (
                 <FavouritCollection
                   key={favouritItem.id}
-                  favouritItem={favouritItem}
+                  favouritCollection={favouritItem}
                 />
               ))}
             </div>
