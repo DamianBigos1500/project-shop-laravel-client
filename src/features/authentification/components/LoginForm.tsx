@@ -1,11 +1,11 @@
 import { FormEvent, useState } from 'react';
-import AuthFormInput from '@/features/authentification/components/AuthFormInput';
+import AuthFormInput from '@/features/authentification/components/FormInput';
 import Link from 'next/link';
 import useAuthContext from '@/context/useAuthContext';
 import usePasswordToggle from '@/hooks/usePasswordToggle';
 import useInput from '@/hooks/useInput';
 import { onSubmitType } from '@/types/onSubmitType';
-import AuthSubmitButton from '@/components/UI/Button/AuthSubmitButton';
+import AuthSubmitButton from '@/components/UI/Button/SubmitButton';
 
 export default function LoginForm() {
   const email = useInput('');

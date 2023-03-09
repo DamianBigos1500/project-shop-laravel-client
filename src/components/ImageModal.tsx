@@ -89,7 +89,7 @@ export default function ImageModal({
               <div className="p-5 grid grid-cols-4 gap-2 ">
                 {images.map((image: imageType, index: number) => (
                   <img
-                    key={index}
+                    key={image.id}
                     src={
                       process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
                       images[index].filename

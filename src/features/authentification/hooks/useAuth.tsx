@@ -10,16 +10,15 @@ import {
   postRegister,
 } from '../service/authService';
 import { moveCartToDb } from '@/features/cart/services/cartService';
-import { useSignal } from '@preact/signals-react';
 
 export default function useAuth() {
-  const user = useSignal<any>(null);
-  const loading = useSignal(true);
-  const errors = useSignal<any>([]);
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [errors, setErrors] = useState<any>([]);
 
   const register = async ({ ...data }: registerDataType) => {
     await csrf();
-    errors.value = [];
+    setErrors([]);
     try {
       await postRegister(data);
       await getUser();
@@ -33,14 +32,14 @@ export default function useAuth() {
 
   const login = async ({ ...data }: loginDataType) => {
     await csrf();
-    errors.value = [];
+    setErrors([]);
     try {
       await postLogin(data);
       await getUser();
       navigateBack();
     } catch (e: any) {
       if (e?.response.status === 422) {
-        errors.value = e.response.data.errors;
+        setErrors(e.response.data.errors);
       }
     }
 
@@ -52,29 +51,28 @@ export default function useAuth() {
   const logout = async () => {
     try {
       await postLogout();
-      user.value = null;
-    } catch (error) {
-    }
+      setUser(null);
+    } catch (error) {}
   };
 
   const getUser = async () => {
     try {
       const { data }: any = await getUserData();
-      user.value = data;
+      setUser(data);
     } catch (error) {}
-    loading.value = false;
+    setLoading(false);
   };
 
   useEffect(() => {
-    if (!user.value) {
+    if (!user) {
       getUser();
     }
-  }, [user.value]);
+  }, [user]);
 
   return {
-    user: user.value,
-    loading: loading.value,
-    errors: errors.value,
+    user: user,
+    loading: loading,
+    errors: errors,
     register,
     login,
     logout,

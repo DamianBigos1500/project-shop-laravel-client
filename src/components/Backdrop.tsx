@@ -11,7 +11,7 @@ export default function Backdrop({ closeModal }: propsType) {
       animate={{ opacity: 1, transition: { duration: 0.1 } }}
       exit={{ opacity: 0, transition: { duration: 0.1 } }}
       onClick={closeModal}
-      className="fixed w-screen h-screen inset-0 bg-black/60 z-20 backdrop-blur-[0.8px]"
+      className="fixed w-screen h-screen inset-0 bg-black/60 z-20"
     />
   );
 }

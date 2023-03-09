@@ -55,7 +55,7 @@ export default function details({ product }: propsType) {
 
           {/* Title */}
           <div className="row-start-1 row-end-2">
-            <ProductTitleComponent name={product.name} id={product.id} />
+            <ProductTitleComponent name={product.name} productId={product.id} />
             <ProductReview />
             <div className="border" />
           </div>

@@ -6,23 +6,24 @@ import { TfiShoppingCart } from 'react-icons/tfi';
 import { FiChevronsRight } from 'react-icons/fi';
 import { BsTrash } from 'react-icons/bs';
 import useCartContext from '@/context/useCartContext';
+import RedButton from '../UI/Button/RedButton';
 type propsType = {
   product: productType;
-  deleteFavouritProduct(e: number): void;
+  removeFavouritItem(productId: number): void;
 };
 
 export default function FavouritProduct({
   product,
-  deleteFavouritProduct,
+  removeFavouritItem,
 }: propsType) {
   const { addItemToCart } = useCartContext();
 
   const deleteProduct = () => {
-    deleteFavouritProduct(product.id);
+    removeFavouritItem(product.id);
   };
 
   const addToCart = () => {
-    addItemToCart({ product_id: product.id, quantity: 1 });
+    addItemToCart({ product_id: product.id });
   };
 
   return (
@@ -55,20 +56,17 @@ export default function FavouritProduct({
           regular_price={product.regular_price}
           discount_price={product.discount_price}
         />
-        <div className="flex items-center relative text-green-800">
-          <div className="px-4 py-2 absolute flex items-center top-[-1.2rem] right-0 font-semibold text-sm rounded-md whitespace-nowrap cursor-pointer">
-            <button className="mr-2" onClick={() => addToCart()}>
+        <div className="flex items-center relative ">
+          <div className="px-4 py-2 text-green-800 hover:text-green-400 absolute flex items-center top-[-1.2rem] right-0 font-semibold text-sm rounded-md whitespace-nowrap cursor-pointer">
+            <button className="mr-2" type="button" onClick={() => addToCart()}>
               Add to cart
             </button>
             <TfiShoppingCart />
           </div>
-          <button
-            onClick={() => navigateToProductDetails(product.id)}
-            className="bg-gradient-to-r from-red-500 to-red-900 text-white rounded-md px-4 py-2 ml-4 flex items-center hover:from-red-900 hover:to-red-900 transition-all duration-200"
-          >
+          <RedButton onClick={() => navigateToProductDetails(product.id)}>
             <span className="my-auto">Show Product</span>
             <FiChevronsRight className="text-2xl block" />
-          </button>
+          </RedButton>
         </div>
       </div>
     </div>

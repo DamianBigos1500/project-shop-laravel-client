@@ -1,26 +1,24 @@
 import axios from '@/lib/axios';
 
 export async function getFavourit() {
-  return await axios.get('/api/favourit');
+  return axios.get('/api/favourit');
 }
-
-type postFavouritType = {
-  collection_id: number;
-  product_id: number;
-};
 
 export async function postFavourit({
   collection_id,
   product_id,
-}: postFavouritType) {
-  return await axios.post('/api/favourit', {
+}: postFavouritItemType) {
+  return axios.post('/api/favourit-product/', {
     collection_id,
     product_id,
   });
 }
 
-export async function deleteFavourit({ collection_id, product_id }: any) {
-  return await axios.delete(
+export async function deleteFavourit({
+  collection_id,
+  product_id,
+}: postFavouritItemType) {
+  return axios.delete(
     '/api/favourit-product/' + collection_id + '/' + product_id
   );
 }

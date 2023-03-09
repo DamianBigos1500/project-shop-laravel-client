@@ -1,7 +1,11 @@
 import axios from '@/lib/axios';
 
-export async function deleteFavouritCollection(collection_id: any) {
+export async function createFavouritCollection(listName: any) {
+  return axios.post('/api/favourit', {
+    name: listName,
+  });
+}
 
-  console.log(collection_id)
-  // return await axios.delete('/api/favourit/' + collection_id);
+export async function deleteFavouritCollection(collection_id: any) {
+  return axios.delete('/api/favourit/' + collection_id);
 }

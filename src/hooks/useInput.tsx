@@ -11,6 +11,7 @@ export default function useInput(initialValue: string) {
 
   return {
     value,
+    setValue: setValue,
     onChange: handleChange,
   };
 }

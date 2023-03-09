@@ -22,11 +22,7 @@ export default function Toolobar({ isScrollPositive }: propsType) {
 
   return (
     <AnimatePresence>
-      <motion.nav
-        className={`max-w-[90rem] mx-auto border-d-1 border-b ${
-          isScrollPositive && ''
-        }`}
-      >
+      <motion.nav className={`max-w-[90rem] mx-auto ${isScrollPositive && ''}`}>
         <div className="flex justify-center items-center h-10">
           <div className="flex pl-6 items-center text-nowrap">
             <BiCategory />
@@ -35,16 +31,19 @@ export default function Toolobar({ isScrollPositive }: propsType) {
 
           <ul className="md:flex justify-center bg-white flex-row sm:gap-x-3 md:text-sm font-semibold gap-x-5 w-full whitespace-nowrap hidden">
             {navigation.map((navItem) => (
-              <li className="hover:text-green-700 transition-colors duration-200">
+              <li
+                key={navItem.name}
+                className="hover:text-blue-700 transition-colors duration-200"
+              >
                 <Link href={navItem.href}>{navItem.name}</Link>
               </li>
             ))}
             {user && (
               <>
-                <li className="hover:text-green-700 transition-colors duration-200">
+                <li className="hover:text-blue-700 transition-colors duration-200">
                   <Link href="/profile">My Account</Link>
                 </li>
-                <li className="hover:text-green-700 transition-colors duration-200">
+                <li className="hover:text-blue-700 transition-colors duration-200">
                   <button onClick={logout}>Logout</button>
                 </li>
               </>

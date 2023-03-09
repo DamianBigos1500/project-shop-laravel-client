@@ -1,18 +1,16 @@
 import React from 'react';
 import FavouritProduct from './FavouritProduct';
-import { deleteFavourit } from 'src/services/FavouritItemService';
-import { deleteFavouritCollection } from 'src/services/FavouritCollectionService';
 
-export default function FavouritCollection({ favouritCollection }: any) {
-  const deleteFavouritProduct = (fav_item_id: number) => {
-    deleteFavourit({
+export default function FavouritCollection({
+  favouritCollection,
+  removeFavouritCollection,
+  removeItem,
+}: any) {
+  const removeFavouritItem = (productId: number) => {
+    removeItem({
       collection_id: favouritCollection.id,
-      product_id: fav_item_id,
+      product_id: productId,
     });
-  };
-
-  const removeFavouritCollection = () => {
-    deleteFavouritCollection(favouritCollection.id);
   };
 
   return (
@@ -21,23 +19,25 @@ export default function FavouritCollection({ favouritCollection }: any) {
         <div />
         <div className="font-semibold">{favouritCollection.name}</div>
         <button
-          className="font-semibold"
+          className="font-semibold text-red-500"
           type="button"
-          onClick={() => removeFavouritCollection}
+          onClick={() => removeFavouritCollection(favouritCollection.id)}
         >
           Delete Collection
         </button>
       </div>
 
-      {favouritCollection.products.map((product: any) => (
-        <>
+      {favouritCollection?.products.length > 0 ? (
+        favouritCollection?.products.map((product: any) => (
           <FavouritProduct
             key={product.id}
             product={product}
-            deleteFavouritProduct={deleteFavouritProduct}
+            removeFavouritItem={removeFavouritItem}
           />
-        </>
-      ))}
+        ))
+      ) : (
+        <div className="p-2 flex text-gray-500">You don't add any favourit product here</div>
+      )}
     </div>
   );
 }
