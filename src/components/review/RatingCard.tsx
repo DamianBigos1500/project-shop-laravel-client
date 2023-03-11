@@ -7,7 +7,6 @@ type propsType = {
 };
 
 export default function RatingCard({ rating }: propsType) {
-  console.log(rating);
   
   return (
     <div className="p-10 shadow-2xl rounded-md overflow-hidden">

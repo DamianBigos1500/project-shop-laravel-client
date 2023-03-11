@@ -15,7 +15,7 @@ type propsType = {
   productRatings: ratingsType[];
 };
 
-export default function details({ product, productRatings }: propsType) {
+export default function index({ product, productRatings }: propsType) {
   return (
     <>
       <Head>
@@ -43,29 +43,20 @@ export default function details({ product, productRatings }: propsType) {
   );
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getServerSideProps(context: any) {
   try {
     const productRes = await getProductById(context.params?.id!);
-    const productRatingsRes = await getProductReviews(context.params?.id!);
+    const productRatingsRes = await getProductReviews(context.params?.id!, context.query);
 
     return {
       props: {
         product: productRes.data.product,
         productRatings: productRatingsRes.data.ratings,
       },
-      revalidate: 180,
     };
   } catch (error) {
     return {
       props: {},
-      revalidate: 180,
     };
   }
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: 'blocking',
-  };
 }

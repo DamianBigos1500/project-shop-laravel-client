@@ -4,6 +4,7 @@ import { addToCartType } from '@/types/cartItemType';
 export const getCartItems = async () => {
   return await axios.get('/api/cart');
 };
+
 export const getCartItemsCount = async () => {
   return await axios.get('/api/cart-count');
 };

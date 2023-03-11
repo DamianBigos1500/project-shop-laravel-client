@@ -9,8 +9,10 @@ export default function amountByRatings(ratings: ratingsType[]) {
     return { amount: 0 };
   });
 
+  // console.log(amounts[1].amount)
+
   ratings.forEach((rating: ratingsType) => {
-    amounts[Math.floor(rating.rating / 2)].amount++;
+    amounts[Math.floor(rating.rating / 2) - 1].amount++;
   });
 
   return amounts;

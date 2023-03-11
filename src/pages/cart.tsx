@@ -8,9 +8,17 @@ import Router from 'next/router';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { BsTrash } from 'react-icons/bs';
 import { cartItemType } from '@/types/cartItemType';
+import { GetStaticPropsContext } from 'next/types';
+import axios from '@/lib/axios';
+import { getCookie } from 'cookies-next';
 
-export default function cart() {
+type propsType = {
+  cart: cartItemType[];
+};
+
+export default function cart({ cart }: propsType) {
   const { cartItems, cartCount, removeItems, loading } = useCartContext();
+  console.log(cart);
 
   return (
     <>
@@ -72,4 +80,24 @@ export default function cart() {
       </GuestLayout>
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  try {
+    const cookie = getCookie("cart_items")
+    console.log(cookie);
+
+    const cartRes = await axios.get('/api/cart');
+
+    return {
+      props: {
+        cart: cartRes.data,
+      },
+    };
+  } catch (error: any) {
+    console.log('error');
+    return {
+      props: { cart: [] },
+    };
+  }
 }

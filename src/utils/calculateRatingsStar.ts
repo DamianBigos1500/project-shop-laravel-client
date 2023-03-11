@@ -5,5 +5,5 @@ export default function calculateRatingsStar(ratings: ratingsType[]) {
     return totalSum + rating.rating;
   }, 0);
 
-  return stars;
+  return stars ?? 0;
 }
