@@ -57,12 +57,14 @@ export default function FavouritProduct({
           discount_price={product.discount_price}
         />
         <div className="flex items-center relative ">
-          <div className="px-4 py-2 text-green-800 hover:text-green-400 absolute flex items-center top-[-1.2rem] right-0 font-semibold text-sm rounded-md whitespace-nowrap cursor-pointer">
-            <button className="mr-2" type="button" onClick={() => addToCart()}>
-              Add to cart
-            </button>
+          <button
+            onClick={() => addToCart()}
+            type="button"
+            className="px-4 py-2 text-green-800 hover:text-green-400 absolute flex items-center top-[-1.2rem] right-0 font-semibold text-sm rounded-md whitespace-nowrap cursor-pointer"
+          >
+            <div className="mr-2">Add to cart</div>
             <TfiShoppingCart />
-          </div>
+          </button>
           <RedButton onClick={() => navigateToProductDetails(product.id)}>
             <span className="my-auto">Show Product</span>
             <FiChevronsRight className="text-2xl block" />

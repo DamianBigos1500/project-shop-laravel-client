@@ -3,8 +3,8 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import useFavouritItems from '@/hooks/useFavouritItems';
 import GuestLayout from '@/layouts/GuestLayout';
 import Head from 'next/head';
-import FavouritCollection from '@/components/favourit/FavouritCollection';
-import AddNewFavouritList from '@/components/favourit/AddNewFavouritList';
+import FavouritCollection from '@/components/favouritPageComponents/FavouritCollection';
+import AddNewFavouritList from '@/components/favouritPageComponents/AddNewFavouritList';
 
 export default function favourit() {
   const {

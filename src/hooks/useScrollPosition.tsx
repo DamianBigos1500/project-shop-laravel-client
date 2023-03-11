@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import useThrottle from './useThrottle';
 import throttle from 'src/utils/throttle';
 
 export default function useScrollPosition(delay = 1000) {

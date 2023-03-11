@@ -9,17 +9,10 @@ import useInput from '@/hooks/useInput';
 import FormInput from '@/features/authentification/components/FormInput';
 import SubmitButton from '../UI/Button/SubmitButton';
 import { onSubmitType } from '@/types/onSubmitType';
+import FavouritListForm from './FavouritListForm';
 
 export default function AddNewFavouritList({ addFavouritCollection }: any) {
   const [isShowing, openModal, closeModal] = useModal();
-  const list_name = useInput('');
-
-  const handleAddList = (e: onSubmitType) => {
-    e.preventDefault();
-    addFavouritCollection(list_name.value);
-    closeModal();
-    list_name.setValue('');
-  };
 
   return (
     <div>
@@ -31,18 +24,10 @@ export default function AddNewFavouritList({ addFavouritCollection }: any) {
       <Modal isOpen={isShowing}>
         <Backdrop closeModal={closeModal} />
         <FavouritModalCard>
-          <form onSubmit={handleAddList} className="w-full flex">
-            <div className="pr-4 w-[20rem] md:w-40">
-              <FormInput
-                id="list_name"
-                name="list_name"
-                {...list_name}
-                type="text"
-                placeholder="List name"
-              />
-            </div>
-            <SubmitButton>Create List</SubmitButton>
-          </form>
+          <FavouritListForm
+            addFavouritCollection={addFavouritCollection}
+            closeModal={closeModal}
+          />
         </FavouritModalCard>
       </Modal>
     </div>

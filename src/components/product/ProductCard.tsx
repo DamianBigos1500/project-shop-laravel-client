@@ -4,6 +4,7 @@ import { productType } from '@/types/productType';
 import { navigateToProductDetails } from 'src/utils/navigateToProductDetails';
 import useCartContext from '@/context/useCartContext';
 import AddToCard from '../AddToCard';
+import RatingStars from '../rating/RatingStars';
 
 type Details = {
   procesor: string;
@@ -51,19 +52,7 @@ export default function ProductCard({ product }: propsType) {
           {product.name.toUpperCase()}
         </div>
         {/* Stars */}
-        <div className="flex items-center justify-start">
-          <div className="flex space-x-1 text-yellow-500">
-            <AiFillStar className="text-sm" />
-            <AiFillStar className="text-sm" />
-            <AiFillStar className="text-sm" />
-            <AiFillStar className="text-sm" />
-            <AiFillStar className="text-sm" />
-          </div>
-
-          <div className="pl-2 ">
-            <span className="text-gray-900/40 px-2 text-sm">(566 reviews)</span>
-          </div>
-        </div>
+        <RatingStars stars={0} reviews={0} />
 
         {/* Price */}
         <div className="flex items-center gap-4">

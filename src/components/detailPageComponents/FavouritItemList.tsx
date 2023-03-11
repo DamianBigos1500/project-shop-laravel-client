@@ -18,7 +18,7 @@ export default function FavouritItemList({
   };
 
   return (
-    <div className="">
+    <div className="py-2">
       <input
         id={`product_in_collection_${collection.id}`}
         type="checkbox"
