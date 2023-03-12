@@ -10,7 +10,7 @@ export default function useSearch() {
       ([key, val]) => (query[key] = queryParams[key])
     );
 
-    router.push(
+    router.replace(
       {
         pathname: router.pathname,
         query: query,

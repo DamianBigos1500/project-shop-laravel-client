@@ -1,7 +1,6 @@
 import { getProductById } from '@/features/products/services/productService';
 import Head from 'next/head';
 import GuestLayout from '@/layouts/GuestLayout';
-import { GetStaticPropsContext } from 'next';
 import ProductImages from '@/components/detailPageComponents/ProductImages';
 import CategoryChain from '@/components/detailPageComponents/CategoryChain';
 import { productType } from '@/types/productType';
@@ -30,7 +29,7 @@ export default function index({ product, productRatings }: propsType) {
         <div className="max-w-7xl mt-6 grid gap-y-4 gap-x-8 md:grid-cols-[12fr_13fr] md:grid-rows-[auto_1fr]">
           <ProductImages images={product.images} />
 
-          <DetailsSpecification product={product} />
+          <DetailsSpecification product={product} ratings={productRatings} />
         </div>
 
         <div className="mt-20">
@@ -46,7 +45,10 @@ export default function index({ product, productRatings }: propsType) {
 export async function getServerSideProps(context: any) {
   try {
     const productRes = await getProductById(context.params?.id!);
-    const productRatingsRes = await getProductReviews(context.params?.id!, context.query);
+    const productRatingsRes = await getProductReviews(
+      context.params?.id!,
+      context.query
+    );
 
     return {
       props: {

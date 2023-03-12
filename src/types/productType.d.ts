@@ -12,4 +12,5 @@ export type productType = {
   inStock: number;
   details: Details;
   category?: categoryType;
+  ratings?: any;
 };

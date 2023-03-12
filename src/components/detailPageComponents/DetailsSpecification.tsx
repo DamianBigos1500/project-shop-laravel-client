@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import ProductTitleComponent from './ProductTitleComponent';
-import ProductReview from './ProductReview';
 import SelectQuantity from '../cartPageComponenets/SelectQuantity';
 import AddToCard from '../AddToCard';
 import DetailsIcons from './DetailsIcons';
 import { productType } from '@/types/productType';
 import useCartContext from '@/context/useCartContext';
 import RatingStars from '../rating/RatingStars';
+import { ratingsType } from '@/types/ratingsType';
 
 type propsType = {
   product: productType;
+  ratings: ratingsType[];
 };
 
-export default function DetailsSpecification({ product }: propsType) {
+export default function DetailsSpecification({ product, ratings }: propsType) {
   const [quantity, setQuantity] = useState<number>(1);
   const { addItemToCart, addCartLoading } = useCartContext();
 
@@ -52,7 +53,7 @@ export default function DetailsSpecification({ product }: propsType) {
             onSubmit={() => {}}
             onBlur={() => {}}
           />
-          
+
           <AddToCard
             handleAddToCart={handleAddToCart}
             disabled={product.id == addCartLoading}

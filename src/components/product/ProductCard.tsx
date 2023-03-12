@@ -5,6 +5,8 @@ import { navigateToProductDetails } from 'src/utils/navigateToProductDetails';
 import useCartContext from '@/context/useCartContext';
 import AddToCard from '../AddToCard';
 import RatingStars from '../rating/RatingStars';
+import calculateRatingsStar from '@/utils/calculateRatingsStar';
+import amountByRatings from '@/utils/amountByRatings';
 
 type Details = {
   procesor: string;
@@ -19,6 +21,10 @@ type propsType = {
 
 export default function ProductCard({ product }: propsType) {
   const { addItemToCart, addCartLoading } = useCartContext();
+  const ratingsLength =
+    product.ratings.length == 0 ? 1 : product.ratings.length;
+  const starsSum = calculateRatingsStar(product.ratings);
+  const stars = starsSum == 0 ? 0 : Math.round(starsSum / ratingsLength) / 2;
 
   return (
     <div className="flex flex-col group custom-shadow hover:border hover:rounded-xl rounded-t-xl border-b hover:border-none border-b-black/20 overflow-hidden text-ellipsis hover:scale-105 transition duration-300">
@@ -52,7 +58,7 @@ export default function ProductCard({ product }: propsType) {
           {product.name.toUpperCase()}
         </div>
         {/* Stars */}
-        <RatingStars stars={0} reviews={0} />
+        <RatingStars stars={stars} reviews={product.ratings.length} />
 
         {/* Price */}
         <div className="flex items-center gap-4">
@@ -73,18 +79,7 @@ export default function ProductCard({ product }: propsType) {
         </div>
 
         {/* DescriptionShort */}
-        <div className="text-gray-500 text-xs">
-          {product.long_description}
-          {/* {Object.keys(product.details).map((key: string, index: number) => (
-            <div
-              key={index}
-              className="w-full overflow-hidden whitespace-nowrap text-ellipsis "
-            >
-              <span className="first-letter:uppercase">{key}: </span>
-              <span className="">{product?.details[key]}</span>
-            </div>
-          ))} */}
-        </div>
+        <div className="text-gray-500 text-xs">{product.long_description}</div>
       </div>
 
       <div className="mx-4">

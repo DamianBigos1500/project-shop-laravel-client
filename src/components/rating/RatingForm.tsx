@@ -1,63 +1,35 @@
 import { onChangeType } from '@/types/onChangeType';
 import { onSubmitType } from '@/types/onSubmitType';
-import { navigateToProductDetails } from '@/utils/navigateToProductDetails';
-import { Router, useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { BsStarFill } from 'react-icons/bs';
-import { FaStar, FaStarHalf, FaStarHalfAlt } from 'react-icons/fa';
-import { postProductReviews } from 'src/services/ProductReviewsService';
+import AuthSubmitButton from '../UI/Button/SubmitButton';
+import LoadingSpinner from '../LoadingSpinner';
 
 type propsType = {
-  productId: number;
+  onSubmit: any;
+  defaultValue?: string;
+  buttonText: string;
+  currentRating?: number;
+  radioId?: number | string;
+  isLoading: boolean;
 };
 
-export default function RatingForm({ productId }: propsType) {
+export default function RatingForm({
+  onSubmit,
+  defaultValue = '',
+  buttonText,
+  currentRating = 0,
+  radioId = 'unique',
+  isLoading = false,
+}: propsType) {
+  const [rating, setRating] = useState(currentRating);
   const reviewRef = useRef<any>('');
-  const [rating, setRating] = useState(0);
-  const router = useRouter();
 
-  const handleSubmit = async (e: onSubmitType) => {
+  const handleSubmit = (e: onSubmitType) => {
     e.preventDefault();
-
-    try {
-      await postProductReviews({
-        productId: productId,
-        review: reviewRef.current.value,
-        rating: rating,
-      });
-
-      navigateToProductDetails(router.query.id, undefined, { scroll: false });
-    } catch (error) {}
-
+    onSubmit({ review: reviewRef.current.value, rating: rating });
     reviewRef.current.value = '';
   };
-
-  const rows = [];
-  for (let i = 1; i <= 10; i++) {
-    // note: we are adding a key prop here to allow react to uniquely identify each
-    // element in this array. see: https://reactjs.org/docs/lists-and-keys.html
-    rows.push(
-      <span key={i}>
-        <input
-          className="hidden"
-          value={i}
-          type="radio"
-          onChange={(e: onChangeType) => {
-            console.log(e.target.value);
-            setRating(e.target.value);
-          }}
-          name="star"
-          id={'star' + i}
-        />
-        <label htmlFor={'star' + i} className="h-8">
-          {rating < i && <AiOutlineStar className="text-3xl" />}
-          {rating == i && <AiFillStar className="text-3xl" />}
-          {rating > i && <AiFillStar className="text-3xl" />}
-        </label>
-      </span>
-    );
-  }
 
   return (
     <form
@@ -65,20 +37,36 @@ export default function RatingForm({ productId }: propsType) {
       className="flex flex-col items-start w-full mt-4 "
     >
       <div className="rating h-4  w-full flex gap-2 text-yellow-500 font-2xl">
-        {rows}
+        {[...Array(10)].map((_value, index) => (
+          <span key={index + 1}>
+            <input
+              className="hidden"
+              value={index + 1}
+              type="radio"
+              onChange={(e: onChangeType) => {
+                setRating(e.target.value);
+              }}
+              name="star"
+              id={'star' + radioId + index + 1}
+            />
+            <label htmlFor={'star' + radioId + index + 1} className="h-8">
+              {rating < index + 1 && <AiOutlineStar className="text-3xl" />}
+              {rating == index + 1 && <AiFillStar className="text-3xl" />}
+              {rating > index + 1 && <AiFillStar className="text-3xl" />}
+            </label>
+          </span>
+        ))}
       </div>
 
       <textarea
         ref={reviewRef}
         rows={4}
-        className="w-full mt-4 outline-none bg-transparent border-y border-black/20 resize-none p-2 text-[1rem] text-gray-500"
+        defaultValue={defaultValue}
+        className="w-full my-4 outline-none bg-transparent border-y border-black/20 resize-none p-2 text-[1rem] text-gray-500"
       ></textarea>
-      <button
-        className="bg-green-400 mt-4 py-2 px-4 rounded-xl text-white font-semibold"
-        type="submit"
-      >
-        Submit
-      </button>
+      <AuthSubmitButton>
+        {isLoading ? <LoadingSpinner className='h-5 w-5'/> : buttonText}
+      </AuthSubmitButton>
     </form>
   );
 }

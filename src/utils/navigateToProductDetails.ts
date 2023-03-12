@@ -2,8 +2,8 @@ import Router from 'next/router';
 
 export const navigateToProductDetails = (
   productId: number | string | string[] | undefined,
-  undefined: any,
-  options: any
+  as?: object | undefined,
+  options?: object
 ) => {
-  Router.push(`/details/` + productId, undefined, options);
+  Router.push(`/details/` + productId, as, options);
 };

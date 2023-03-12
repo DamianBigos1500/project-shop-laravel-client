@@ -24,6 +24,10 @@ export default function RatingOpinions() {
 
   const handleReset = () => {
     navigateToProductDetails(+router?.query?.id!, undefined, { scroll: false });
+
+    sortRef.current.value = '0';
+    ratingRef.current.value = '0';
+    confirmedRef.current.value = '0';
   };
 
   return (

@@ -4,13 +4,14 @@ import { ratingsType } from '@/types/ratingsType';
 
 type propsType = {
   ratings: ratingsType[];
+  productId: number;
 };
 
-export default function RatingGrid({ ratings }: propsType) {
+export default function RatingGrid({ ratings, productId }: propsType) {
   return (
     <div className="flex flex-col gap-10">
       {ratings.map((rating) => (
-        <RatingCard key={rating.id} rating={rating} />
+        <RatingCard key={rating.id} rating={rating} productId={productId} />
       ))}
     </div>
   );

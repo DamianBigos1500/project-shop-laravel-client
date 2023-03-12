@@ -15,18 +15,19 @@ type propsType = {
 };
 
 export default function index({ products, category }: propsType) {
+  console.log(products);
+
   return (
     <>
       <Head>
         <title>
-          {category.title} -{' '}
-          {process.env.NEXT_PUBLIC_FRONTEND_PROJECT_NAME}
+          {category.title} - {process.env.NEXT_PUBLIC_FRONTEND_PROJECT_NAME}
         </title>
       </Head>
 
       <GuestLayout>
         <div className="tracking-wide font-semibold text-xl mt-6">
-          <span>{category.title}  &nbsp;</span>
+          <span>{category.title} &nbsp;</span>
           <span className="text-gray-500">({products.data.length})</span>
         </div>
 
