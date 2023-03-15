@@ -49,3 +49,16 @@
 .reverse-star {
   transform: rotateY(180deg);
 }
+
+.link {
+  @apply p-2.5 rounded-md gap-6 flex items-center md:cursor-pointer
+  cursor-default duration-300 font-medium hover:bg-blue-200 hover:text-blue-600;
+}
+
+.active {
+  @apply bg-blue-100 text-blue-600;
+}
+
+.shadow-sidebar {
+  box-shadow: 1px 1px 5px grey;
+}

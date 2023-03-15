@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ImageModal from '@/components/ImageModal';
-import Modal from '../Modal';
+import Modal from '../Modal/Modal';
 import useModal from '@/hooks/useModal';
-import Backdrop from '../Backdrop';
+import Backdrop from '../Modal/Backdrop';
 import { imageType } from '@/types/imageType';
 
 type propsType = {

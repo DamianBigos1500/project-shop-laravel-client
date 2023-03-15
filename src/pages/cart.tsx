@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CartItemCard from '../components/UI/Card/CartItemCard';
 import GuestLayout from '@/layouts/GuestLayout';
 import Head from 'next/head';
@@ -21,16 +21,26 @@ export default function cart() {
   const { cartItems, cartCount, removeItems, loading } = useCartContext();
   console.log(cartItems);
 
+  const [total, setTotal] = useState<any>(null);
 
-  const sumTotal = (cart: cartItemType) => {
-    const sum = cartItems.reduce((totalSum: number, cartItem: cartItemType) => {
-      return totalSum + +cartItem.regular_price;
-    }, 0);
+  useEffect(() => {
+    const sumTotal = (cart: cartItemType) => {
+      const sum = cartItems.reduce(
+        (totalSum: number, cartItem: cartItemType) => {
+          return totalSum + +cartItem.regular_price;
+        },
+        0
+      );
 
-    return sum;
+      return sum;
+    };
+
+    setTotal(sumTotal);
+  }, []);
+
+  const redirectToOrder = () => {
+    Router.push('/order');
   };
-
-  // const [total, setTotal] = useState();
 
   return (
     <>
@@ -101,11 +111,14 @@ export default function cart() {
                   <span className="text-2xl bold font-semibold tracking-wide">
                     Total:
                   </span>
-                  <span className="mt-2">{sumTotal(cartItems)} $</span>
+                  <span className="mt-2">{total} $</span>
                 </div>
 
                 <div className="p-4">
-                  <button className="bg-slate-700 w-full text-white py-2 px-4 hover">
+                  <button
+                    className="bg-slate-700 w-full text-white py-2 px-4 hover"
+                    onClick={redirectToOrder}
+                  >
                     Place Order
                   </button>
                 </div>

@@ -63,11 +63,6 @@ export default function Toolobar({ isScrollPositive }: propsType) {
                 </>
               )}
             </ul>
-
-            <div className="flex pl-6 items-center text-nowrap">
-              <BsTelephoneForward />
-              <span className="font-semibold px-4">0000-000-000</span>
-            </div>
           </div>
         </motion.nav>
       )}

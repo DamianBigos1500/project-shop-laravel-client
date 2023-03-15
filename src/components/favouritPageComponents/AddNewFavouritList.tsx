@@ -1,7 +1,7 @@
 import React from 'react';
-import Modal from '../Modal';
+import Modal from '../Modal/Modal';
 import useModal from '@/hooks/useModal';
-import Backdrop from '../Backdrop';
+import Backdrop from '../Modal/Backdrop';
 import RedButton from '../UI/Button/RedButton';
 import { FaPlus } from 'react-icons/fa';
 import FavouritModalCard from './FavouritModalCard';

@@ -52,7 +52,7 @@ export default function RatingCard({ rating, productId }: propsType) {
           </div>
         </div>
 
-        {rating.user.email === user.email && (
+        {rating.user?.email === user?.email && (
           <div className="text-white">
             <button
               className="px-4 py-2 bg-gradient-to-r text-2xl from-blue-500 to-blue-900 rounded-full mr-2"

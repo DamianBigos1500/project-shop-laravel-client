@@ -9,7 +9,6 @@ export default function dashboard() {
       <Head>
         <title>Dashboard - </title>
       </Head>
-      {/* <DashboardSidebar /> */}
       <AdminLayout>Dashboard</AdminLayout>
     </>
   );

@@ -1,12 +1,10 @@
 import React from 'react';
-import { AiFillStar } from 'react-icons/ai';
 import { productType } from '@/types/productType';
 import { navigateToProductDetails } from 'src/utils/navigateToProductDetails';
 import useCartContext from '@/context/useCartContext';
 import AddToCard from '../AddToCard';
 import RatingStars from '../rating/RatingStars';
 import calculateRatingsStar from '@/utils/calculateRatingsStar';
-import amountByRatings from '@/utils/amountByRatings';
 
 type Details = {
   procesor: string;
@@ -25,6 +23,8 @@ export default function ProductCard({ product }: propsType) {
     product.ratings.length == 0 ? 1 : product.ratings.length;
   const starsSum = calculateRatingsStar(product.ratings);
   const stars = starsSum == 0 ? 0 : Math.round(starsSum / ratingsLength) / 2;
+
+  console.log(product);
 
   return (
     <div className="flex flex-col group custom-shadow hover:border hover:rounded-xl rounded-t-xl border-b hover:border-none border-b-black/20 overflow-hidden text-ellipsis hover:scale-105 transition duration-300">

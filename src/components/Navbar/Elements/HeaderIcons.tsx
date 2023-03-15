@@ -14,16 +14,16 @@ export default function HeaderIcons() {
     <div className="relative sm:px-6 px-4 flex items-center justify-end">
       <div className="flex items-center sm:w-auto gap-x-5">
         <Link href="/login">
-          <BiUser className="text-3xl hover:text-violet-600 transition-colors duration-300 " />
+          <BiUser className="text-3xl hover:text-orange-400 transition-colors duration-300 " />
         </Link>
         {user && (
           <Link href="/favourit" className="relative">
-            <BiHeart className="text-3xl hover:text-violet-600 transition-colors duration-300" />
+            <BiHeart className="text-3xl hover:text-orange-400 transition-colors duration-300" />
           </Link>
         )}
         <Link href="/cart" className="relative">
           <HeaderIcon number={cartCount}>
-            <AiOutlineShoppingCart className="text-3xl hover:text-violet-600 transition-colors duration-300" />
+            <AiOutlineShoppingCart className="text-3xl hover:text-orange-400 transition-colors duration-300" />
           </HeaderIcon>
         </Link>
       </div>

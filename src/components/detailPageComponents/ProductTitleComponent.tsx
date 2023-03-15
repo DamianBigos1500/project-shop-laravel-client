@@ -1,8 +1,8 @@
 import useModal from '@/hooks/useModal';
 import React, { Suspense } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
-import Modal from '../Modal';
-import Backdrop from '../Backdrop';
+import Modal from '../Modal/Modal';
+import Backdrop from '../Modal/Backdrop';
 import useAuthContext from '@/context/useAuthContext';
 const FavouritModal = React.lazy(
   () => import('../favouritPageComponents/FavouritModal')

@@ -15,7 +15,7 @@ type propsType = {
 
 export default function Rating({ ratings, productId }: propsType) {
   const { user } = useAuthContext();
-  const isReviewed = includeReview(ratings, user.id);
+  const isReviewed = includeReview(ratings, user?.id);
 
   console.log(isReviewed);
 

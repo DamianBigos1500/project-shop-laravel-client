@@ -7,7 +7,7 @@ export default function Logo() {
       <div className="flex items-center justify-start sm:px-6 px-4 py-2 ">
         <Link
           href="/"
-          className="font-acme whitespace-nowrap font-semibold text-3xl bg-clip-text text-transparent bg-gradient-to-r from-violet-800 to-violet-500"
+          className="font-acme whitespace-nowrap font-semibold text-3xl bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-red-500"
         >
           Night's Shop
         </Link>
