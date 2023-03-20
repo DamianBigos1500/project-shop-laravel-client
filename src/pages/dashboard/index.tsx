@@ -1,9 +1,9 @@
 import React from 'react';
-import DashboardSidebar from '../../layouts/components/AdminSidebar';
 import Head from 'next/head';
 import AdminLayout from '@/layouts/AdminLayout';
+import { protectedAdminRoute } from '@/utils/protectedRoutes/protectedAdminRoute';
 
-export default function dashboard() {
+function dashboard() {
   return (
     <>
       <Head>
@@ -13,3 +13,4 @@ export default function dashboard() {
     </>
   );
 }
+export default protectedAdminRoute(dashboard);

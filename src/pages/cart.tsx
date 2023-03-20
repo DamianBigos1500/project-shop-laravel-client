@@ -13,30 +13,9 @@ import { getCookie } from 'cookies-next';
 import Link from 'next/link';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 
-type propsType = {
-  cart: cartItemType[];
-};
-
 export default function cart() {
-  const { cartItems, cartCount, removeItems, loading } = useCartContext();
-  console.log(cartItems);
-
-  const [total, setTotal] = useState<any>(null);
-
-  useEffect(() => {
-    const sumTotal = (cart: cartItemType) => {
-      const sum = cartItems.reduce(
-        (totalSum: number, cartItem: cartItemType) => {
-          return totalSum + +cartItem.regular_price;
-        },
-        0
-      );
-
-      return sum;
-    };
-
-    setTotal(sumTotal);
-  }, []);
+  const { cartItems, cartCount, cartTotalSum, removeItems, loading } =
+    useCartContext();
 
   const redirectToOrder = () => {
     Router.push('/order');
@@ -111,7 +90,7 @@ export default function cart() {
                   <span className="text-2xl bold font-semibold tracking-wide">
                     Total:
                   </span>
-                  <span className="mt-2">{total} $</span>
+                  <span className="mt-2">${cartTotalSum}</span>
                 </div>
 
                 <div className="p-4">
@@ -139,22 +118,3 @@ export default function cart() {
   );
 }
 
-export async function getServerSideProps(context: any) {
-  try {
-    const cookie = getCookie('cart_items');
-    console.log(cookie);
-
-    const cartRes = await axios.get('/api/cart');
-
-    return {
-      props: {
-        cart: cartRes.data,
-      },
-    };
-  } catch (error: any) {
-    console.log('error');
-    return {
-      props: { cart: [] },
-    };
-  }
-}

@@ -1,3 +1,4 @@
+import PaypalButton from '@/components/PaypalButton';
 import { InputCheckout } from '@/components/UI/Input/InputCheckout';
 import useAuthContext from '@/context/useAuthContext';
 import GuestLayout from '@/layouts/GuestLayout';
@@ -141,7 +142,6 @@ export default function index() {
                 >
                   Cash on delivery
                 </span>
-
                 <span
                   className={`cursor-pointer w-full rounded-full h-10 bg-slate-100 border-2 flex justify-center items-center ${
                     paymentMethod.value === 1
@@ -155,7 +155,7 @@ export default function index() {
                   <span className="mr-2">PayPal</span>
                   <AiOutlineCreditCard />
                 </span>
-
+                <PaypalButton />
                 <button
                   type="submit"
                   className="mt-10 cursor-pointer w-full rounded-md text-white hover:bg-gray-700 h-14 bg-gray-800 border-2 flex justify-center items-center"

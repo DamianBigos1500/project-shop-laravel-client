@@ -2,6 +2,7 @@ import { categoryType } from './categoryType';
 import { imageType } from './imageType';
 
 export type productType = {
+  product_code: string | number | undefined;
   id: number;
   name: string;
   images: imageType[];

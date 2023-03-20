@@ -18,11 +18,13 @@ export default function CartItemCard({ cartItem }: propsType) {
     setQuantity(value);
   };
 
-  const changeQuantityRequest = () => {
-    addItemToCart({
+  const changeQuantityRequest = async () => {
+    const newQty = await addItemToCart({
       product_id: cartItem.id,
       quantity: quantity - cartItem.quantity,
     });
+    console.log(newQty);
+    setQuantity(newQty);
   };
 
   const onBlur = () => {

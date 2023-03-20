@@ -1,14 +1,7 @@
 import { productType } from '@/types/productType';
 import { useEffect, useState } from 'react';
-import {
-  createFavouritCollection,
-  deleteFavouritCollection,
-} from 'src/services/FavouritCollectionService';
-import {
-  deleteFavourit,
-  getFavourit,
-  postFavourit,
-} from 'src/services/FavouritItemService';
+import { favouritService } from 'src/services/favourit.service';
+import { favouritItemService } from 'src/services/favouritItem.service';
 
 export default function useFavouritItems() {
   const [loading, setLoading] = useState(true);
@@ -22,7 +15,7 @@ export default function useFavouritItems() {
   const getFavouritItems = async () => {
     setLoading(true);
     try {
-      const res = await getFavourit();
+      const res = await favouritService.getFavourit();
       setFavourit(res.data.favourit);
     } catch (error) {}
 
@@ -32,13 +25,13 @@ export default function useFavouritItems() {
   const addItemAsFavourit = async ({ ...data }: postFavouritItemType) => {
     console.log({ ...data });
     try {
-      await postFavourit({ ...data });
+      await favouritItemService.createFavouritItem({ ...data });
     } catch (error) {}
   };
 
   const deleteFavouritItem = async ({ ...data }: postFavouritItemType) => {
     try {
-      await deleteFavourit({ ...data });
+      await favouritItemService.deleteFavouritItem({ ...data });
     } catch (error) {
       setError('Cannot remove item');
     }
@@ -57,7 +50,7 @@ export default function useFavouritItems() {
 
   const addFavouritCollection = async (listName: number) => {
     try {
-      const { data } = await createFavouritCollection(listName);
+      const { data } = await favouritService.createFavourit(listName);
       const newItem = { ...data.favourit, products: [] };
 
       setFavourit((prev: any) => {
@@ -70,7 +63,7 @@ export default function useFavouritItems() {
 
   const removeFavouritCollection = async (collectionId: number) => {
     try {
-      await deleteFavouritCollection(collectionId);
+      await favouritService.deleteFavourit(collectionId);
       setFavourit((prev: any) =>
         prev.filter((collection: any) => collection.id != collectionId)
       );

@@ -5,17 +5,14 @@ import calculateRatingsStar from '@/utils/calculateRatingsStar';
 import amountByRatings from '@/utils/amountByRatings';
 import { FaStar } from 'react-icons/fa';
 import useSearch from '@/hooks/useSearch';
+import ratingsData from '@/utils/ratingsData';
 
 type propsType = {
   ratings: ratingsType[];
 };
 
 export default function RatingDetails({ ratings = [] }: propsType) {
-  const ratingsLength = ratings.length == 0 ? 1 : ratings.length;
-  const starsSum = calculateRatingsStar(ratings);
-  const stars = starsSum == 0 ? 0 : Math.round(starsSum / ratingsLength) / 2;
-  const amounts = amountByRatings(ratings);
-
+  const {ratingsLength, stars, amounts } = ratingsData(ratings);
   const { filterSearch } = useSearch();
 
   return (
@@ -25,7 +22,7 @@ export default function RatingDetails({ ratings = [] }: propsType) {
           <span className="text-3xl">{stars}</span>
           <span className="text-2xl text-gray-400 pl-2">/ 5</span>
         </div>
-        <RatingStars stars={stars} reviews={ratingsLength} />
+        <RatingStars stars={stars} reviews={ratings.length} />
       </div>
 
       <div className="p-4 flex-[2]">

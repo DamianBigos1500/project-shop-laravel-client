@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { BiCategory } from 'react-icons/bi';
 import { BsTelephoneForward } from 'react-icons/bs';
 import { motion, AnimatePresence } from 'framer-motion';
+import useScrollPosition from '@/hooks/useScrollPosition';
 
 const navigation = [
   { href: '/', name: 'Home' },
@@ -13,12 +14,11 @@ const navigation = [
   { href: '/contact', name: 'Contact' },
 ];
 
-type propsType = {
-  isScrollPositive: boolean;
-};
 
-export default function Toolobar({ isScrollPositive }: propsType) {
+export default function Toolobar() {
   const { user, logout } = useAuthContext();
+  const scrollPosition = useScrollPosition(100);
+  const isScrollPositive = scrollPosition > 10;
 
   return (
     <AnimatePresence initial={false}>

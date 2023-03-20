@@ -1,7 +1,7 @@
 import GuestLayout from '@/layouts/GuestLayout';
 import Head from 'next/head';
 import React from 'react';
-import { showOrder } from 'src/services/OrderService';
+import { orderService } from 'src/services/order.service';
 
 export default function index({ order }: any) {
   return (
@@ -26,7 +26,7 @@ export default function index({ order }: any) {
 
 export async function getStaticProps(context: any) {
   try {
-    const res = await showOrder(context.params.uid);
+    const res = await orderService.showOrder(context.params.uid);
 
     console.log(res.data);
 

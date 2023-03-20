@@ -5,8 +5,9 @@ import GuestLayout from '@/layouts/GuestLayout';
 import Head from 'next/head';
 import FavouritCollection from '@/components/favouritPageComponents/FavouritCollection';
 import AddNewFavouritList from '@/components/favouritPageComponents/AddNewFavouritList';
+import { protectedLoginRoute } from '@/utils/protectedRoutes/protectedLoginRoute';
 
-export default function favourit() {
+function favourit() {
   const {
     loading,
     error,
@@ -53,24 +54,4 @@ export default function favourit() {
     </>
   );
 }
-
-export async function getServerSideProps(context: any) {
-  let res: any;
-  try {
-    // res = await axios.get('/api/favourit', {
-    //   withCredentials: true,
-    //   headers: { Cookie: context.req.headers.cookie },
-    // });
-    // console.log(res);
-
-    return {
-      props: { products: res ?? [] },
-    };
-  } catch (error) {
-    console.log(context.req.headers.cookie);
-  }
-
-  return {
-    props: { products: [] },
-  };
-}
+export default protectedLoginRoute(favourit);

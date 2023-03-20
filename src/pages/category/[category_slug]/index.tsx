@@ -1,8 +1,5 @@
 import CategoryGrid from '@/features/category/components/CategoryGrid';
-import {
-  getCategories,
-  getCategoryBySlug,
-} from '@/features/category/service/categoryService';
+import { categoryService } from '@/features/category/service/category.service';
 import GuestLayout from '@/layouts/GuestLayout';
 import { categoryType } from '@/types/categoryType';
 import { AxiosResponse } from 'axios';
@@ -41,7 +38,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   let categoriesRes: AxiosResponse;
 
   try {
-    categoriesRes = await getCategoryBySlug(context.params?.category_slug!);
+    categoriesRes = await categoryService.getCategoryBySlug(context.params?.category_slug!);
   } catch (error) {
     return {
       props: {},
@@ -59,7 +56,7 @@ export async function getStaticPaths() {
   let res: AxiosResponse;
 
   try {
-    res = await getCategories();
+    res = await categoryService.getCategories();
   } catch (error) {
     return { paths: [], fallback: 'blocking' };
   }

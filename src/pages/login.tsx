@@ -3,8 +3,9 @@ import Head from 'next/head';
 import AuthCard from '@/features/authentification/components/AuthCard';
 import GuestLayout from '@/layouts/GuestLayout';
 import LoginForm from '@/features/authentification/components/LoginForm';
+import { protectedGuessRoute } from '@/utils/protectedRoutes/protectedGuessRoute';
 
-export default function Login() {
+function Login() {
   return (
     <>
       <Head>
@@ -19,3 +20,5 @@ export default function Login() {
     </>
   );
 }
+
+export default protectedGuessRoute(Login);

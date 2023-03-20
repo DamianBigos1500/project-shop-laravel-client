@@ -6,9 +6,9 @@ export default function useSearch() {
   const filterSearch = (queryParams: any) => {
     const { query } = router;
 
-    Object.entries(queryParams).map(
-      ([key, val]) => (query[key] = queryParams[key])
-    );
+    Object.entries(queryParams).map(([key, val]: any) => {
+      query[key] = val;
+    });
 
     router.replace(
       {

@@ -1,14 +1,13 @@
 import useCategoryContext from '@/context/useCategoryContext';
+import useScrollPosition from '@/hooks/useScrollPosition';
 import { categoryType } from '@/types/categoryType';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 
-type propsType = {
-  isScrollPositive: boolean;
-};
-
-export default function Categories({ isScrollPositive }: propsType) {
+export default function Categories() {
   const { categories } = useCategoryContext();
+  const scrollPosition = useScrollPosition(100);
+  const isScrollPositive = scrollPosition > 10;
 
   return (
     <AnimatePresence initial={false}>

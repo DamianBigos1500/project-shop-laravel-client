@@ -1,7 +1,8 @@
 import GuestLayout from '@/layouts/GuestLayout';
+import { protectedLoginRoute } from '@/utils/protectedRoutes/protectedLoginRoute';
 import Head from 'next/head';
 
-export default function profile() {
+function profile() {
   return (
     <>
       <Head>
@@ -14,4 +15,4 @@ export default function profile() {
   );
 }
 
-// export function getServerSideProps() {}
+export default protectedLoginRoute(profile);

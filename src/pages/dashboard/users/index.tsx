@@ -1,65 +1,73 @@
-import DashboardSidebar from '../../../layouts/components/AdminSidebar';
+import Head from 'next/head';
+import AdminLayout from '@/layouts/AdminLayout';
+import LoadingSpinner from '@/components/LoadingSpinner';
+import Table from '@/components/admin/AdminTable';
+import { usersAdminService } from 'src/services/admin/usersAdmin.service';
+import useFetchData from '@/hooks/admin/useFetchData';
+
+const tableTh = [
+  'Id',
+  'Email',
+  'Name',
+  'Surname',
+  'Phone Number',
+  'Is Verified',
+  'Role',
+  'Actions',
+];
 
 export default function index() {
-  return (
-    <div>
-      <DashboardSidebar />
+  const {
+    data: users,
+    loading,
+    showData: showUser,
+    destroyData: deleteUsers,
+  } = useFetchData(
+    'users',
+    usersAdminService.getUsers,
+    usersAdminService.deleteUsers
+  );
 
-      <div className="ml-[20rem] relative overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Product name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Color
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Category
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Price
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Apple MacBook Pro 17"
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Microsoft Surface Pro
-              </th>
-              <td className="px-6 py-4">White</td>
-              <td className="px-6 py-4">Laptop PC</td>
-              <td className="px-6 py-4">$1999</td>
-            </tr>
-            <tr className="bg-white dark:bg-gray-800">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Magic Mouse 2
-              </th>
-              <td className="px-6 py-4">Black</td>
-              <td className="px-6 py-4">Accessories</td>
-              <td className="px-6 py-4">$99</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  console.log(users);
+
+  return (
+    <>
+      <Head>
+        <title>Profile Admin Dashboard - </title>
+      </Head>
+
+      <AdminLayout>
+        <div className="overflow-x-auto md:m-10 m-0 ">
+          <section className="text-black text-3xl p-4 font-semibold flex">
+            Users: <span>{loading && <LoadingSpinner />}</span>
+          </section>
+          {users.length > 0 && (
+            <section className="bg-white/80 md:m-2 m-0 rounded-xl overflow-hidden">
+              <Table>
+                <Table.Thead data={tableTh} />
+                <Table.Tbody>
+                  {users.map((user: any) => (
+                    <Table.TbodyTr key={user.id}>
+                      <Table.TbodyTd>{user.id}</Table.TbodyTd>
+                      <Table.TbodyTd>{user.email}</Table.TbodyTd>
+                      <Table.TbodyTd>{user.name}</Table.TbodyTd>
+                      <Table.TbodyTd>{user.surname}</Table.TbodyTd>
+                      <Table.TbodyTd>{user.phone_number}</Table.TbodyTd>
+                      <Table.TbodyTd>{user.email_verified_at}</Table.TbodyTd>
+                      <Table.TbodyTd>{user.role}</Table.TbodyTd>
+                      <Table.TbodyButton
+                        loading={loading}
+                        editButton={() => showUser(user.id)}
+                        deleteButton={() => deleteUsers(user.id)}
+                      />
+                    </Table.TbodyTr>
+                  ))}
+                </Table.Tbody>
+              </Table>
+            </section>
+          )}
+        </div>
+      </AdminLayout>
+    </>
   );
 }

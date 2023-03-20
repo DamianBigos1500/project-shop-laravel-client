@@ -17,8 +17,6 @@ export default function Rating({ ratings, productId }: propsType) {
   const { user } = useAuthContext();
   const isReviewed = includeReview(ratings, user?.id);
 
-  console.log(isReviewed);
-
   return (
     <section className="flex flex-col mt-10 ">
       <div className="rounded-xl shadow-slate-700">

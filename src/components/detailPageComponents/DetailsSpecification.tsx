@@ -7,6 +7,9 @@ import { productType } from '@/types/productType';
 import useCartContext from '@/context/useCartContext';
 import RatingStars from '../rating/RatingStars';
 import { ratingsType } from '@/types/ratingsType';
+import amountByRatings from '@/utils/amountByRatings';
+import calculateRatingsStar from '@/utils/calculateRatingsStar';
+import ratingsData from '@/utils/ratingsData';
 
 type propsType = {
   product: productType;
@@ -16,6 +19,7 @@ type propsType = {
 export default function DetailsSpecification({ product, ratings }: propsType) {
   const [quantity, setQuantity] = useState<number>(1);
   const { addItemToCart, addCartLoading } = useCartContext();
+  const { stars } = ratingsData(ratings);
 
   const handleChange = (quantity: number) => {
     setQuantity(quantity);
@@ -30,7 +34,7 @@ export default function DetailsSpecification({ product, ratings }: propsType) {
       {/* Title */}
       <div className="row-start-1 row-end-2">
         <ProductTitleComponent name={product.name} productId={product.id} />
-        <RatingStars stars={0} reviews={0} />
+        <RatingStars stars={stars} reviews={ratings.length} />
         <div className="border" />
       </div>
       {/* Info */}

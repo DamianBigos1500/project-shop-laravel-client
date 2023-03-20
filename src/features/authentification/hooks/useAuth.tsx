@@ -1,28 +1,26 @@
 import { useEffect, useState } from 'react';
-import Router from 'next/router';
 import csrf from '@/lib/csrf';
-import navigateBack from '@/lib/helper';
 import { loginDataType, registerDataType } from '../types';
-import {
-  getUserData,
-  postLogin,
-  postLogout,
-  postRegister,
-} from '../service/authService';
-import { moveCartToDb } from '@/features/cart/services/cartService';
+import { AuthService } from '../service/auth.service';
+import { CartService } from '@/features/cart/services/cart.service';
+import { useRouter } from 'next/router';
 
 export default function useAuth() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState<any>([]);
 
+  const router = useRouter();
+  const { query }: any = router;
+
   const register = async ({ ...data }: registerDataType) => {
     await csrf();
     setErrors([]);
     try {
-      await postRegister(data);
+      await AuthService.register(data);
       await getUser();
-      Router.push('/');
+
+      router.replace(query.returnUrl || '/');
     } catch (e: any) {
       if (e.response.status === 422) {
         errors.value = e.response.data.errors;
@@ -34,32 +32,37 @@ export default function useAuth() {
     await csrf();
     setErrors([]);
     try {
-      await postLogin(data);
+      await AuthService.login(data);
       await getUser();
-      navigateBack();
+
+      router.replace(query.returnUrl || '/');
     } catch (e: any) {
-      if (e?.response.status === 422) {
-        setErrors(e.response.data.errors);
-      }
+      console.log(e);
+      // if (e?.response.status === 422) {
+      //   setErrors(e.response.data.errors);
+      // }
     }
 
     try {
-      await moveCartToDb();
+      await CartService.moveCartToDb();
     } catch (error) {}
   };
 
   const logout = async () => {
     try {
-      await postLogout();
+      await AuthService.logout();
       setUser(null);
     } catch (error) {}
   };
 
   const getUser = async () => {
     try {
-      const { data }: any = await getUserData();
+      const { data }: any = await AuthService.getUser();
       setUser(data);
-    } catch (error) {}
+      console.log(data);
+    } catch (error) {
+      setLoading(false);
+    }
     setLoading(false);
   };
 
@@ -69,6 +72,10 @@ export default function useAuth() {
     }
   }, [user]);
 
+  const isUserAdmin = () => {
+    return user?.role === 'ADMIN';
+  };
+
   return {
     user: user,
     loading: loading,
@@ -77,5 +84,6 @@ export default function useAuth() {
     login,
     logout,
     getUser,
+    isUserAdmin,
   };
 }

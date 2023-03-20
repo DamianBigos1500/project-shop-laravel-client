@@ -1,10 +1,6 @@
 import replaceProductDetails from '@/utils/replaceProductDetails';
 import { useState } from 'react';
-import {
-  deleteProductReviews,
-  patchProductReviews,
-  postProductReviews,
-} from 'src/services/ProductReviewsService';
+import { productRewiewsService } from 'src/services/productReviews.service';
 
 export default function useRatings() {
   const [error, setError] = useState<null | string>(null);
@@ -13,7 +9,7 @@ export default function useRatings() {
   const createReview = async (productId: number, { review, rating }: any) => {
     setIsLoading(true);
     try {
-      await postProductReviews(productId, {
+      await productRewiewsService.postProductReviews(productId, {
         review,
         rating,
       });
@@ -29,7 +25,7 @@ export default function useRatings() {
   ) => {
     setIsLoading(true);
     try {
-      await patchProductReviews(ratingId, data);
+      await productRewiewsService.patchProductReviews(ratingId, data);
       replaceProductDetails(productId);
     } catch (error) {}
     setIsLoading(false);
@@ -37,7 +33,7 @@ export default function useRatings() {
 
   const deleteReview = async (ratingId: number, productId: number) => {
     try {
-      await deleteProductReviews(ratingId);
+      await productRewiewsService.deleteProductReviews(ratingId);
       replaceProductDetails(productId);
     } catch (error) {}
   };

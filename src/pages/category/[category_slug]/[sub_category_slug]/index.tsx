@@ -3,9 +3,8 @@ import GuestLayout from '@/layouts/GuestLayout';
 import { productType } from '@/types/productType';
 import ProductGrid from '@/components/product/ProductGrid';
 import { GetStaticPropsContext } from 'next';
-import { getCategories } from '@/features/category/service/categoryService';
-import { getProductsByCategory } from '@/features/products/services/productService';
-import { useRouter } from 'next/router';
+import { categoryService } from '@/features/category/service/category.service';
+import { productService } from '@/features/products/services/product.service';
 import { categoryType } from '@/types/categoryType';
 import { AxiosResponse } from 'axios';
 
@@ -15,8 +14,6 @@ type propsType = {
 };
 
 export default function index({ products, category }: propsType) {
-  console.log(products);
-
   return (
     <>
       <Head>
@@ -31,7 +28,6 @@ export default function index({ products, category }: propsType) {
           <span className="text-gray-500">({products.data.length})</span>
         </div>
 
-        {/* <div className="w-80">asdasd</div> */}
         <ProductGrid products={products} />
       </GuestLayout>
     </>
@@ -42,25 +38,29 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   let productsRes: any;
 
   try {
-    productsRes = await getProductsByCategory(
+    productsRes = await productService.getProductsByCategory(
       context.params?.sub_category_slug!
     );
-  } catch (error) {}
-
-  return {
-    props: {
-      products: productsRes.data.products,
-      category: productsRes.data.category,
-    },
-    revalidate: 600,
-  };
+    return {
+      props: {
+        products: productsRes.data.products,
+        category: productsRes.data.category,
+      },
+      revalidate: 600,
+    };
+  } catch (error) {
+    return {
+      props: {},
+      revalidate: 600,
+    };
+  }
 }
 
 export async function getStaticPaths() {
   let res: AxiosResponse;
 
   try {
-    res = await getCategories();
+    res = await categoryService.getCategories();
   } catch (error) {
     return { paths: [], fallback: 'blocking' };
   }

@@ -97,7 +97,7 @@ export default function DashboardSidebar() {
       };
 
   return (
-    <div>
+    <div className="h-full shadow-sidebar">
       <div
         onClick={() => setIsOpen(false)}
         className={`md:hidden fixed inset-0 max-h-screen z-[998] bg-black/50 ${
@@ -109,7 +109,7 @@ export default function DashboardSidebar() {
         variants={Sidebar_animation}
         initial={{ x: isTab ? -260 : 0 }}
         animate={isOpen ? 'open' : 'closed'}
-        className="bg-white text-black shadow-sidebar z-[999] w-[16rem] 
+        className="bg-white text-black  z-[999] w-[16rem] 
     max-w-[16rem] h-screen overflow-hidden md:relative fixed"
       >
         <div className="h-16 flex flex-col items-center justify-center w-full md:text-black text-transparent mt-6">

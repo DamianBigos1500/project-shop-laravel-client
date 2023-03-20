@@ -4,6 +4,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import Modal from '../Modal/Modal';
 import Backdrop from '../Modal/Backdrop';
 import useAuthContext from '@/context/useAuthContext';
+import Router from 'next/router';
 const FavouritModal = React.lazy(
   () => import('../favouritPageComponents/FavouritModal')
 );
@@ -19,7 +20,7 @@ export default function ProductTitleComponent({ name, productId }: propsType) {
 
   const handleOpenModal = () => {
     if (user) openModal();
-    // else Router.push('/login');
+    else Router.push('/login');
   };
 
   return (
@@ -39,9 +40,7 @@ export default function ProductTitleComponent({ name, productId }: propsType) {
         <Modal isOpen={isShowing}>
           <Backdrop closeModal={closeModal} />
           <Suspense fallback={<div>Loading...</div>}>
-            <FavouritModal
-              productId={productId}
-            />
+            <FavouritModal productId={productId} />
           </Suspense>
         </Modal>
       )}

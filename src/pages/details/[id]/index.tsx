@@ -1,4 +1,4 @@
-import { getProductById } from '@/features/products/services/productService';
+import { productService } from '@/features/products/services/product.service';
 import Head from 'next/head';
 import GuestLayout from '@/layouts/GuestLayout';
 import ProductImages from '@/components/detailPageComponents/ProductImages';
@@ -6,7 +6,7 @@ import CategoryChain from '@/components/detailPageComponents/CategoryChain';
 import { productType } from '@/types/productType';
 import DetailsSpecification from '@/components/detailPageComponents/DetailsSpecification';
 import Rating from '@/components/rating/Rating';
-import { getProductReviews } from 'src/services/ProductReviewsService';
+import { productRewiewsService } from 'src/services/productReviews.service';
 import { ratingsType } from '@/types/ratingsType';
 
 type propsType = {
@@ -15,6 +15,7 @@ type propsType = {
 };
 
 export default function index({ product, productRatings }: propsType) {
+
   return (
     <>
       <Head>
@@ -28,7 +29,6 @@ export default function index({ product, productRatings }: propsType) {
 
         <div className="max-w-7xl mt-6 grid gap-y-4 gap-x-8 md:grid-cols-[12fr_13fr] md:grid-rows-[auto_1fr]">
           <ProductImages images={product.images} />
-
           <DetailsSpecification product={product} ratings={productRatings} />
         </div>
 
@@ -44,11 +44,13 @@ export default function index({ product, productRatings }: propsType) {
 
 export async function getServerSideProps(context: any) {
   try {
-    const productRes = await getProductById(context.params?.id!);
-    const productRatingsRes = await getProductReviews(
-      context.params?.id!,
-      context.query
-    );
+    const [productRes, productRatingsRes] = await Promise.all([
+      productService.getProductById(context.params?.id!),
+      productRewiewsService.getProductReviews(
+        context.params?.id!,
+        context.query
+      ),
+    ]);
 
     return {
       props: {
