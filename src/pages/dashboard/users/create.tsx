@@ -2,13 +2,14 @@ import AdminForm from '@/components/admin/AdminForm';
 import AdminDetails from '@/components/admin/AdminDetails';
 import AdminLayout from '@/layouts/AdminLayout';
 import Head from 'next/head';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import AuthSubmitButton from '@/components/UI/Button/SubmitButton';
 import { onChangeType } from '@/types/onChangeType';
 import { categoryType } from '@/types/categoryType';
 import useCategoryContext from '@/context/useCategoryContext';
 import useProductAdmin from '@/hooks/admin/useProductAdmin';
 import { onSubmitType } from '@/types/onSubmitType';
+import useUserAdmin from '@/hooks/admin/useUserAdmin';
 
 export default function create() {
   const { getCategoriesChildren } = useCategoryContext();
@@ -19,16 +20,13 @@ export default function create() {
   };
   const {
     nameRef,
-    categoryRef,
-    productCodeRef,
-    shortDescRef,
     longDescRef,
     regularPriceRef,
     discountPriceRef,
     quantityRef,
     isAvailableRef,
     createNewProduct,
-  } = useProductAdmin(null);
+  } = useUserAdmin();
 
   const onSubmit = (e: onSubmitType) => {
     e.preventDefault();
@@ -39,7 +37,7 @@ export default function create() {
   return (
     <>
       <Head>
-        <title>Create Product - Admin Dashboard </title>
+        <title>Create User - Admin Dashboard </title>
       </Head>
 
       <AdminLayout>

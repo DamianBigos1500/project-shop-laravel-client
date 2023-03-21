@@ -1,5 +1,6 @@
 import { childrenType } from '@/types/childrenType';
 import { productType } from '@/types/productType';
+import Image from 'next/image';
 import React from 'react';
 import { BsTrash } from 'react-icons/bs';
 import { IoIosArrowDown } from 'react-icons/io';
@@ -55,9 +56,12 @@ Table.TbodyTd = ({ children }: any) => {
 Table.TbodyImg = ({ url }: any) => {
   return (
     <td className="p-1 h-full ">
-      <img
+      <Image
         src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + url}
         className="w-10 h-10 rounded-full mx-auto object-cover"
+        alt={''}
+        width={40}
+        height={40}
       />
     </td>
   );

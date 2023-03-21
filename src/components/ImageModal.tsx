@@ -1,5 +1,6 @@
 import { imageType } from '@/types/imageType';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 import { useState } from 'react';
 import { BiArrowToLeft } from 'react-icons/bi';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
@@ -50,7 +51,9 @@ export default function ImageModal({
               className={`"text-center text-lg ${showGalery && 'scale-[-1]'}`}
             />
           </div>
-          <img
+          <Image
+            width={1024}
+            height={1024}
             src={
               process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
               images[activeImage].filename
@@ -88,7 +91,9 @@ export default function ImageModal({
             >
               <div className="p-5 grid grid-cols-4 gap-2 ">
                 {images.map((image: imageType, index: number) => (
-                  <img
+                  <Image
+                  height={96}
+                  width={80}
                     key={image.id}
                     src={
                       process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
@@ -96,7 +101,7 @@ export default function ImageModal({
                     }
                     onClick={() => setImageShow(index)}
                     alt={'product detail image ' + index}
-                    className={` w-full aspect-[10_/_12] cursor-pointer rounded-md border hover:border-gray-600 transform-border duration-300 ${
+                    className={` w-full aspect-[10_/_12] object-cover cursor-pointer rounded-md border hover:border-gray-600 transform-border duration-300 ${
                       index === activeImage && 'border-gray-600 '
                     }`}
                   />

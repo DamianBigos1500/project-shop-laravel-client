@@ -82,7 +82,9 @@ export default function HomePageCarousel() {
               }
             }}
             className="absolute inset-0 object-cover w-full h-full"
-          />
+          >
+            
+          </motion.img>
         </AnimatePresence>
         <div
           className="absolute z-10 top-[50%] translate-y-[-50%] right-2 rounded-full bg-white/70 p-4 cursor-pointer"

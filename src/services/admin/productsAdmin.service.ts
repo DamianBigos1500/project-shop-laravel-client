@@ -1,5 +1,4 @@
-import axios from '@/lib/axios';
-import Axios from 'axios';
+import axios, { axiosFormData } from '@/lib/axios';
 
 export const productsAdminService = {
   getProducts: async () => {
@@ -7,21 +6,18 @@ export const productsAdminService = {
   },
 
   createProducts: async (data: any) => {
-    return await Axios.post(
+    return await axiosFormData.post(
       process.env.NEXT_PUBLIC_BACKEND_URL + '/api/admin/products',
-      data,
-      {
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      }
+      data
     );
   },
 
   showProduct: async (productId: string) => {
     return await axios.get('/api/admin/products/' + productId);
+  },
+
+  updateProducts: async (productId: number, data: any) => {
+    return await axios.patch('/api/admin/products/' + productId, data);
   },
 
   deleteProducts: async (productId: string) => {

@@ -3,6 +3,7 @@ import React from 'react';
 import { navigateToProductDetails } from 'src/utils/navigateToProductDetails';
 import useCartContext from '@/context/useCartContext';
 import AddToCard from './AddToCard';
+import Image from 'next/image';
 
 type propsType = {
   product: productType;
@@ -16,12 +17,15 @@ export default function FeaturedProductCard({ product }: propsType) {
       key={product.id}
       className="rounded-xl overflow-hidden w-full transition custom-shadow z-0"
     >
-      <img
+      <Image
         src={
           process.env.NEXT_PUBLIC_BACKEND_IMG_URL + product?.images[0].filename
         }
         className="w-full h-[16rem] object-cover cursor-pointer"
         onClick={() => navigateToProductDetails(product.id)}
+        alt={''}
+        width={1024}
+        height={256}
       />
       <div className="">
         <div

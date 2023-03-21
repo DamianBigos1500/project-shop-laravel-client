@@ -7,6 +7,7 @@ import { FiChevronsRight } from 'react-icons/fi';
 import { BsTrash } from 'react-icons/bs';
 import useCartContext from '@/context/useCartContext';
 import RedButton from '../UI/Button/RedButton';
+import Image from 'next/image';
 type propsType = {
   product: productType;
   removeFavouritItem(productId: number): void;
@@ -35,7 +36,9 @@ export default function FavouritProduct({
             className="cursor-pointer text-[1.4rem] text-red-600"
           />
         </div>
-        <img
+        <Image
+          width={112}
+          height={128}
           onClick={() => navigateToProductDetails(product.id)}
           src={
             process.env.NEXT_PUBLIC_BACKEND_IMG_URL + product.images[0].filename

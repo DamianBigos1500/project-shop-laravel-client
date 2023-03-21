@@ -37,7 +37,6 @@ export default function useAuth() {
 
       router.replace(query.returnUrl || '/');
     } catch (e: any) {
-      console.log(e);
       // if (e?.response.status === 422) {
       //   setErrors(e.response.data.errors);
       // }
@@ -59,7 +58,6 @@ export default function useAuth() {
     try {
       const { data }: any = await AuthService.getUser();
       setUser(data);
-      console.log(data);
     } catch (error) {
       setLoading(false);
     }

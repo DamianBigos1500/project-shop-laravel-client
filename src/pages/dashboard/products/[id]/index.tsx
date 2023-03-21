@@ -1,27 +1,18 @@
 import AdminDetails from '@/components/admin/AdminDetails';
+import useGetDataById from '@/hooks/admin/useGetDataById';
 import AdminLayout from '@/layouts/AdminLayout';
-import { productType } from '@/types/productType';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import React from 'react';
 import { productsAdminService } from 'src/services/admin/productsAdmin.service';
 
 export default function index({ productId }: any) {
-  const [product, setProduct] = useState<productType | null>(null);
-
-  async function getData() {
-    try {
-      const res = await productsAdminService.showProduct(productId);
-      setProduct(res.data.product);
-    } catch (error) {}
-  }
-  console.log(product);
-
-  useEffect(() => {
-    if (!product) {
-      getData();
-    }
-  }, []);
+  const { data: product, loading } = useGetDataById(
+    'product',
+    productsAdminService.showProduct,
+    productId
+  );
 
   return (
     <>
@@ -31,9 +22,19 @@ export default function index({ productId }: any) {
 
       <AdminLayout>
         <div className="overflow-x-auto md:m-10 m-0 ">
-          <AdminDetails>Product:</AdminDetails>
+          <AdminDetails>
+            <span className="text-black text-3xl py-4 font-semibold">
+              Product:
+            </span>
+            <Link
+              href={`/dashboard/products/${productId}/edit`}
+              className="text-white bg-blue-500 p-2"
+            >
+              edit
+            </Link>
+          </AdminDetails>
 
-          {product && (
+          {!loading && product && (
             <AdminDetails.Wraper>
               <AdminDetails.Data label={'Product Id'} data={product.id} />
               <AdminDetails.Data label={'Product Name'} data={product.name} />

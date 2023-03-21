@@ -5,6 +5,7 @@ import SelectQuantity from '@/components/cartPageComponenets/SelectQuantity';
 import CartPrice from '@/components/cartPageComponenets/CartPrice';
 import useCartContext from '@/context/useCartContext';
 import { cartItemType } from '@/types/cartItemType';
+import Image from 'next/image';
 
 type propsType = {
   cartItem: cartItemType;
@@ -39,7 +40,9 @@ export default function CartItemCard({ cartItem }: propsType) {
     <>
       <div className="flex justify-between sm:flex-row flex-col p-2">
         <div className=" flex items-center">
-          <img
+          <Image
+            width={112}
+            height={128}
             onClick={() => navigateToProductDetails(cartItem.id)}
             src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + cartItem.picture}
             alt={cartItem.name}

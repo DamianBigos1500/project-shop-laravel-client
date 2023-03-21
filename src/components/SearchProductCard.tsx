@@ -1,5 +1,6 @@
 import { productType } from '@/types/productType';
 import { navigateToProductDetails } from '@/utils/navigateToProductDetails';
+import Image from 'next/image';
 import React from 'react';
 
 type propsType = {
@@ -15,12 +16,15 @@ export default function SearchProductCard({ product }: propsType) {
     >
       <div className="flex">
         <div className=" h-full w-20">
-          <img
+          <Image
             src={
               process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
               product.images[0].filename
             }
+            width={80}
+            height={100}
             className="h-full max-w-[5rem] object-cover mx-auto"
+            alt={''}
           />
         </div>
         <div className="pl-2">{product.name}</div>

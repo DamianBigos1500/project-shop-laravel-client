@@ -5,6 +5,7 @@ import useCartContext from '@/context/useCartContext';
 import AddToCard from '../AddToCard';
 import RatingStars from '../rating/RatingStars';
 import calculateRatingsStar from '@/utils/calculateRatingsStar';
+import Image from 'next/image';
 
 type Details = {
   procesor: string;
@@ -31,19 +32,23 @@ export default function ProductCard({ product }: propsType) {
         className="relative h-[20rem] cursor-pointer"
         onClick={() => navigateToProductDetails(product.id)}
       >
-        <img
+        <Image
           src={
             process.env.NEXT_PUBLIC_BACKEND_IMG_URL + product.images[0].filename
           }
           className="w-full h-full object-cover"
+          width={280}
+          height={320}
+          alt={''}
         />
         {product?.images[1] && (
-          <img
+          <Image
             src={
               process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
               product?.images[1].filename
             }
             className="w-full h-full object-cover absolute inset-0 group-hover:opacity-[1] opacity-0 transition"
+            alt={''}
           />
         )}
       </div>

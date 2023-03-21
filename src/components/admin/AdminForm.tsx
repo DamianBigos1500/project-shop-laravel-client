@@ -1,10 +1,7 @@
 import { childrenType } from '@/types/childrenType';
-import { imageType } from '@/types/imageType';
-import { onChangeType } from '@/types/onChangeType';
+import Image from 'next/image';
 import React, {
   FC,
-  ForwardRefRenderFunction,
-  HTMLInputTypeAttribute,
   InputHTMLAttributes,
   ReactNode,
   TextareaHTMLAttributes,
@@ -22,11 +19,7 @@ export default function AdminForm({ children }: childrenType) {
 interface FormType extends InputHTMLAttributes<HTMLInputElement> {}
 
 const Wraper: FC<FormType> = ({ children, ...props }) => {
-  return (
-    <section className="bg-white/80 m-2  rounded-xl overflow-hidden">
-      {children}
-    </section>
-  );
+  return <section className=" overflow-hidden">{children}</section>;
 };
 AdminForm.Wraper = Wraper;
 
@@ -38,7 +31,7 @@ interface FormGroupProps {
 
 const FormGroup: FC<FormGroupProps> = ({ label, children, id }) => {
   return (
-    <div className="bg-white/80 rounded-xl overflow-hidden mt-4 flex items-center">
+    <div className=" overflow-hidden mt-4 flex items-center">
       {label && (
         <label
           className="capitalize font-semibold mr-4 whitespace-nowrap"
@@ -54,39 +47,30 @@ const FormGroup: FC<FormGroupProps> = ({ label, children, id }) => {
 
 AdminForm.FormGroup = FormGroup;
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  defaultValue?: string | number;
-}
-const Input: FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
-  ({ defaultValue, ...props }, ref) => {
-    return (
-      <input
-        className="outline-none rounded-full border px-4 py-2 border-gray-400 w-full"
-        ref={ref}
-        {...props}
-        defaultValue={defaultValue}
-      />
-    );
-  }
-);
-AdminForm.Input = Input;
-
-interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  defaultValue?: string | number;
-}
-const TextArea: FC<TextAreaProps> = forwardRef<
-  HTMLTextAreaElement,
-  TextAreaProps
->(({ defaultValue, ...props }, ref) => {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
+const Input = forwardRef<HTMLInputElement, InputProps>(({ ...props }, ref) => {
   return (
-    <textarea
-      className="outline-none rounded-xl border px-4 py-2 border-gray-400 w-full"
+    <input
+      className="outline-none rounded-full border px-4 py-2 border-gray-400 w-full"
       ref={ref}
-      defaultValue={defaultValue}
       {...props}
     />
   );
 });
+AdminForm.Input = Input;
+
+interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  ({ ...props }, ref: any) => {
+    return (
+      <textarea
+        className="outline-none rounded-xl border px-4 py-2 border-gray-400 w-full"
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
 
 AdminForm.TextArea = TextArea;
 
@@ -112,14 +96,50 @@ AdminForm.MultipleImages = ({
       <div className="flex gap-6 flex-wrap">
         {images.map((image: any) => (
           <div className="w-48 h-48 relative" key={image}>
-            <img
+            <Image
+              width={192}
+              height={192}
               className="w-48 h-48 object-cover"
               src={URL.createObjectURL(image)}
+              alt={'Admin Image'}
             />
             <button
               type="button"
               className="absolute top-0 left-0 bg-red-500 p-1 rounded-sm text-white"
               onClick={() => setImages(images.filter((e) => e !== image))}
+            >
+              Delete image
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+AdminForm.UpdateImages = ({
+  images,
+  deleteImage,
+}: {
+  images: string[] | [];
+  deleteImage: any;
+}) => {
+  return (
+    <div className="mt-4 ">
+      <div className="font-semibold mb-2">Images :</div>
+
+      <div className="flex gap-6 flex-wrap">
+        {images.map((image: any) => (
+          <div className="w-48 h-48 relative" key={image.id}>
+            <Image
+              className="w-48 h-48  object-cover"
+              src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + image.filename}
+              alt={'Admin Image'}
+            />
+            <button
+              type="button"
+              className="absolute top-0 left-0 bg-red-500 p-1 rounded-sm text-white"
+              onClick={() => deleteImage(image.id)}
             >
               Delete image
             </button>
