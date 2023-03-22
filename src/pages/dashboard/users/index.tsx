@@ -4,6 +4,7 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import Table from '@/components/admin/AdminTable';
 import { usersAdminService } from 'src/services/admin/usersAdmin.service';
 import useFetchData from '@/hooks/admin/useFetchData';
+import Link from 'next/link';
 
 const tableTh = [
   'Id',
@@ -25,7 +26,7 @@ export default function index() {
   } = useFetchData(
     'users',
     usersAdminService.getUsers,
-    usersAdminService.deleteUsers
+    usersAdminService.deleteUser
   );
 
   console.log(users);
@@ -38,8 +39,13 @@ export default function index() {
 
       <AdminLayout>
         <div className="overflow-x-auto md:m-10 m-0 ">
-          <section className="text-black text-3xl p-4 font-semibold flex">
-            Users: <span>{loading && <LoadingSpinner />}</span>
+          <section className="flex p-4 justify-between items-center">
+            <span className="text-black text-3xl font-semibold ">
+              Users: <span>{loading && <LoadingSpinner />}</span>
+            </span>
+            <button className="bg-gradient-to-r from-green-600 to-green-400 text-white rounded-xl px-6 py-2 text-sm font-semibold whitespace-nowrap">
+              <Link href="/dashboard/users/create">Create new User</Link>
+            </button>
           </section>
           {users.length > 0 && (
             <section className="bg-white/80 md:m-2 m-0 rounded-xl overflow-hidden">

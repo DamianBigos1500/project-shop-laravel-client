@@ -33,16 +33,18 @@ export default function ProductCard({ product }: propsType) {
         onClick={() => navigateToProductDetails(product.id)}
       >
         <Image
+          width={280}
+          height={320}
           src={
             process.env.NEXT_PUBLIC_BACKEND_IMG_URL + product.images[0].filename
           }
           className="w-full h-full object-cover"
-          width={280}
-          height={320}
           alt={''}
         />
         {product?.images[1] && (
           <Image
+            width={280}
+            height={320}
             src={
               process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
               product?.images[1].filename

@@ -112,8 +112,12 @@ export default function DashboardSidebar() {
         className="bg-white text-black  z-[999] w-[16rem] 
     max-w-[16rem] h-screen overflow-hidden md:relative fixed"
       >
-        <div className="h-16 flex flex-col items-center justify-center w-full md:text-black text-transparent mt-6">
-          <h1 className="font-semibold text-4xl text-orange-400">
+        <div
+          className={`h-16 flex flex-col items-center justify-center w-full md:text-black text-transparent mt-6 duration-100 ${
+            !isOpen && 'opacity-0'
+          }`}
+        >
+          <h1 className="font-semibold text-4xl text-orange-400 whitespace-nowrap">
             Night't Shop
           </h1>
           <span className="font-semibold text-small text-red-500">
@@ -150,39 +154,19 @@ export default function DashboardSidebar() {
          "
           >
             <li>
-              <Link href="" className="link">
+              <Link href="/" className="link">
                 <AiOutlineAppstore size={23} className="min-w-max" />
-                All Apps
+                Go to shop
               </Link>
             </li>
 
-            <li>
-              <Link href="" className="link">
-                <BsPerson size={23} className="min-w-max" />
-                Authentication
-              </Link>
-            </li>
-
-            <li>
-              <Link href="" className="link">
-                <BsPerson size={23} className="min-w-max" />
-                Authentication
-              </Link>
-            </li>
-
-            {(isOpen || isTab) && (
-              <div className="border-y py-5 border-slate-300">
-                <small className="pl-3 text-slate-500 inline-block mb-2">
-                  Product categories
-                </small>
-
-                {subMenusList?.map((menu) => (
-                  <div key={menu.name} className="flex flex-col gap-1">
-                    <SubMenu data={menu} />
-                  </div>
-                ))}
-              </div>
-            )}
+            <div className="border-y py-5 border-slate-300">
+              {subMenusList?.map((menu) => (
+                <div key={menu.name} className="flex flex-col gap-1">
+                  <SubMenu data={menu} />
+                </div>
+              ))}
+            </div>
           </ul>
 
           <div>

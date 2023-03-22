@@ -2,36 +2,28 @@ import AdminForm from '@/components/admin/AdminForm';
 import AdminDetails from '@/components/admin/AdminDetails';
 import AdminLayout from '@/layouts/AdminLayout';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React from 'react';
 import AuthSubmitButton from '@/components/UI/Button/SubmitButton';
-import { onChangeType } from '@/types/onChangeType';
-import { categoryType } from '@/types/categoryType';
-import useCategoryContext from '@/context/useCategoryContext';
-import useProductAdmin from '@/hooks/admin/useProductAdmin';
 import { onSubmitType } from '@/types/onSubmitType';
 import useUserAdmin from '@/hooks/admin/useUserAdmin';
 
 export default function create() {
-  const { getCategoriesChildren } = useCategoryContext();
-  const [selectedImages, setSelectedImages] = useState<string[] | []>([]);
-
-  const addImage = (e: onChangeType) => {
-    setSelectedImages((prev: any) => [...prev, ...Array.from(e.target.files)]);
-  };
   const {
     nameRef,
-    longDescRef,
-    regularPriceRef,
-    discountPriceRef,
-    quantityRef,
-    isAvailableRef,
-    createNewProduct,
-  } = useUserAdmin();
+    emailRef,
+    surnameRef,
+    phoneNumberRef,
+    roleRef,
+    passwordRef,
+    passwordCfRef,
+    selectedImage,
+    createNewUser,
+    onFileChange,
+  } = useUserAdmin(null);
 
   const onSubmit = (e: onSubmitType) => {
     e.preventDefault();
-
-    createNewProduct(selectedImages);
+    createNewUser();
   };
 
   return (
@@ -54,118 +46,82 @@ export default function create() {
                 />
               </AdminForm.FormGroup>
 
-              <AdminForm.FormGroup id={'category'} label={'Category'}>
-                <select
-                  id="category"
-                  name="category"
-                  className="outline-none rounded-full border px-4 py-2 border-gray-400 w-full"
-                  defaultValue={0}
-                  ref={categoryRef}
-                >
-                  <option value={0}>-----</option>
-                  {getCategoriesChildren().map((category: categoryType) => {
-                    return (
-                      <option key={category.id} value={category.id}>
-                        {category.title}
-                      </option>
-                    );
-                  })}
-                </select>
+              <AdminForm.FormGroup id={'surname'} label={'Surname'}>
+                <AdminForm.Input
+                  id={'surname'}
+                  placeholder={'surname'}
+                  ref={surnameRef}
+                />
               </AdminForm.FormGroup>
 
-              <AdminForm.FormGroup id={'product_code'} label={'Product Code'}>
+              <AdminForm.FormGroup id={'email'} label={'Email'}>
                 <AdminForm.Input
-                  id={'product_code'}
-                  placeholder={'Product Code'}
-                  ref={productCodeRef}
+                  id={'email'}
+                  type="email"
+                  placeholder={'Name'}
+                  ref={emailRef}
+                />
+              </AdminForm.FormGroup>
+
+              <AdminForm.FormGroup id={'phone'} label={'Phone Number'}>
+                <AdminForm.Input
+                  id={'phone'}
+                  type="phone"
+                  placeholder={'Phone Number'}
+                  ref={phoneNumberRef}
+                />
+              </AdminForm.FormGroup>
+
+              <AdminForm.FormGroup id={'role'} label={'Role'}>
+                <AdminForm.Input
+                  id={'role'}
+                  type="role"
+                  placeholder={'Role'}
+                  ref={roleRef}
+                />
+              </AdminForm.FormGroup>
+
+              <AdminForm.FormGroup id={'password'} label={'Password'}>
+                <AdminForm.Input
+                  id={'password'}
+                  type="password"
+                  placeholder={'Password'}
+                  ref={passwordRef}
                 />
               </AdminForm.FormGroup>
 
               <AdminForm.FormGroup
-                id={'short_description'}
-                label={'Short Description'}
+                id={'password_confirmation'}
+                label={'Confirm Password'}
               >
-                <AdminForm.TextArea
-                  id={'short_description'}
-                  placeholder={'Short Description'}
-                  rows={4}
-                  ref={shortDescRef}
+                <AdminForm.Input
+                  id={'password_confirmation'}
+                  type="password_confirmation"
+                  placeholder={'Confirm Password'}
+                  ref={passwordCfRef}
                 />
               </AdminForm.FormGroup>
 
               <AdminForm.FormGroup
-                id={'long_description'}
-                label={'Long Description'}
-              >
-                <AdminForm.TextArea
-                  id={'long_description'}
-                  placeholder={'Long Description'}
-                  rows={4}
-                  ref={longDescRef}
-                />
-              </AdminForm.FormGroup>
-
-              <AdminForm.FormGroup id={'regular_price'} label={'Regular Price'}>
-                <AdminForm.Input
-                  id={'regular_price'}
-                  placeholder={'Regular Price'}
-                  ref={regularPriceRef}
-                  type="number"
-                  min="0"
-                  step=".01"
-                />
-              </AdminForm.FormGroup>
-
-              <AdminForm.FormGroup
-                id={'discount_price'}
-                label={'Discount Price'}
+                id={'images'}
+                label={'Click to change image'}
               >
                 <AdminForm.Input
-                  id={'discount_price'}
-                  placeholder={'Discount Price'}
-                  ref={discountPriceRef}
-                  type="number"
-                  min="0"
-                  step=".01"
-                />
-              </AdminForm.FormGroup>
-
-              <AdminForm.FormGroup id={'quantity'} label={'Quantity'}>
-                <AdminForm.Input
-                  id={'quantity'}
-                  placeholder={'Quantity'}
-                  type="number"
-                  ref={quantityRef}
-                />
-              </AdminForm.FormGroup>
-
-              <AdminForm.FormGroup id={'is_available'} label={'Is Available'}>
-                <div>
-                  <AdminForm.Input
-                    id={'is_availabel'}
-                    placeholder={'Is Available'}
-                    type="checkbox"
-                    ref={isAvailableRef}
-                    defaultChecked={isAvailableRef.current}
-                  />
-                </div>
-              </AdminForm.FormGroup>
-
-              <AdminForm.FormGroup id={'images'} label={'Add Image'}>
-                <AdminForm.Input
-                  id={'images'}
-                  name={'images'}
-                  placeholder={'Images'}
+                  id={'profile_image'}
+                  name={'profile_image'}
+                  placeholder={'profile_image'}
                   type="file"
-                  onChange={addImage}
-                  multiple
+                  onChange={onFileChange}
                 />
               </AdminForm.FormGroup>
 
-              <AdminForm.MultipleImages
-                images={selectedImages}
-                setImages={setSelectedImages}
-              />
+              {selectedImage && (
+                <AdminDetails.Image
+                  imageSrc={URL.createObjectURL(selectedImage)}
+                  label={''}
+                />
+              )}
+
               <div className="mt-10">
                 <AuthSubmitButton>Create new Product</AuthSubmitButton>
               </div>

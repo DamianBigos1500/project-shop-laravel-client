@@ -124,6 +124,7 @@ AdminForm.UpdateImages = ({
   images: string[] | [];
   deleteImage: any;
 }) => {
+
   return (
     <div className="mt-4 ">
       <div className="font-semibold mb-2">Images :</div>
@@ -132,6 +133,8 @@ AdminForm.UpdateImages = ({
         {images.map((image: any) => (
           <div className="w-48 h-48 relative" key={image.id}>
             <Image
+              width={192}
+              height={192}
               className="w-48 h-48  object-cover"
               src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + image.filename}
               alt={'Admin Image'}

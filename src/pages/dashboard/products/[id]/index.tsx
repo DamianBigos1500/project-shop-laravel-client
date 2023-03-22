@@ -7,7 +7,11 @@ import Link from 'next/link';
 import React from 'react';
 import { productsAdminService } from 'src/services/admin/productsAdmin.service';
 
-export default function index({ productId }: any) {
+type pageProps = {
+  productId: string | number | string[];
+};
+
+export default function index({ productId }: pageProps) {
   const { data: product, loading } = useGetDataById(
     'product',
     productsAdminService.showProduct,
@@ -67,7 +71,10 @@ export default function index({ productId }: any) {
                 label={'Category Id'}
                 data={product?.category?.id}
               />
-              <AdminDetails.MultipleImages images={product?.images} />
+              <AdminDetails.MultipleImages
+                label={'Images: '}
+                images={product?.images}
+              />
             </AdminDetails.Wraper>
           )}
         </div>

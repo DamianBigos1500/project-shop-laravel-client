@@ -1,6 +1,5 @@
 import React from 'react';
 import ProductCard from './ProductCard';
-import { productType } from '@/types/productType';
 
 export default function ProductGrid({ products }: any) {
   if (products.length === 0) return <>NotFound</>;

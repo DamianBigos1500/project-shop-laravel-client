@@ -48,8 +48,12 @@ export default function edit({ productId }: any) {
       </Head>
 
       <AdminLayout>
-        <div className="overflow-x-auto md:m-10 m-0 ">
-          <AdminDetails>Product:</AdminDetails>
+        <div className="md:m-10 m-0 ">
+          <AdminDetails>
+            <span className="text-black text-3xl py-4 font-semibold">
+              Product:
+            </span>
+          </AdminDetails>
 
           {!loading && product && (
             <AdminForm.Wraper>
@@ -67,7 +71,7 @@ export default function edit({ productId }: any) {
                   <select
                     id="category"
                     name="category"
-                    className="outline-none rounded-full border px-4 py-2 border-gray-400 w-full"
+                    className="outline-none rounded-full border px-4 py-2 bg-white border-gray-400 w-full"
                     defaultValue={product.category.id}
                     ref={categoryRef}
                   >
@@ -169,7 +173,7 @@ export default function edit({ productId }: any) {
                   </div>
                 </AdminForm.FormGroup>
 
-                <AdminForm.FormGroup id={'images'} label={'Quantity'}>
+                <AdminForm.FormGroup id={'images'} label={'Add Image'}>
                   <AdminForm.Input
                     id={'images'}
                     name={'images'}

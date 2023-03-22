@@ -52,8 +52,8 @@ export default function ImageModal({
             />
           </div>
           <Image
-            width={1024}
-            height={1024}
+            width={2048}
+            height={2048}
             src={
               process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
               images[activeImage].filename

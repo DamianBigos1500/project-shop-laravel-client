@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 export default function useGetDataById(
   name: string,
   getDataByIdService: any,
-  dataId: number
+  dataId: number | string | string[]
 ) {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);

@@ -60,7 +60,7 @@ export default function create() {
                 <select
                   id="category"
                   name="category"
-                  className="outline-none rounded-full border px-4 py-2 border-gray-400 w-full"
+                  className="outline-none rounded-full border px-4 py-2 bg-white border-gray-400 w-full"
                   defaultValue={0}
                   ref={categoryRef}
                 >

@@ -4,9 +4,11 @@ import { loginDataType, registerDataType } from '../types';
 import { AuthService } from '../service/auth.service';
 import { CartService } from '@/features/cart/services/cart.service';
 import { useRouter } from 'next/router';
+import { imageType } from '@/types/imageType';
 
 export default function useAuth() {
   const [user, setUser] = useState<any>(null);
+  const [profileImage, setProfileImage] = useState<null | imageType>(null);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState<any>([]);
 
@@ -37,9 +39,9 @@ export default function useAuth() {
 
       router.replace(query.returnUrl || '/');
     } catch (e: any) {
-      // if (e?.response.status === 422) {
-      //   setErrors(e.response.data.errors);
-      // }
+      if (e?.response.status === 422) {
+        setErrors(e.response.data.errors);
+      }
     }
 
     try {
@@ -57,7 +59,9 @@ export default function useAuth() {
   const getUser = async () => {
     try {
       const { data }: any = await AuthService.getUser();
-      setUser(data);
+      setUser(data.user);
+      setProfileImage(data.user);
+      console.log(data);
     } catch (error) {
       setLoading(false);
     }
