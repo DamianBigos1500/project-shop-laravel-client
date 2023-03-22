@@ -31,10 +31,9 @@ export function CartProvider({ children }: childrenType) {
     try {
       const res = await CartService.addToCart({ product_id, quantity });
       setCart(res.data);
-      
+
       returnedQty = res.data.itemQty;
-    } catch (error) {
-    }
+    } catch (error) {}
     setAddCartLoading(0);
     return returnedQty;
   };
@@ -76,6 +75,7 @@ export function CartProvider({ children }: childrenType) {
         removeItems,
         removeItemById,
         addItemToCart,
+        getData,
       }}
     >
       {children}

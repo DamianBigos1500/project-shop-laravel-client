@@ -5,9 +5,11 @@ const initialOptions: any = {
   'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
 };
 
-export default function PaypalButton() {
-  const price = '19';
-
+export default function PaypalButton({
+  createOrderData,
+  setOrderDataPaypal,
+  totalValue = 10,
+}: any) {
   return (
     <PayPalScriptProvider options={initialOptions}>
       <PayPalButtons
@@ -24,14 +26,19 @@ export default function PaypalButton() {
               {
                 description: 'description',
                 amount: {
-                  value: price,
+                  value: totalValue,
                 },
               },
             ],
           });
         }}
         onApprove={async (data, actions: any) => {
-          const order = await actions.order.capture();
+          console.log('approve', data);
+          try {
+            const newOrder = await createOrderData();
+            const order = await actions.order.capture();
+            await setOrderDataPaypal(newOrder.id);
+          } catch (error) {}
 
           // update order
 

@@ -1,40 +1,37 @@
 import PaypalButton from '@/components/PaypalButton';
 import { InputCheckout } from '@/components/UI/Input/InputCheckout';
 import useAuthContext from '@/context/useAuthContext';
+import useCartContext from '@/context/useCartContext';
+import useOrder from '@/hooks/useOrder';
 import GuestLayout from '@/layouts/GuestLayout';
 import { onSubmitType } from '@/types/onSubmitType';
-import { useSignal } from '@preact/signals-react';
 import Head from 'next/head';
-import React, { useRef } from 'react';
-import { AiOutlineCreditCard } from 'react-icons/ai';
+import React, { useState } from 'react';
 
 export default function index() {
   const { user } = useAuthContext();
+  const {
+    emailRef,
+    firstNameRef,
+    lastNameRef,
+    telephoneRef,
+    deliveryAddressRef,
+    townRef,
+    zipCodeRef,
+    countryRef,
+    createOrder,
+    setOrderToPaypal,
+  } = useOrder();
 
-  const emailRef = useRef<HTMLInputElement>();
-  const firstNameRef = useRef<HTMLInputElement>();
-  const lastNameRef = useRef<HTMLInputElement>();
-  const telephoneRef = useRef<HTMLInputElement>();
-  const deliveryAddressRef = useRef<HTMLInputElement>();
-  const townRef = useRef<HTMLInputElement>();
-  const zipCodeRef = useRef<HTMLInputElement>();
-  const countryRef = useRef<HTMLInputElement>();
+  const [paymentMethod, setPaymentMethod] = useState<number | null>(null);
 
-  const paymentMethod = useSignal<number | null>(null);
-
-  console.log(paymentMethod.value);
+  const { cartTotalSum } = useCartContext();
 
   const submitForm = (e: onSubmitType) => {
     e.preventDefault();
-
-    console.log({
-      email: emailRef.current?.value,
-      name: firstNameRef.current?.value,
-      surname: lastNameRef.current?.value,
-      telephone: telephoneRef.current?.value,
-      address: deliveryAddressRef.current?.value,
-      zip_code: zipCodeRef.current?.value,
-    });
+    createOrder();
+    if (paymentMethod === 0) {
+    }
 
     // create order
 
@@ -61,7 +58,7 @@ export default function index() {
 
                 <InputCheckout
                   ref={emailRef}
-                  id="email_2"
+                  id="email"
                   type="email"
                   placeholder="Email *"
                   defaultValue={user?.email}
@@ -127,38 +124,33 @@ export default function index() {
             </div>
 
             <div className="p-8 md:w-[24rem]">
-              <div className="text-xl mb-8">Total: </div>
+              <div className="text-xl mb-8">
+                <span className="font-semibold mr-2">Total:</span>$
+                {cartTotalSum}
+              </div>
 
               <div className="flex flex-col gap-4">
                 <span
                   className={`cursor-pointer w-full rounded-full h-10 bg-slate-100 border-2 flex justify-center items-center ${
-                    paymentMethod.value === 0
+                    paymentMethod === 0
                       ? 'border-red-500'
                       : 'border-transparent'
                   }`}
                   onClick={() => {
-                    paymentMethod.value = 0;
+                    setPaymentMethod(0);
                   }}
                 >
                   Cash on delivery
                 </span>
-                <span
-                  className={`cursor-pointer w-full rounded-full h-10 bg-slate-100 border-2 flex justify-center items-center ${
-                    paymentMethod.value === 1
-                      ? 'border-red-500'
-                      : 'border-transparent'
-                  }`}
-                  onClick={() => {
-                    paymentMethod.value = 1;
-                  }}
-                >
-                  <span className="mr-2">PayPal</span>
-                  <AiOutlineCreditCard />
-                </span>
-                <PaypalButton />
+
+                <PaypalButton
+                  createOrderData={createOrder}
+                  setOrderDataPaypal={setOrderToPaypal}
+                  totalValue={10}
+                />
                 <button
                   type="submit"
-                  className="mt-10 cursor-pointer w-full rounded-md text-white hover:bg-gray-700 h-14 bg-gray-800 border-2 flex justify-center items-center"
+                  className="mt-2 cursor-pointer w-full rounded-md text-white hover:bg-gray-700 h-14 bg-gray-800 border-2 flex justify-center items-center"
                 >
                   <span>Click to proceed order</span>
                 </button>

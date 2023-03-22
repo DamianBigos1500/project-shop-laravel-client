@@ -60,7 +60,7 @@ export default function useAuth() {
     try {
       const { data }: any = await AuthService.getUser();
       setUser(data.user);
-      setProfileImage(data.user);
+      setProfileImage(data.profileImage);
       console.log(data);
     } catch (error) {
       setLoading(false);
@@ -79,9 +79,10 @@ export default function useAuth() {
   };
 
   return {
-    user: user,
-    loading: loading,
-    errors: errors,
+    user,
+    profileImage,
+    loading,
+    errors,
     register,
     login,
     logout,

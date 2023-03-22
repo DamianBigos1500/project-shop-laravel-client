@@ -1,10 +1,16 @@
+import OrderInfo from '@/components/OrderInfo';
+import ProfileInfo from '@/components/ProfileInfo';
+import ProfileSidebar from '@/components/ProfileSidebar';
 import useAuthContext from '@/context/useAuthContext';
 import GuestLayout from '@/layouts/GuestLayout';
 import { protectedLoginRoute } from '@/utils/protectedRoutes/protectedLoginRoute';
 import Head from 'next/head';
+import { useState } from 'react';
+import { NO_IMAGE } from 'src/data/NO_IMAGE';
 
 function profile() {
-  const { user } = useAuthContext();
+  const { user, profileImage } = useAuthContext();
+  const [subsite, setSubsite] = useState(1);
 
   return (
     <>
@@ -23,7 +29,12 @@ function profile() {
             />
             <div className="flex flex-col justify-center items-center relative h-full bg-black bg-opacity-50 text-white">
               <img
-                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                src={
+                  profileImage
+                    ? process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
+                      profileImage.filename
+                    : NO_IMAGE
+                }
                 className="h-24 w-24 object-cover rounded-full"
               />
               <h1 className="text-2xl font-semibold">
@@ -33,71 +44,12 @@ function profile() {
             </div>
           </div>
           <div className="grid grid-cols-12 bg-white ">
-            <div className="col-span-12 w-full px-3 py-6 justify-center flex space-x-4 border-b border-solid md:space-x-0 md:space-y-4 md:flex-col md:col-span-2 md:justify-start ">
-              <a
-                href="#"
-                className="text-sm p-2 bg-indigo-900 text-white text-center rounded font-bold"
-              >
-                Basic Information
-              </a>
-
-              <a
-                href="#"
-                className="text-sm p-2 bg-indigo-200 text-center rounded font-semibold hover:bg-indigo-700 hover:text-gray-200"
-              >
-                Another Information
-              </a>
-
-              <a
-                href="#"
-                className="text-sm p-2 bg-indigo-200 text-center rounded font-semibold hover:bg-indigo-700 hover:text-gray-200"
-              >
-                Another Something
-              </a>
-            </div>
+            <ProfileSidebar setSubsite={setSubsite} />
 
             <div className="col-span-12 md:border-solid md:border-l md:border-black md:border-opacity-25 h-full pb-12 md:col-span-10">
               <div className="px-4 pt-4">
-                <form action="#" className="flex flex-col space-y-8">
-                  <div>
-                    <h3 className="text-2xl font-semibold">
-                      Basic Information
-                    </h3>
-                    <hr />
-                  </div>
-
-                  <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
-                    <div className="form-item w-full">
-                      <label className="text-xl ">Name</label>
-                      <div className="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200">
-                        {user.name}
-                      </div>
-                    </div>
-
-                    <div className="form-item w-full">
-                      <label className="text-xl ">Surname</label>
-                      <div className="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200">
-                        {user.surname}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
-                    <div className="form-item w-full">
-                      <label className="text-xl ">Phone Number</label>
-                      <div className="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200">
-                        {user.surname}
-                      </div>
-                    </div>
-
-                    <div className="form-item w-full">
-                      <label className="text-xl ">Email</label>
-                      <div className="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200">
-                        {user.surname}
-                      </div>
-                    </div>
-                  </div>
-                </form>
+                {subsite === 1 && <ProfileInfo user={user}></ProfileInfo>}
+                {subsite === 2 && <OrderInfo user={user}></OrderInfo>}
               </div>
             </div>
           </div>
