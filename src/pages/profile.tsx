@@ -3,10 +3,10 @@ import ProfileInfo from '@/components/ProfileInfo';
 import ProfileSidebar from '@/components/ProfileSidebar';
 import useAuthContext from '@/context/useAuthContext';
 import GuestLayout from '@/layouts/GuestLayout';
+import { createImageUrl } from '@/utils/createImgUrl';
 import { protectedLoginRoute } from '@/utils/protectedRoutes/protectedLoginRoute';
 import Head from 'next/head';
 import { useState } from 'react';
-import { NO_IMAGE } from 'src/data/NO_IMAGE';
 
 function profile() {
   const { user, profileImage } = useAuthContext();
@@ -29,12 +29,7 @@ function profile() {
             />
             <div className="flex flex-col justify-center items-center relative h-full bg-black bg-opacity-50 text-white">
               <img
-                src={
-                  profileImage
-                    ? process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
-                      profileImage.filename
-                    : NO_IMAGE
-                }
+                src={createImageUrl(profileImage?.filename)}
                 className="h-24 w-24 object-cover rounded-full"
               />
               <h1 className="text-2xl font-semibold">

@@ -1,5 +1,6 @@
 import { childrenType } from '@/types/childrenType';
 import { productType } from '@/types/productType';
+import { createImageUrl } from '@/utils/createImgUrl';
 import Image from 'next/image';
 import React from 'react';
 import { BsTrash } from 'react-icons/bs';
@@ -57,7 +58,7 @@ Table.TbodyImg = ({ url }: any) => {
   return (
     <td className="p-1 h-full ">
       <Image
-        src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + url}
+        src={createImageUrl(url)}
         className="w-10 h-10 rounded-full mx-auto object-cover"
         alt={''}
         width={40}

@@ -8,6 +8,7 @@ import DetailsSpecification from '@/components/detailPageComponents/DetailsSpeci
 import Rating from '@/components/rating/Rating';
 import { productRewiewsService } from 'src/services/productReviews.service';
 import { ratingsType } from '@/types/ratingsType';
+import { GetServerSidePropsContext } from 'next';
 
 type propsType = {
   product: productType;
@@ -42,7 +43,7 @@ export default function index({ product, productRatings }: propsType) {
   );
 }
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const [productRes, productRatingsRes] = await Promise.all([
       productService.getProductById(context.params?.id!),

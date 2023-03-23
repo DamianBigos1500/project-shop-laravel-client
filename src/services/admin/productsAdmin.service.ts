@@ -6,10 +6,7 @@ export const productsAdminService = {
   },
 
   createProducts: async (data: any) => {
-    return await axiosFormData.post(
-      process.env.NEXT_PUBLIC_BACKEND_URL + '/api/admin/products',
-      data
-    );
+    return await axiosFormData.post('/api/admin/products', data);
   },
 
   showProduct: async (productId: string) => {

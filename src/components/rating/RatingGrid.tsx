@@ -8,6 +8,7 @@ type propsType = {
 };
 
 export default function RatingGrid({ ratings, productId }: propsType) {
+  console.log(ratings)
   return (
     <div className="flex flex-col gap-10">
       {ratings.map((rating) => (

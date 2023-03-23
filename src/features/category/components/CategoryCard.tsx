@@ -1,4 +1,5 @@
 import { categoryType } from '@/types/categoryType';
+import { createImageUrl } from '@/utils/createImgUrl';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -19,10 +20,7 @@ export default function CategoryCard({ category }: propTypes) {
       onClick={navigateToCategoryProducts}
     >
       <Image
-        src={
-          process.env.NEXT_PUBLIC_BACKEND_IMG_URL! +
-          category.category_image?.filename
-        }
+        src={createImageUrl(category.category_image?.filename)}
         className="h-[70%] w-full object-cover"
         width={320}
         height={256}

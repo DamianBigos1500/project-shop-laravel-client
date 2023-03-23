@@ -1,5 +1,6 @@
 import { childrenType } from '@/types/childrenType';
 import { imageType } from '@/types/imageType';
+import { createImageUrl } from '@/utils/createImgUrl';
 import Image from 'next/image';
 import React from 'react';
 
@@ -47,7 +48,7 @@ AdminDetails.MultipleImages = ({
               width={192}
               height={192}
               className="w-48 h-48 object-cover object-center"
-              src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + image.filename}
+              src={createImageUrl(image.filename)}
               alt={'Admin Image'}
             />
           </div>
@@ -64,8 +65,6 @@ AdminDetails.Image = ({
   imageSrc: string;
   label: string;
 }) => {
-  console.log(imageSrc);
-
   return (
     <div className="mt-4 ">
       <div className="font-semibold mb-2">{label}</div>

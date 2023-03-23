@@ -1,5 +1,4 @@
-import axios from '@/lib/axios';
-import Axios from 'axios';
+import axios, { axiosFormData } from '@/lib/axios';
 
 export const categoriesAdminService = {
   getCategories: async () => {
@@ -11,17 +10,7 @@ export const categoriesAdminService = {
   },
 
   createcategories: async (data: any) => {
-    return await Axios.post(
-      process.env.NEXT_PUBLIC_BACKEND_URL + '/api/admin/categories',
-      data,
-      {
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      }
-    );
+    return await axiosFormData.post('/api/admin/categories', data);
   },
 
   showProduct: async (productId: string) => {

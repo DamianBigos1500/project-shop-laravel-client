@@ -1,4 +1,5 @@
 import { imageType } from '@/types/imageType';
+import { createImageUrl } from '@/utils/createImgUrl';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -54,10 +55,7 @@ export default function ImageModal({
           <Image
             width={2048}
             height={2048}
-            src={
-              process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
-              images[activeImage].filename
-            }
+            src={createImageUrl(images[activeImage].filename)}
             alt="product detail image"
             className="w-full h-full object-contain border-transparent col-start-1 col-end-7"
           />
@@ -92,13 +90,10 @@ export default function ImageModal({
               <div className="p-5 grid grid-cols-4 gap-2 ">
                 {images.map((image: imageType, index: number) => (
                   <Image
-                  height={96}
-                  width={80}
+                    height={96}
+                    width={80}
                     key={image.id}
-                    src={
-                      process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
-                      images[index].filename
-                    }
+                    src={createImageUrl(images[index].filename)}
                     onClick={() => setImageShow(index)}
                     alt={'product detail image ' + index}
                     className={` w-full aspect-[10_/_12] object-cover cursor-pointer rounded-md border hover:border-gray-600 transform-border duration-300 ${

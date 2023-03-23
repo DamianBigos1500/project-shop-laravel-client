@@ -6,10 +6,7 @@ export const productImagesAdminService = {
   },
 
   addProductImage: async (data: any) => {
-    return await axiosFormData.post(
-      process.env.NEXT_PUBLIC_BACKEND_URL + '/api/admin/product-images',
-      data
-    );
+    return await axiosFormData.post('/api/admin/product-images', data);
   },
 
   removeProductImage: async (productId: string | number) => {

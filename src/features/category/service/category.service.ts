@@ -6,8 +6,6 @@ export const categoryService = {
   },
 
   getCategoryBySlug: async (slug: string | string[]) => {
-    return await axios.get(
-      process.env.NEXT_PUBLIC_BACKEND_URL + '/api/category-slug/' + slug
-    );
+    return await axios.get('/api/category-slug/' + slug);
   },
 };

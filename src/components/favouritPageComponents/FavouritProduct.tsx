@@ -8,6 +8,7 @@ import { BsTrash } from 'react-icons/bs';
 import useCartContext from '@/context/useCartContext';
 import RedButton from '../UI/Button/RedButton';
 import Image from 'next/image';
+import { createImageUrl } from '@/utils/createImgUrl';
 type propsType = {
   product: productType;
   removeFavouritItem(productId: number): void;
@@ -40,9 +41,7 @@ export default function FavouritProduct({
           width={112}
           height={128}
           onClick={() => navigateToProductDetails(product.id)}
-          src={
-            process.env.NEXT_PUBLIC_BACKEND_IMG_URL + product.images[0].filename
-          }
+          src={createImageUrl(product.images[0].filename)}
           alt={product.name}
           className="w-[7rem] h-[8rem] cursor-pointer object-cover"
         />

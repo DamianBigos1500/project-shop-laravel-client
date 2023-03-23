@@ -6,6 +6,7 @@ import useUserAdmin from '@/hooks/admin/useUserAdmin';
 import AdminLayout from '@/layouts/AdminLayout';
 import { onChangeType } from '@/types/onChangeType';
 import { onSubmitType } from '@/types/onSubmitType';
+import { createImageUrl } from '@/utils/createImgUrl';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import React, { useState } from 'react';
@@ -143,10 +144,7 @@ export default function index({ userId }: pageProps) {
                   imageSrc={
                     selectedImage
                       ? URL.createObjectURL(selectedImage)
-                      : user.profile_image
-                      ? process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
-                        user.profile_image?.filename
-                      : null
+                      : createImageUrl(user.profile_image?.filename)
                   }
                   label={''}
                 />

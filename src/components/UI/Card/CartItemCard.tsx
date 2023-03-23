@@ -6,6 +6,7 @@ import CartPrice from '@/components/cartPageComponenets/CartPrice';
 import useCartContext from '@/context/useCartContext';
 import { cartItemType } from '@/types/cartItemType';
 import Image from 'next/image';
+import { createImageUrl } from '@/utils/createImgUrl';
 
 type propsType = {
   cartItem: cartItemType;
@@ -44,7 +45,7 @@ export default function CartItemCard({ cartItem }: propsType) {
             width={112}
             height={128}
             onClick={() => navigateToProductDetails(cartItem.id)}
-            src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + cartItem.picture}
+            src={createImageUrl(cartItem.picture)}
             alt={cartItem.name}
             className="w-[7rem] h-[8rem] cursor-pointer object-cover"
           />

@@ -28,7 +28,7 @@ export default function index({ products, category }: propsType) {
           <span className="text-gray-500">({products.data.length})</span>
         </div>
 
-        <ProductGrid products={products} />
+        <ProductGrid products={products} category={category} />
       </GuestLayout>
     </>
   );

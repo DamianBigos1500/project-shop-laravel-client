@@ -37,7 +37,7 @@ export default function RatingStars({
           <span className="text-gray-500">/ 5</span>
         </div>
       ) : (
-        <span className="pl-4 text-sm text-gray-500">
+        <span className="pl-4 text-sm text-gray-500 text-ellipsis whitespace-nowrap overflow-hidden">
           ({reviews} customers reviews)
         </span>
       )}

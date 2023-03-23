@@ -6,6 +6,7 @@ import AddToCard from '../AddToCard';
 import RatingStars from '../rating/RatingStars';
 import calculateRatingsStar from '@/utils/calculateRatingsStar';
 import Image from 'next/image';
+import { createImageUrl } from '@/utils/createImgUrl';
 
 type Details = {
   procesor: string;
@@ -26,74 +27,73 @@ export default function ProductCard({ product }: propsType) {
   const stars = starsSum == 0 ? 0 : Math.round(starsSum / ratingsLength) / 2;
 
   return (
-    <div className="flex flex-col group custom-shadow hover:border hover:rounded-xl rounded-t-xl border-b hover:border-none border-b-black/20 overflow-hidden text-ellipsis hover:scale-105 transition duration-300">
+    <div className="flex flex-col bg-white group custom-shadow hover:border hover:rounded-xl rounded-t-xl border-b hover:border-none border-b-black/20 overflow-hidden  hover:scale-105  duration-300">
       {/* Images */}
       <div
-        className="relative h-[20rem] cursor-pointer"
+        className="relative h-[24rem] cursor-pointer overflow-hidden"
         onClick={() => navigateToProductDetails(product.id)}
       >
         <Image
-          width={280}
-          height={320}
-          src={
-            process.env.NEXT_PUBLIC_BACKEND_IMG_URL + product.images[0].filename
-          }
+          width={384}
+          height={384}
+          src={createImageUrl(product.images[0].filename)}
           className="w-full h-full object-cover"
           alt={''}
         />
         {product?.images[1] && (
           <Image
-            width={280}
-            height={320}
-            src={
-              process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
-              product?.images[1].filename
-            }
+            width={384}
+            height={384}
+            src={createImageUrl(product?.images[1].filename)}
             className="w-full h-full object-cover absolute inset-0 group-hover:opacity-[1] opacity-0 transition"
             alt={''}
           />
         )}
       </div>
       {/* Details */}
-      <div className="flex flex-col p-4 text-ellipsis overflow-hidden gap-2">
-        <div
-          className="cursor-pointer text-ellipsis font-semibold "
-          onClick={() => navigateToProductDetails(product.id)}
-        >
-          {product.name.toUpperCase()}
-        </div>
-        {/* Stars */}
-        <RatingStars stars={stars} reviews={product.ratings.length} />
-
-        {/* Price */}
-        <div className="flex items-center gap-4">
-          <span
-            className={` font-semibold text-xl ${
-              product.discount_price
-                ? 'line-through sm:text-[1rem] text-gray-500'
-                : 'font-semibold'
-            }`}
+      <div className="flex flex-col justify-between h-[20rem]">
+        <div className="flex flex-col p-4  overflow-hidden gap-2">
+          <div
+            className="cursor-pointer text-ellipsis whitespace-nowrap overflow-hidden font-semibold "
+            onClick={() => navigateToProductDetails(product.id)}
           >
-            {product.regular_price} zl
-          </span>
-          {product.discount_price && (
-            <span className="font-semibold sm:text-xl text-2xl">
-              {product.discount_price} zl
+            {product.name.toUpperCase()}
+          </div>
+          {/* Stars */}
+          <RatingStars stars={stars} reviews={product.ratings.length} />
+
+          {/* Price */}
+          <div className="flex items-center gap-4">
+            <span
+              className={` font-semibold text-xl ${
+                product.discount_price
+                  ? 'line-through sm:text-[1rem] text-gray-500'
+                  : 'font-semibold'
+              }`}
+            >
+              {product.regular_price} zl
             </span>
-          )}
+            {product.discount_price && (
+              <span className="font-semibold sm:text-xl text-2xl">
+                {product.discount_price} zl
+              </span>
+            )}
+          </div>
+
+          {/* DescriptionShort */}
+          <div className="text-gray-500 text-xs text-ellipsis overflow-hidden">
+            {product.short_description}
+          </div>
         </div>
 
-        {/* DescriptionShort */}
-        <div className="text-gray-500 text-xs">{product.long_description}</div>
-      </div>
-
-      <div className="mx-4">
-        <AddToCard
-          handleAddToCart={() =>
-            addItemToCart({ product_id: product.id, quantity: 1 })
-          }
-          disabled={product.id === addCartLoading}
-        />
+        <div className="mx-4">
+          <AddToCard
+            handleAddToCart={() =>
+              addItemToCart({ product_id: product.id, quantity: 1 })
+            }
+            disabled={product.id === addCartLoading}
+          />
+        </div>
       </div>
 
       {/* Icons */}

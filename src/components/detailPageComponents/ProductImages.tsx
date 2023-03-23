@@ -5,6 +5,7 @@ import useModal from '@/hooks/useModal';
 import Backdrop from '../Modal/Backdrop';
 import { imageType } from '@/types/imageType';
 import Image from 'next/image';
+import { createImageUrl } from '@/utils/createImgUrl';
 
 type propsType = {
   images: imageType[];
@@ -20,10 +21,10 @@ export default function ImagesDisplay({ images }: propsType) {
         <Image
           onClick={(_e) => openModal()}
           src={
-            process.env.NEXT_PUBLIC_BACKEND_IMG_URL + images[imageShow].filename
+            createImageUrl(images[imageShow].filename)
           }
-          width={192}
-          height={192}
+          width={1024}
+          height={1024}
           alt={images[imageShow].filename}
           className="w-full aspect-[10_/_12] object-cover rounded-xl border-transparent cursor-pointer col-start-1 col-end-7"
         />
@@ -33,9 +34,7 @@ export default function ImagesDisplay({ images }: propsType) {
           return (
             <Image
               key={index}
-              src={
-                process.env.NEXT_PUBLIC_BACKEND_IMG_URL + images[index].filename
-              }
+              src={createImageUrl(images[index].filename)}
               onClick={(_e) => openModal()}
               onMouseOver={() => setImageShow(index)}
               width={80}

@@ -1,4 +1,5 @@
 import { productType } from '@/types/productType';
+import { createImageUrl } from '@/utils/createImgUrl';
 import { navigateToProductDetails } from '@/utils/navigateToProductDetails';
 import Image from 'next/image';
 import React from 'react';
@@ -17,9 +18,7 @@ export default function SearchProductCard({ product }: propsType) {
       <div className="flex">
         <div className=" h-full w-20">
           <Image
-            src={
-              process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
-              product.images[0].filename
+            src={createImageUrl(product.images[0].filename)
             }
             width={80}
             height={100}

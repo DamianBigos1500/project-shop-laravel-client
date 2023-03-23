@@ -22,13 +22,21 @@ export function CategoryProvider({ children }: childrenType) {
     return subCategory;
   }
 
+  function findCategoryById(categoryId: number) {
+    return categories.find((category) => category.id == categoryId);
+  }
+
   useEffect(() => {
     getData();
   }, []);
 
   return (
     <CategoryContext.Provider
-      value={{ categories: categories, getCategoriesChildren }}
+      value={{
+        categories: categories,
+        getCategoriesChildren,
+        findCategoryById,
+      }}
     >
       {children}
     </CategoryContext.Provider>

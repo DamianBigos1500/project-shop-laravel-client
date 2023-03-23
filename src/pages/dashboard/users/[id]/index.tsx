@@ -1,6 +1,7 @@
 import AdminDetails from '@/components/admin/AdminDetails';
 import useGetDataById from '@/hooks/admin/useGetDataById';
 import AdminLayout from '@/layouts/AdminLayout';
+import { createImageUrl } from '@/utils/createImgUrl';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -43,10 +44,7 @@ export default function index({ userId }: pageProps) {
               <AdminDetails.Data label={'User Id'} data={user.id} />
               {user?.profile_image && (
                 <AdminDetails.Image
-                  imageSrc={
-                    process.env.NEXT_PUBLIC_BACKEND_IMG_URL +
-                    user.profile_image?.filename
-                  }
+                  imageSrc={createImageUrl(user.profile_image?.filename)}
                   label={'Profile Image: '}
                 />
               )}

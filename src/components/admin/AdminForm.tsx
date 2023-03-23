@@ -1,4 +1,5 @@
 import { childrenType } from '@/types/childrenType';
+import { createImageUrl } from '@/utils/createImgUrl';
 import Image from 'next/image';
 import React, {
   FC,
@@ -124,7 +125,6 @@ AdminForm.UpdateImages = ({
   images: string[] | [];
   deleteImage: any;
 }) => {
-
   return (
     <div className="mt-4 ">
       <div className="font-semibold mb-2">Images :</div>
@@ -136,7 +136,7 @@ AdminForm.UpdateImages = ({
               width={192}
               height={192}
               className="w-48 h-48  object-cover"
-              src={process.env.NEXT_PUBLIC_BACKEND_IMG_URL + image.filename}
+              src={createImageUrl(image.filename)}
               alt={'Admin Image'}
             />
             <button

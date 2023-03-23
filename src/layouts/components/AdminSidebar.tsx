@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineAppstore } from 'react-icons/ai';
-import { BsPerson } from 'react-icons/bs';
 import { IoIosArrowBack } from 'react-icons/io';
 import { TbReportAnalytics } from 'react-icons/tb';
 import { SlSettings } from 'react-icons/sl';

@@ -8,6 +8,7 @@ import { MdOutlineModeEditOutline } from 'react-icons/md';
 import RatingForm from '../rating/RatingForm';
 import useRatings from '@/hooks/useRatings';
 import Image from 'next/image';
+import { createImageUrl } from '@/utils/createImgUrl';
 
 type propsType = {
   rating: ratingsType;
@@ -34,10 +35,10 @@ export default function RatingCard({ rating, productId }: propsType) {
         <div className="flex">
           <Image
             className="w-16 h-16 object-cover rounded-full"
-            src="https://images.unsplash.com/photo-1508919801845-fc2ae1bc2a28?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1nfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+            src={createImageUrl(rating.user?.profile_image?.filename)}
             alt={''}
-            width={64}
-            height={64}
+            width={192}
+            height={192}
           />
 
           <div className="px-8">
