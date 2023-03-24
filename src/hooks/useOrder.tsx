@@ -1,5 +1,4 @@
 import useCartContext from '@/context/useCartContext';
-import { onChangeType } from '@/types/onChangeType';
 import Router from 'next/router';
 import { useRef, useState } from 'react';
 import { orderService } from 'src/services/order.service';
@@ -10,22 +9,23 @@ export default function useOrder() {
   const firstNameRef = useRef<HTMLInputElement>();
   const lastNameRef = useRef<HTMLInputElement>();
   const telephoneRef = useRef<HTMLInputElement>();
-  const deliveryAddressRef = useRef<HTMLInputElement>();
-  const townRef = useRef<HTMLInputElement>();
+  const addressRef = useRef<HTMLInputElement>();
+  const streetRef = useRef<HTMLInputElement>();
+  const cityRef = useRef<HTMLInputElement>();
   const zipCodeRef = useRef<HTMLInputElement>();
   const countryRef = useRef<HTMLInputElement>();
   const [errors, setErrors] = useState(null);
 
   const getFormData = () => {
     return {
-      email: emailRef?.current?.value,
       name: firstNameRef?.current?.value,
       surname: lastNameRef?.current?.value,
+      email: emailRef?.current?.value,
       telephone: telephoneRef?.current?.value,
-      address: deliveryAddressRef?.current?.value,
-      town: townRef?.current?.value,
+      street: streetRef?.current?.value,
+      address: addressRef?.current?.value,
+      city: cityRef?.current?.value,
       zip_code: zipCodeRef?.current?.value,
-      country: countryRef?.current?.value,
     };
   };
 
@@ -76,11 +76,14 @@ export default function useOrder() {
     firstNameRef,
     lastNameRef,
     telephoneRef,
-    deliveryAddressRef,
-    townRef,
+    streetRef,
+    addressRef,
+    cityRef,
     zipCodeRef,
     countryRef,
     createOrder,
+    setOrderToCash,
     setOrderToPaypal,
+    errors,
   };
 }

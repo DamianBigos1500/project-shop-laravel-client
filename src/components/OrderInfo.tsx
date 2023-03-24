@@ -28,13 +28,13 @@ export default function OrderInfo({ user }: any) {
             <div key={order.id}>
               <div className="hover:bg-gray-200 rounded-md p-2">
                 <div>
-                  <span className="mr-2 border">Order number:</span>
+                  <span className="mr-2 border font-semibold">Order number:</span>
                   <Link href={`/order/${order.order_code}`}>
                     {order.order_code}
                   </Link>
                 </div>
                 <div>
-                  <span className="mr-2 border">Order Place Date:</span>
+                  <span className="mr-2 border font-semibold">Order Place Date:</span>
                   {order.created_at}
                 </div>
               </div>

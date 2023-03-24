@@ -68,7 +68,7 @@ export default function RegisterForm() {
           placeholder="Password Confirmation"
           ToggleIcon={TogglePasswordConfirmationIcon}
         />
-        
+
         <AuthSubmitButton>Submit</AuthSubmitButton>
 
         <div className="flex justify-start text-sm sm:pt-2">

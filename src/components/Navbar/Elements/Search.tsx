@@ -1,25 +1,29 @@
-import LoadingSpinner from '@/components/LoadingSpinner';
-import SearchProductCard from '@/components/SearchProductCard';
 import useSearch from '@/hooks/useSearch';
-import axios from '@/lib/axios';
 import { onChangeType } from '@/types/onChangeType';
-import { productType } from '@/types/productType';
-import throttle from '@/utils/throttle';
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import SearchProductComponents from './SearchProductComponents';
+import { onSubmitType } from '@/types/onSubmitType';
 
 export default function Search() {
   const { filterSearch } = useSearch();
-
   const [searchInput, setSearchInput] = useState<string>('');
   const [isFocused, setIsFocused] = useState(false);
+
+  const handleSearch = (e: onSubmitType) => {
+    e.preventDefault();
+    filterSearch('/details', { search: searchInput }, true);
+    setIsFocused(false);
+  };
 
   return (
     <div className="md:row-start-1 md:row-end-2 row-start-2 row-end-3 md:col-start-2 md:col-end-3 col-start-1 col-end-3 md:px-12 px-4 flex items-center justify-center">
       <div className="md:max-w-[28rem] w-full">
-        <div className="relative flex items-center justify-center w-full">
+        <form
+          onSubmit={handleSearch}
+          className="relative flex items-center justify-center w-full"
+        >
           <input
             type="search"
             onFocus={() => setIsFocused(true)}
@@ -29,7 +33,8 @@ export default function Search() {
             placeholder="Search for items..."
           />
           <button
-            type="submit"
+            type="button"
+            onClick={handleSearch}
             className=" h-full absolute rounded-full px-4 py-2 text-base right-[-2px] bottom-0 bg-gray-200 hover:bg-gray-300 focus: focus:outline-none font-medium"
           >
             <AiOutlineSearch />
@@ -54,7 +59,7 @@ export default function Search() {
               />
             </motion.div>
           </AnimatePresence>
-        </div>
+        </form>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ type propsType = {
 };
 
 export default function RatingDetails({ ratings = [] }: propsType) {
-  const {ratingsLength, stars, amounts } = ratingsData(ratings);
+  const { ratingsLength, stars, amounts } = ratingsData(ratings);
   const { filterSearch } = useSearch();
 
   return (
@@ -30,7 +30,9 @@ export default function RatingDetails({ ratings = [] }: propsType) {
           <div
             key={index}
             className="flex items-center w-full cursor-pointer"
-            onClick={() => filterSearch({ rating: index + 1 })}
+            onClick={() =>
+              filterSearch(null, { rating: index + 1 }, { replace: true })
+            }
           >
             <div className="flex justify-center items-center w-10">
               <span className="pr-2">

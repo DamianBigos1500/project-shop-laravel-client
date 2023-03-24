@@ -6,6 +6,7 @@ import GuestLayout from '@/layouts/GuestLayout';
 import { createImageUrl } from '@/utils/createImgUrl';
 import { protectedLoginRoute } from '@/utils/protectedRoutes/protectedLoginRoute';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useState } from 'react';
 
 function profile() {
@@ -22,7 +23,9 @@ function profile() {
       <GuestLayout>
         <div className="w-full relative mt-4 shadow-2xl rounded my-24 overflow-hidden">
           <div className="top h-64 w-full bg-blue-600 overflow-hidden relative">
-            <img
+            <Image
+              width={1024}
+              height={256}
               src="https://images.unsplash.com/photo-1503264116251-35a269479413?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
               alt=""
               className="bg w-full h-full object-cover object-center absolute z-0"

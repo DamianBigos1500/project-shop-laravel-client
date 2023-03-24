@@ -5,10 +5,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { GrClose } from 'react-icons/gr';
 import { categoryType } from '@/types/categoryType';
 import { productType } from '@/types/productType';
+import ProductPagination from '../ProductPagination';
 
 type propsType = {
   products: { data: productType[] };
-  category: categoryType;
+  category?: categoryType;
 };
 
 export default function ProductGrid({ products, category }: propsType) {
@@ -38,15 +39,20 @@ export default function ProductGrid({ products, category }: propsType) {
               category={category}
             />
           </div>
-          <motion.div
-            className={`grid gap-8 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 ${
-              isOpen && 'lg:-mt-16 delay-200'
-            } duration-200 `}
-          >
-            {products.data.map((product: any) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </motion.div>
+          <div className="flex flex-col">
+            <motion.div
+              className={`grid gap-8 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 ${
+                isOpen && 'lg:-mt-16 delay-200'
+              } duration-200 `}
+            >
+              {products.data.map((product: any) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </motion.div>
+            <div className="flex justify-center items-center mt-10">
+              <ProductPagination productsData={products} />
+            </div>
+          </div>
         </div>
       </AnimatePresence>
     </div>

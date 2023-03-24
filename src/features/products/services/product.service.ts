@@ -15,8 +15,13 @@ export const productService = {
     return await axios.get('http://localhost:8000/api/products/' + id);
   },
 
-  getProductsByCategory: async (categorySlug: string | string[]) => {
-    return await axios.get('/api/products-category/' + categorySlug);
+  getProductsByCategory: async (
+    categorySlug: string | string[],
+    query: any = null
+  ) => {
+    return await axios.get('/api/products-category/' + categorySlug, {
+      params: query,
+    });
   },
 
   productPaths: async () => {

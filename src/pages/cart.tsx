@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CartItemCard from '../components/UI/Card/CartItemCard';
 import GuestLayout from '@/layouts/GuestLayout';
 import Head from 'next/head';
@@ -8,8 +8,6 @@ import Router from 'next/router';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { BsTrash } from 'react-icons/bs';
 import { cartItemType } from '@/types/cartItemType';
-import axios from '@/lib/axios';
-import { getCookie } from 'cookies-next';
 import Link from 'next/link';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 
@@ -76,7 +74,7 @@ export default function cart() {
                 <div className="flex">
                   <Link
                     href="/"
-                    className="bg-slate-500 rounded-xl hover:bg-slate-600 hover:text-white fon px-4 py-2 flex justify-center items-center transition-colors duration-100"
+                    className="bg-slate-700 rounded-xl hover:bg-slate-600 text-white fon px-4 py-2 flex justify-center items-center transition-colors duration-100"
                   >
                     <span className="text-xl w-5 mr-4">
                       <BiLeftArrowAlt />
@@ -95,20 +93,13 @@ export default function cart() {
 
                 <div className="p-4">
                   <button
-                    className="bg-slate-700 w-full text-white py-2 px-4 hover"
+                    className="bg-slate-700  hover:bg-slate-600  w-full text-white py-2 px-4 hover hover:bg-slate-600"
                     onClick={redirectToOrder}
                   >
                     Place Order
                   </button>
                 </div>
 
-                <div className="p-4">
-                  <div>Coupons:</div>
-                  <form>
-                    <input type="text" className="w-full" />
-                    <button>Use Coupon</button>
-                  </form>
-                </div>
               </div>
             </div>
           </>

@@ -15,22 +15,30 @@ export default function index() {
     firstNameRef,
     lastNameRef,
     telephoneRef,
-    deliveryAddressRef,
-    townRef,
+    streetRef,
+    addressRef,
+    cityRef,
     zipCodeRef,
     countryRef,
     createOrder,
     setOrderToPaypal,
+    setOrderToCash,
+    errors,
   } = useOrder();
 
   const [paymentMethod, setPaymentMethod] = useState<number | null>(null);
 
   const { cartTotalSum } = useCartContext();
 
-  const submitForm = (e: onSubmitType) => {
+  console.log(errors);
+
+  const submitForm = async (e: onSubmitType) => {
     e.preventDefault();
-    createOrder();
     if (paymentMethod === 0) {
+      const newOrder = await createOrder();
+      if (newOrder) {
+        await setOrderToCash(newOrder.id);
+      }
     }
 
     // create order
@@ -47,7 +55,7 @@ export default function index() {
         <div className="mx-7xl">
           <div className="mt-10 mb-6 font-semibold text-xl">Order:</div>
           <form
-            className="flex md:flex-row flex-col rounded-xl bg-gray-200"
+            className="flex md:flex-row flex-col rounded-xl bg-white shadow-xl"
             onSubmit={submitForm}
           >
             <div className="flex-1 p-8">
@@ -59,66 +67,83 @@ export default function index() {
                 <InputCheckout
                   ref={emailRef}
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="Email *"
                   defaultValue={user?.email}
+                  errors={errors}
                 />
 
                 <div className="flex gap-10 ">
                   <InputCheckout
                     ref={firstNameRef}
-                    id="first_name"
+                    id="name"
+                    name="name"
                     type="text"
                     placeholder="First name *"
-                    defaultValue={user?.email}
+                    defaultValue={user?.name}
+                    errors={errors}
                   />
+
                   <InputCheckout
                     ref={lastNameRef}
-                    id="last_name"
+                    id="surname"
+                    name="surname"
                     type="text"
                     placeholder="Last name *"
-                    defaultValue={user?.email}
+                    defaultValue={user?.surname}
+                    errors={errors}
                   />
                 </div>
 
                 <InputCheckout
                   ref={telephoneRef}
                   id="telephone"
+                  name="telephone"
                   type="text"
                   placeholder="Telephone *"
-                  defaultValue={user?.email}
+                  defaultValue={user?.phone_number}
+                  errors={errors}
                 />
 
                 <InputCheckout
-                  ref={deliveryAddressRef}
-                  id="delivery_address"
+                  ref={streetRef}
+                  id="street"
+                  name="street"
+                  type="text"
+                  placeholder="Street *"
+                  defaultValue={user?.street}
+                  errors={errors}
+                />
+
+                <InputCheckout
+                  ref={addressRef}
+                  id="address"
+                  name="address"
+                  type="text"
+                  placeholder="Address *"
+                  defaultValue={user?.address}
+                  errors={errors}
+                />
+
+                <InputCheckout
+                  ref={cityRef}
+                  id="city"
+                  name="city"
                   type="text"
                   placeholder="Delivery address *"
-                  defaultValue={user?.email}
-                />
-
-                <InputCheckout
-                  ref={townRef}
-                  id="delivery_address"
-                  type="text"
-                  placeholder="Town *"
-                  defaultValue={user?.email}
+                  defaultValue={user?.city}
+                  errors={errors}
                 />
 
                 <InputCheckout
                   ref={zipCodeRef}
-                  id="delivery_address"
+                  id="zip_code"
+                  name="zip_code"
                   type="text"
                   placeholder="ZIP code *"
-                  defaultValue={user?.email}
-                />
-
-                <InputCheckout
-                  ref={countryRef}
-                  id="delivery_address"
-                  type="text"
-                  placeholder="Country *"
-                  defaultValue={user?.email}
+                  defaultValue={user?.zip_code}
+                  errors={errors}
                 />
               </div>
             </div>
@@ -131,10 +156,8 @@ export default function index() {
 
               <div className="flex flex-col gap-4">
                 <span
-                  className={`cursor-pointer w-full rounded-full h-10 bg-slate-100 border-2 flex justify-center items-center ${
-                    paymentMethod === 0
-                      ? 'border-red-500'
-                      : 'border-transparent'
+                  className={`cursor-pointer w-full rounded-full h-12 bg-slate-100 border-2 flex justify-center items-center ${
+                    paymentMethod === 0 ? 'border-red-500' : 'border-gray-200'
                   }`}
                   onClick={() => {
                     setPaymentMethod(0);

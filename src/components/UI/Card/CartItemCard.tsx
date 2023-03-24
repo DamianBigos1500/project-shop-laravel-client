@@ -25,7 +25,6 @@ export default function CartItemCard({ cartItem }: propsType) {
       product_id: cartItem.id,
       quantity: quantity - cartItem.quantity,
     });
-    console.log(newQty);
     setQuantity(newQty);
   };
 
@@ -53,7 +52,7 @@ export default function CartItemCard({ cartItem }: propsType) {
             onClick={() => navigateToProductDetails(cartItem.id)}
             className="text-sm cursor-pointer mx-4"
           >
-            {cartItem.name} asdasdasdasdasdasdasd
+            {cartItem.name}
           </span>
         </div>
 

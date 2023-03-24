@@ -2,11 +2,9 @@ import Head from 'next/head';
 import GuestLayout from '@/layouts/GuestLayout';
 import { productType } from '@/types/productType';
 import ProductGrid from '@/components/product/ProductGrid';
-import { GetStaticPropsContext } from 'next';
-import { categoryService } from '@/features/category/service/category.service';
+import { GetServerSidePropsContext } from 'next';
 import { productService } from '@/features/products/services/product.service';
 import { categoryType } from '@/types/categoryType';
-import { AxiosResponse } from 'axios';
 
 type propsType = {
   products: { data: productType[] };
@@ -34,53 +32,23 @@ export default function index({ products, category }: propsType) {
   );
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   let productsRes: any;
 
   try {
     productsRes = await productService.getProductsByCategory(
-      context.params?.sub_category_slug!
+      context?.params?.sub_category_slug!,
+      context.query
     );
     return {
       props: {
         products: productsRes.data.products,
         category: productsRes.data.category,
       },
-      revalidate: 600,
     };
   } catch (error) {
     return {
       props: {},
-      revalidate: 600,
     };
   }
-}
-
-export async function getStaticPaths() {
-  let res: AxiosResponse;
-
-  try {
-    res = await categoryService.getCategories();
-  } catch (error) {
-    return { paths: [], fallback: 'blocking' };
-  }
-
-  // const paths = res.data.categories.map((category: any) => {
-  //   return {
-  //     params: { category_slug: category.category_slug, sub_category_slug: '' },
-  //   };
-  // });
-
-  return {
-    paths: [
-      // {
-      //   params: {
-      //     category_slug: 'computers-and-laptops',
-      //     sub_category_slug: 'gaming-laptops',
-      //   },
-      // },
-    ],
-
-    fallback: 'blocking',
-  };
 }

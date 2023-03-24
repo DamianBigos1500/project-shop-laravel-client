@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: false,
   images: {
-    domains: ['localhost', 'www.actbus.net'],
+    domains: ['localhost', 'www.actbus.net', 'images.unsplash.com'],
   },
 };

@@ -15,11 +15,15 @@ export default function RatingOpinions() {
 
   const handleSubmit = (e: onSubmitType) => {
     e.preventDefault();
-    filterSearch({
-      sort: sortRef.current.value,
-      rating: ratingRef.current.value,
-      confirmed: confirmedRef.current.value,
-    });
+    filterSearch(
+      null,
+      {
+        sort: sortRef.current.value,
+        rating: ratingRef.current.value,
+        confirmed: confirmedRef.current.value,
+      },
+      { replace: true }
+    );
   };
 
   const handleReset = () => {

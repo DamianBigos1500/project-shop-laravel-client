@@ -11,6 +11,7 @@ import { MdMenu } from 'react-icons/md';
 import { useRouter } from 'next/router';
 import { FiUsers } from 'react-icons/fi';
 import { BiCategory } from 'react-icons/bi';
+import { IoArrowBackOutline } from 'react-icons/io5';
 
 const subMenusList = [
   {
@@ -154,15 +155,15 @@ export default function DashboardSidebar() {
           >
             <li>
               <Link href="/" className="link">
-                <AiOutlineAppstore size={23} className="min-w-max" />
-                Go to shop
+                <IoArrowBackOutline size={23} className="min-w-max" />
+                Back to shop
               </Link>
             </li>
 
             <div className="border-y py-5 border-slate-300">
               {subMenusList?.map((menu) => (
                 <div key={menu.name} className="flex flex-col gap-1">
-                  <SubMenu data={menu} />
+                  <SubMenu data={menu}  />
                 </div>
               ))}
             </div>
