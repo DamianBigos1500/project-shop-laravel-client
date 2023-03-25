@@ -4,7 +4,16 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 
-export default function SubMenu({ data }: any) {
+type childrensType = {
+  name: string;
+  href: string;
+};
+
+export default function SubMenu({
+  data,
+}: {
+  data: { name: string; icon: any; childrens: childrensType[] };
+}) {
   const router = useRouter();
   const [subMenuOpen, setSubMenuOpen] = useState(false);
 
@@ -35,7 +44,7 @@ export default function SubMenu({ data }: any) {
         }
         className="flex flex-col pl-14 text-[0.8rem] font-normal overflow-hidden h-0"
       >
-        {data.childrens.map((children: any) => (
+        {data.childrens.map((children: childrensType) => (
           <li key={children.name}>
             <Link href={children.href} className="link">
               {children.name}

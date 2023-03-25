@@ -1,6 +1,11 @@
 import React from 'react';
 
-export default function ProfileSidebar({ subsite, setSubsite }: any) {
+type propsType = {
+  subsite: number;
+  setSubsite(siteNumber: number): void;
+};
+
+export default function ProfileSidebar({ subsite, setSubsite }: propsType) {
   return (
     <div className="col-span-12 w-full px-3 py-6 justify-center flex space-x-4 border-b border-solid md:space-x-0 md:space-y-4 md:flex-col md:col-span-2 md:justify-start">
       <button

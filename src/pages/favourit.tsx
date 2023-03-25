@@ -6,6 +6,7 @@ import Head from 'next/head';
 import FavouritCollection from '@/components/favouritPageComponents/FavouritCollection';
 import AddNewFavouritList from '@/components/favouritPageComponents/AddNewFavouritList';
 import { protectedLoginRoute } from '@/utils/protectedRoutes/protectedLoginRoute';
+import { favouritCollectionType } from '@/types/favouritCollectionType';
 
 function favourit() {
   const {
@@ -34,7 +35,7 @@ function favourit() {
           <LoadingSpinner />
         ) : (
           <div className="">
-            {favourit.map((favouritItem: any) => (
+            {favourit.map((favouritItem: favouritCollectionType) => (
               <FavouritCollection
                 key={favouritItem.id}
                 favouritCollection={favouritItem}

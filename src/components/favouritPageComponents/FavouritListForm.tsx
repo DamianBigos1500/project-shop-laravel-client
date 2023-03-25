@@ -4,10 +4,15 @@ import SubmitButton from '../UI/Button/SubmitButton';
 import useInput from '@/hooks/useInput';
 import { onSubmitType } from '@/types/onSubmitType';
 
+type propsType = {
+  addFavouritCollection(listName: string): void;
+  closeModal(): void;
+};
+
 export default function FavouritListForm({
   addFavouritCollection,
   closeModal = () => {},
-}: any) {
+}: propsType) {
   const list_name = useInput('');
 
   const handleAddList = (e: onSubmitType) => {

@@ -1,3 +1,4 @@
+import { favouritCollectionType } from '@/types/favouritCollectionType';
 import { productType } from '@/types/productType';
 import { useEffect, useState } from 'react';
 import { favouritService } from 'src/services/favourit.service';
@@ -35,8 +36,8 @@ export default function useFavouritItems() {
     } catch (error) {
       setError('Cannot remove item');
     }
-    setFavourit((prev: any) => {
-      return prev.map((collection: any) => {
+    setFavourit((prev: favouritCollectionType[]) => {
+      return prev.map((collection: favouritCollectionType) => {
         if (collection.id === data.collection_id) {
           const filteredProducts = collection.products.filter(
             (product: productType) => product.id != data.product_id
@@ -48,12 +49,12 @@ export default function useFavouritItems() {
     });
   };
 
-  const addFavouritCollection = async (listName: number) => {
+  const addFavouritCollection = async (listName: string) => {
     try {
       const { data } = await favouritService.createFavourit(listName);
       const newItem = { ...data.favourit, products: [] };
 
-      setFavourit((prev: any) => {
+      setFavourit((prev: favouritCollectionType[]) => {
         return [newItem, ...prev];
       });
     } catch (error) {
@@ -64,8 +65,10 @@ export default function useFavouritItems() {
   const removeFavouritCollection = async (collectionId: number) => {
     try {
       await favouritService.deleteFavourit(collectionId);
-      setFavourit((prev: any) =>
-        prev.filter((collection: any) => collection.id != collectionId)
+      setFavourit((prev: favouritCollectionType[]) =>
+        prev.filter(
+          (collection: favouritCollectionType) => collection.id != collectionId
+        )
       );
     } catch (error) {
       setError('Cannot remove collection');
@@ -74,12 +77,12 @@ export default function useFavouritItems() {
 
   function isProductInCollection(collectionId: number, productId: number) {
     const collection = favourit.find(
-      (collection: any) => collection.id === collectionId
+      (collection: favouritCollectionType) => collection.id === collectionId
     );
 
     if (!collection) return false;
     const product = collection.products.find(
-      (product: any) => product.id === productId
+      (product: favouritCollectionType) => product.id === productId
     );
 
     if (!product) return false;

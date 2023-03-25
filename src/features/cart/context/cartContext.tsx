@@ -58,7 +58,11 @@ export function CartProvider({ children }: childrenType) {
     getData();
   }, []);
 
-  function setCart(data: any) {
+  function setCart(data: {
+    cartCount: number;
+    cartItems: cartItemType[];
+    cartTotalSum: number;
+  }) {
     setCartCount(data.cartCount);
     setCartItems(data.cartItems);
     setCartTotalSum(data.cartTotalSum);

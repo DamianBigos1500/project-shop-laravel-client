@@ -12,7 +12,7 @@ import { onSubmitType } from '@/types/onSubmitType';
 import useCategoryContext from '@/context/useCategoryContext';
 import useProductAdmin from '@/hooks/admin/useProductAdmin';
 
-export default function edit({ productId }: any) {
+export default function edit({ productId }: { productId: number }) {
   const { getCategoriesChildren } = useCategoryContext();
   const {
     nameRef,

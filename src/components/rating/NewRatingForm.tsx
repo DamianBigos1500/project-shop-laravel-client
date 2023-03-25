@@ -2,10 +2,20 @@ import React from 'react';
 import RatingForm from './RatingForm';
 import useRatings from '@/hooks/useRatings';
 
-export default function NewRatingForm({ productId }: any) {
+type propsType = {
+  productId: number;
+};
+
+export default function NewRatingForm({ productId }: propsType) {
   const { isLoading, createReview } = useRatings();
 
-  const handleCreate = ({ review, rating }: any) => {
+  const handleCreate = ({
+    review,
+    rating,
+  }: {
+    review: string;
+    rating: number;
+  }) => {
     createReview(productId, { review, rating });
   };
 

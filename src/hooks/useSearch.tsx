@@ -1,15 +1,25 @@
 import { useRouter } from 'next/router';
 
+type queryParamsType = {};
+type optionsType = {
+  clearQuery: null | boolean;
+  replace: null | boolean;
+};
+
 export default function useSearch() {
   const router = useRouter();
 
-  const filterSearch = (path: any = null, queryParams: any, options: any) => {
+  const filterSearch = (
+    path: string | null = null,
+    queryParams: queryParamsType,
+    options: optionsType
+  ) => {
     let query: any = {};
     query = options?.clearQuery ? {} : router.query;
 
     const pathname = path ?? router.pathname;
 
-    Object.entries(queryParams).map(([key, val]: any) => {
+    Object.entries(queryParams).map(([key, val]) => {
       query[key] = val;
     });
 

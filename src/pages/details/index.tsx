@@ -1,6 +1,7 @@
 import ProductGrid from '@/components/product/ProductGrid';
 import { productService } from '@/features/products/services/product.service';
 import GuestLayout from '@/layouts/GuestLayout';
+import { AxiosResponse } from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import React from 'react';
@@ -26,7 +27,7 @@ export default function index({ products, productsCount }: any) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  let productsRes: any;
+  let productsRes: AxiosResponse;
 
   try {
     productsRes = await productService.getProducts(context.query);

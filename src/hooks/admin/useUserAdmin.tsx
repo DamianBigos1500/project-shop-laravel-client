@@ -48,7 +48,7 @@ export default function useUserAdmin(
     }
   };
 
-  const updateUser = async (selectedImage: any) => {
+  const updateUser = async (selectedImage: string) => {
     const formData = new FormData();
 
     let payload = JSON.stringify(getFarmData());

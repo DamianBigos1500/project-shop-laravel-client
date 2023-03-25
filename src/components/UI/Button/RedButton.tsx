@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-export default function RedButton({ children, onClick }: any) {
+type propsType = {
+  children: ReactNode;
+  onClick: () => void;
+};
+
+export default function RedButton({ children, onClick }: propsType) {
   return (
     <button
       onClick={onClick}

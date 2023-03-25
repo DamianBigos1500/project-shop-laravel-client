@@ -1,5 +1,6 @@
 import { categoryType } from './categoryType';
 import { imageType } from './imageType';
+import { ratingsType } from './ratingsType';
 
 export type productType = {
   product_code: string | number | undefined;
@@ -13,5 +14,5 @@ export type productType = {
   inStock: number;
   details: Details;
   category?: categoryType;
-  ratings?: any;
+  ratings?: ratingsType[];
 };

@@ -33,11 +33,7 @@ export default function ProductGrid({ products, category }: propsType) {
       <AnimatePresence initial={false}>
         <div className="flex lg:flex-row flex-col">
           <div className="lg:mr-8 mb-8">
-            <SidebarFilter
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-              category={category}
-            />
+            <SidebarFilter isOpen={isOpen} category={category} />
           </div>
           <div className="flex flex-col">
             <motion.div
@@ -45,7 +41,7 @@ export default function ProductGrid({ products, category }: propsType) {
                 isOpen && 'lg:-mt-16 delay-200'
               } duration-200 `}
             >
-              {products.data.map((product: any) => (
+              {products.data.map((product: productType) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </motion.div>

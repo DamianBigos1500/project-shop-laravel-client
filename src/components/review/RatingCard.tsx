@@ -15,12 +15,14 @@ type propsType = {
   productId: number;
 };
 
+type dataType = {};
+
 export default function RatingCard({ rating, productId }: propsType) {
   const { user } = useAuthContext();
   const [isEditing, setIsEditing] = useState(false);
   const { isLoading, updateReview, deleteReview } = useRatings();
 
-  const handleEditReview = async ({ ...data }: any) => {
+  const handleEditReview = async ({ ...data }: dataType) => {
     updateReview(rating.id, productId, data);
     setIsEditing(false);
   };

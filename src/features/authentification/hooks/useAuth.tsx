@@ -5,6 +5,8 @@ import { AuthService } from '../service/auth.service';
 import { CartService } from '@/features/cart/services/cart.service';
 import { useRouter } from 'next/router';
 import { imageType } from '@/types/imageType';
+import { userType } from '@/types/userType';
+import { AxiosResponse } from 'axios';
 
 export default function useAuth() {
   const [user, setUser] = useState<any>(null);
@@ -22,7 +24,7 @@ export default function useAuth() {
       await AuthService.register(data);
       await getUser();
 
-      router.replace(query.returnUrl || '/');
+      router.replace(query?.returnUrl || '/');
     } catch (e: any) {
       if (e.response.status === 422) {
         errors.value = e.response.data.errors;
@@ -58,7 +60,7 @@ export default function useAuth() {
 
   const getUser = async () => {
     try {
-      const { data }: any = await AuthService.getUser();
+      const { data }: AxiosResponse = await AuthService.getUser();
       setUser(data.user);
       setProfileImage(data.profileImage);
       console.log(data);

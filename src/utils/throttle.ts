@@ -1,6 +1,6 @@
-function throttle(cb: any, interval = 1000) {
+function throttle(cb: (...args: string[]) => {}, interval = 1000) {
   let shouldWait: boolean = false;
-  let waitingArgs: any;
+  let waitingArgs: string[] | null;
 
   const timeoutFunc = () => {
     if (waitingArgs == null) {
@@ -12,7 +12,7 @@ function throttle(cb: any, interval = 1000) {
     }
   };
 
-  return (...args: any) => {
+  return (...args: string[]) => {
     if (shouldWait) {
       waitingArgs = args;
       return;

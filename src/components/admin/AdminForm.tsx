@@ -1,10 +1,13 @@
 import { childrenType } from '@/types/childrenType';
+import { imageType } from '@/types/imageType';
 import { createImageUrl } from '@/utils/createImgUrl';
 import Image from 'next/image';
 import React, {
+  Dispatch,
   FC,
   InputHTMLAttributes,
   ReactNode,
+  SetStateAction,
   TextareaHTMLAttributes,
   forwardRef,
 } from 'react';
@@ -62,7 +65,7 @@ AdminForm.Input = Input;
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ ...props }, ref: any) => {
+  ({ ...props }, ref) => {
     return (
       <textarea
         className="outline-none rounded-xl border px-4 py-2 border-gray-400 w-full"
@@ -87,8 +90,8 @@ AdminForm.MultipleImages = ({
   images,
   setImages,
 }: {
-  images: string[] | [];
-  setImages: any;
+  images: string[];
+  setImages: Dispatch<SetStateAction<string[] | []>>;
 }) => {
   return (
     <div className="mt-6">
@@ -122,15 +125,15 @@ AdminForm.UpdateImages = ({
   images,
   deleteImage,
 }: {
-  images: string[] | [];
-  deleteImage: any;
+  images: imageType[] | [];
+  deleteImage: (imageId: number) => {};
 }) => {
   return (
     <div className="mt-4 ">
       <div className="font-semibold mb-2">Images :</div>
 
       <div className="flex gap-6 flex-wrap">
-        {images.map((image: any) => (
+        {images.map((image: imageType) => (
           <div className="w-48 h-48 relative" key={image.id}>
             <Image
               width={192}

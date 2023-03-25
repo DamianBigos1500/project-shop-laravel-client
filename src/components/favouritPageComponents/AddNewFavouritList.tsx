@@ -5,13 +5,13 @@ import Backdrop from '../Modal/Backdrop';
 import RedButton from '../UI/Button/RedButton';
 import { FaPlus } from 'react-icons/fa';
 import FavouritModalCard from './FavouritModalCard';
-import useInput from '@/hooks/useInput';
-import FormInput from '@/features/authentification/components/FormInput';
-import SubmitButton from '../UI/Button/SubmitButton';
-import { onSubmitType } from '@/types/onSubmitType';
 import FavouritListForm from './FavouritListForm';
 
-export default function AddNewFavouritList({ addFavouritCollection }: any) {
+export default function AddNewFavouritList({
+  addFavouritCollection,
+}: {
+  addFavouritCollection(listName: string): void;
+}) {
   const [isShowing, openModal, closeModal] = useModal();
 
   return (

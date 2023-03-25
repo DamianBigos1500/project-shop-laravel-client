@@ -36,7 +36,7 @@ export default function SelectQuantity({
     e.preventDefault;
   },
 }: propsType) {
-  const changeQty = (e: any) => {
+  const changeQty = (e: onChangeType) => {
     handleChange(e.target.value ?? 1);
   };
 

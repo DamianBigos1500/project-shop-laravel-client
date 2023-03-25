@@ -1,11 +1,19 @@
 import React from 'react';
 import FavouritProduct from './FavouritProduct';
+import { favouritCollectionType } from '@/types/favouritCollectionType';
+import { productType } from '@/types/productType';
+
+type propsType = {
+  favouritCollection: favouritCollectionType;
+  removeFavouritCollection: (favouritCollectionId: number) => void;
+  removeItem: (data: { collection_id: number; product_id: number }) => void;
+};
 
 export default function FavouritCollection({
   favouritCollection,
   removeFavouritCollection,
   removeItem,
-}: any) {
+}: propsType) {
   const removeFavouritItem = (productId: number) => {
     removeItem({
       collection_id: favouritCollection.id,
@@ -28,7 +36,7 @@ export default function FavouritCollection({
       </div>
 
       {favouritCollection?.products.length > 0 ? (
-        favouritCollection?.products.map((product: any) => (
+        favouritCollection?.products.map((product: productType) => (
           <FavouritProduct
             key={product.id}
             product={product}
@@ -36,7 +44,9 @@ export default function FavouritCollection({
           />
         ))
       ) : (
-        <div className="p-2 flex text-gray-500">You don't add any favourit product here</div>
+        <div className="p-2 flex text-gray-500">
+          You don't add any favourit product here
+        </div>
       )}
     </div>
   );

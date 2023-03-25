@@ -1,10 +1,11 @@
+import { AxiosResponse } from 'axios';
 import Router from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
 export default function useFetchData(
   name: string,
-  getDataService: any,
-  deleteDataService: any
+  getDataService: () => Promise<AxiosResponse>,
+  deleteDataService: (dataId: number) => void
 ) {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(false);

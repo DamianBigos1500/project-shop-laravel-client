@@ -1,9 +1,10 @@
+import { AxiosResponse } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 
 export default function useGetDataById(
   name: string,
-  getDataByIdService: any,
-  dataId: number | string | string[]
+  getDataByIdService: (dataId: any) => Promise<AxiosResponse>,
+  dataId: number | null
 ) {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);

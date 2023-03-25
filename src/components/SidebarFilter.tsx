@@ -7,7 +7,12 @@ import useSearch from '@/hooks/useSearch';
 import { onChangeType } from '@/types/onChangeType';
 import { useRouter } from 'next/router';
 
-export default function SidebarFilter({ isOpen, category }: any) {
+type propsType = {
+  isOpen: boolean;
+  category?: categoryType;
+};
+
+export default function SidebarFilter({ isOpen, category }: propsType) {
   const categoryRef = useRef<any>();
   const subCategoryRef = useRef<any>();
   const priceFromRef = useRef<any>();

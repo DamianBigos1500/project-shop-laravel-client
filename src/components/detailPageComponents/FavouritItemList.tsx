@@ -1,11 +1,19 @@
+import { collectionType } from '@/types/favouritCollectionType';
 import { useState } from 'react';
+
+type propsType = {
+  collection: collectionType;
+  isAdded: boolean;
+  addItem(collectionId: number): void;
+  removeItem(collectionId: number): void;
+};
 
 export default function FavouritItemList({
   collection,
   isAdded,
   addItem,
   removeItem,
-}: any) {
+}: propsType) {
   const [isChecked, setIsChecked] = useState(isAdded);
 
   const handleCheckbox = (collection_id: number, isChecked: boolean) => {

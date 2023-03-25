@@ -1,15 +1,28 @@
-import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { orderType } from '@/types/orderType';
+import {
+  PayPalButtons,
+  PayPalScriptProvider,
+  ReactPayPalScriptOptions,
+} from '@paypal/react-paypal-js';
+import { SCRIPT_ID } from '@paypal/react-paypal-js/dist/types/constants';
 import React from 'react';
 
-const initialOptions: any = {
-  'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
+const initialOptions: ReactPayPalScriptOptions = {
+  'client-id': `${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}`,
+  [SCRIPT_ID]: SCRIPT_ID,
+};
+
+type propsType = {
+  createOrderData(): orderType;
+  setOrderDataPaypal(id: number): void;
+  totalValue: string | number;
 };
 
 export default function PaypalButton({
   createOrderData,
   setOrderDataPaypal,
   totalValue = 10,
-}: any) {
+}: propsType) {
   return (
     <PayPalScriptProvider options={initialOptions}>
       <PayPalButtons
@@ -26,7 +39,7 @@ export default function PaypalButton({
               {
                 description: 'description',
                 amount: {
-                  value: totalValue,
+                  value: String(totalValue),
                 },
               },
             ],
@@ -36,7 +49,7 @@ export default function PaypalButton({
           console.log('approve', data);
           try {
             const newOrder = await createOrderData();
-            const order = await actions.order.capture();
+            await actions.order.capture();
             await setOrderDataPaypal(newOrder.id);
           } catch (error) {}
 

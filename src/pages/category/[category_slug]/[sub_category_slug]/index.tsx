@@ -5,6 +5,7 @@ import ProductGrid from '@/components/product/ProductGrid';
 import { GetServerSidePropsContext } from 'next';
 import { productService } from '@/features/products/services/product.service';
 import { categoryType } from '@/types/categoryType';
+import { AxiosResponse } from 'axios';
 
 type propsType = {
   products: { data: productType[] };
@@ -33,7 +34,7 @@ export default function index({ products, category }: propsType) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  let productsRes: any;
+  let productsRes: AxiosResponse;
 
   try {
     productsRes = await productService.getProductsByCategory(

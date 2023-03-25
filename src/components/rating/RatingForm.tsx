@@ -6,7 +6,7 @@ import AuthSubmitButton from '../UI/Button/SubmitButton';
 import LoadingSpinner from '../LoadingSpinner';
 
 type propsType = {
-  onSubmit: any;
+  onSubmit: (data: { review: string; rating: number }) => void;
   defaultValue?: string;
   buttonText: string;
   currentRating?: number;
@@ -65,7 +65,7 @@ export default function RatingForm({
         className="w-full my-4 outline-none bg-transparent border-y border-black/20 resize-none p-2 text-[1rem] text-gray-500"
       ></textarea>
       <AuthSubmitButton>
-        {isLoading ? <LoadingSpinner className='h-5 w-5'/> : buttonText}
+        {isLoading ? <LoadingSpinner className="h-5 w-5" /> : buttonText}
       </AuthSubmitButton>
     </form>
   );

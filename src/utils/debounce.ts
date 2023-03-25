@@ -1,9 +1,9 @@
 import { timeoutType } from '@/types/timeoutType';
 
-function debounce(cb: any, delay = 1000) {
+function debounce(cb: (...args: string[]) => {}, delay = 1000) {
   let timeout: timeoutType;
 
-  return (...args: any) => {
+  return (...args: string[]) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       cb(...args);

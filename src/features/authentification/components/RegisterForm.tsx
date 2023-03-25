@@ -5,6 +5,7 @@ import useAuthContext from '@/context/useAuthContext';
 import usePasswordToggle from '@/hooks/usePasswordToggle';
 import useInput from '@/hooks/useInput';
 import AuthSubmitButton from '@/components/UI/Button/SubmitButton';
+import { onSubmitType } from '@/types/onSubmitType';
 
 export default function RegisterForm() {
   const name = useInput('');
@@ -12,13 +13,13 @@ export default function RegisterForm() {
   const password = useInput('');
   const password_confirmation = useInput('');
 
-  const [PasswordInputType, TogglePasswordIcon]: any = usePasswordToggle();
-  const [PasswordConfirmationInputType, TogglePasswordConfirmationIcon]: any =
+  const [PasswordInputType, TogglePasswordIcon] = usePasswordToggle();
+  const [PasswordConfirmationInputType, TogglePasswordConfirmationIcon] =
     usePasswordToggle();
 
   const { register, errors } = useAuthContext();
 
-  const handleRegister = (event: any) => {
+  const handleRegister = (event: onSubmitType) => {
     event.preventDefault();
     register({
       name: name.value,

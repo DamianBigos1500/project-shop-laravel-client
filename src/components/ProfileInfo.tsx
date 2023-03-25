@@ -1,6 +1,11 @@
+import { userType } from '@/types/userType';
 import React from 'react';
 
-export default function ProfileInfo({ user }: any) {
+type propsType = {
+  user: userType;
+};
+
+export default function ProfileInfo({ user }: propsType) {
   return (
     <div className="flex flex-col space-y-8">
       <div>
@@ -28,14 +33,14 @@ export default function ProfileInfo({ user }: any) {
         <div className="form-item w-full">
           <label className="text-xl ">Phone Number</label>
           <div className="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200">
-            {user.surname}
+            {user.phone_number}
           </div>
         </div>
 
         <div className="form-item w-full">
           <label className="text-xl ">Email</label>
           <div className="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200">
-            {user.surname}
+            {user.email}
           </div>
         </div>
       </div>

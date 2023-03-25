@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion';
 import React from 'react';
 import FavouritItemList from '../detailPageComponents/FavouritItemList';
 import useFavouritItems from '@/hooks/useFavouritItems';
 import FavouritModalCard from './FavouritModalCard';
 import FavouritListForm from './FavouritListForm';
+import { collectionType } from '@/types/favouritCollectionType';
 
-export default function FavouritModal({ productId }: any) {
+export default function FavouritModal({ productId }: { productId: number }) {
   const {
     favourit,
     isProductInCollection,
@@ -25,7 +25,7 @@ export default function FavouritModal({ productId }: any) {
   return (
     <FavouritModalCard>
       {favourit.length > 0 &&
-        favourit.map((collection: any) => (
+        favourit.map((collection: collectionType) => (
           <FavouritItemList
             key={collection.id}
             collection={collection}
@@ -34,7 +34,10 @@ export default function FavouritModal({ productId }: any) {
             removeItem={removeItem}
           />
         ))}
-      <FavouritListForm addFavouritCollection={addFavouritCollection} />
+      <FavouritListForm
+        addFavouritCollection={addFavouritCollection}
+        closeModal={() => {}}
+      />
     </FavouritModalCard>
   );
 }

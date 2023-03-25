@@ -9,7 +9,7 @@ import { IoCloseOutline } from 'react-icons/io5';
 
 type propsType = {
   closeModal(): void;
-  setImageShow: any;
+  setImageShow: (arg: number | ((prev: number) => number)) => {};
   activeImage: number;
   images: imageType[];
 };

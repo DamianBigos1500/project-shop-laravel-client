@@ -1,5 +1,5 @@
 import { onChangeType } from '@/types/onChangeType';
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 
 type props = {
   id: string;
@@ -9,7 +9,7 @@ type props = {
   placeholder: string;
   onChange: (e: onChangeType) => void;
   error?: string[];
-  ToggleIcon?: any;
+  ToggleIcon?: ReactNode;
 };
 
 export default function AuthFormInput({

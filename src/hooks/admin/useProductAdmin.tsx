@@ -4,8 +4,9 @@ import { productImagesAdminService } from 'src/services/admin/productImagesAdmin
 import { productsAdminService } from 'src/services/admin/productsAdmin.service';
 import useGetDataById from './useGetDataById';
 import Router from 'next/router';
+import { imageType } from '@/types/imageType';
 
-export default function useProductAdmin(productId: any) {
+export default function useProductAdmin(productId: number | null) {
   const nameRef = useRef<any>('');
   const categoryRef = useRef<any>(0);
   const productCodeRef = useRef<any>('');
@@ -37,7 +38,7 @@ export default function useProductAdmin(productId: any) {
     };
   };
 
-  const createNewProduct = async (selectedImages: any) => {
+  const createNewProduct = async (selectedImages: string[]) => {
     const formData = new FormData();
     const payload = JSON.stringify(getFormData());
 
@@ -58,7 +59,7 @@ export default function useProductAdmin(productId: any) {
     }
   };
 
-  const updateProduct = async (productId: any) => {
+  const updateProduct = async (productId: number) => {
     const formData = getFormData();
 
     try {
@@ -77,21 +78,21 @@ export default function useProductAdmin(productId: any) {
     const formData = new FormData();
 
     formData.append('image', e.target.files[0]);
-    formData.append('product_id', productId);
+    formData.append('product_id', String(productId));
 
     try {
       const addImageRes = await productImagesAdminService.addProductImage(
         formData
       );
 
-      setImages((prev: any) => [...prev, addImageRes.data.image]);
+      setImages((prev: imageType[]) => [...prev, addImageRes.data.image]);
     } catch (error) {}
   };
 
   const deleteImage = async (imageId: number) => {
     try {
       await productImagesAdminService.removeProductImage(imageId);
-      setImages((prev: any) =>
+      setImages((prev: imageType[]) =>
         prev.filter((image: any) => image.id != imageId)
       );
     } catch (error) {}

@@ -5,6 +5,7 @@ import Table from '@/components/admin/AdminTable';
 import { usersAdminService } from 'src/services/admin/usersAdmin.service';
 import useFetchData from '@/hooks/admin/useFetchData';
 import Link from 'next/link';
+import { userType } from '@/types/userType';
 
 const tableTh = [
   'Id',
@@ -52,7 +53,7 @@ export default function index() {
               <Table>
                 <Table.Thead data={tableTh} />
                 <Table.Tbody>
-                  {users.map((user: any) => (
+                  {users.map((user: userType) => (
                     <Table.TbodyTr key={user.id}>
                       <Table.TbodyTd>{user.id}</Table.TbodyTd>
                       <Table.TbodyTd>{user.email}</Table.TbodyTd>

@@ -1,12 +1,12 @@
 import axios from '@/lib/axios';
 
-type postProductReviewsType = {
+export type postProductReviewsType = {
   review: string;
   rating: number;
 };
 
 export const productRewiewsService = {
-  getProductReviews: async (productId: string | string[], query: any) => {
+  getProductReviews: async (productId: string | string[], query: object) => {
     return await axios.get('/api/ratings/' + productId, { params: query });
   },
 

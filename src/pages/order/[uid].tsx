@@ -1,10 +1,12 @@
 import OrderCard from '@/components/order/OrderCard';
 import GuestLayout from '@/layouts/GuestLayout';
+import { orderItemType } from '@/types/orderType';
+import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import { orderService } from 'src/services/order.service';
 
-export default function index({ orderUid }: any) {
+export default function index({ orderUid }: { orderUid: string }) {
   const [order, setOrder] = useState<any>(null);
 
   const getData = async () => {
@@ -55,12 +57,10 @@ export default function index({ orderUid }: any) {
                 {order.street}
               </div>
 
-
               <div className="mt-2">
                 <span className="font-semibold mr-2">Address:</span>
                 {order.address}
               </div>
-
 
               <div className="mt-2">
                 <span className="font-semibold mr-2">City:</span>
@@ -90,7 +90,7 @@ export default function index({ orderUid }: any) {
                   Total: ${order.total_price}
                 </div>
                 <div className="flex flex-col gap-4">
-                  {order.order_items.map((orderItem: any) => (
+                  {order.order_items.map((orderItem: orderItemType) => (
                     <OrderCard orderItem={orderItem} />
                   ))}
                 </div>
@@ -103,10 +103,10 @@ export default function index({ orderUid }: any) {
   );
 }
 
-export async function getStaticProps(context: any) {
+export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     return {
-      props: { orderUid: context.params.uid },
+      props: { orderUid: context.params?.uid },
       revalidate: 300,
     };
   } catch (error) {}

@@ -5,15 +5,15 @@ export const favouritService = {
     return await axios.get('/api/favourit');
   },
 
-  createFavourit: async (listName: any) => {
+  createFavourit: async (listName: string) => {
     return await axios.post('/api/favourit', { name: listName });
   },
 
-  deleteFavourit: async (collection_id: any) => {
-    return await axios.delete('/api/favourit/' + collection_id);
+  deleteFavourit: async (collectionId: number) => {
+    return await axios.delete('/api/favourit/' + collectionId);
   },
 
-  patchFavouritCollection: async (collection_id: any) => {
-    return await axios.delete('/api/favourit/' + collection_id);
+  patchFavouritCollection: async (collectionId: number) => {
+    return await axios.delete('/api/favourit/' + collectionId);
   },
 };

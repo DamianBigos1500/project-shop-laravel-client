@@ -1,7 +1,7 @@
 import axios from '@/lib/axios';
 
 export const productService = {
-  getProducts: async (query: any = null) => {
+  getProducts: async (query: object | null = null) => {
     return await axios.get('http://localhost:8000/api/products', {
       params: query,
     });
@@ -17,7 +17,7 @@ export const productService = {
 
   getProductsByCategory: async (
     categorySlug: string | string[],
-    query: any = null
+    query: object | null = null
   ) => {
     return await axios.get('/api/products-category/' + categorySlug, {
       params: query,
