@@ -7,7 +7,7 @@ export type postProductReviewsType = {
 
 export const productRewiewsService = {
   getProductReviews: async (productId: string | string[], query: object) => {
-    return await axios.get('/api/ratings/' + productId, { params: query });
+    return await axios.get('api/ratings/' + productId, { params: query });
   },
 
   postProductReviews: async (
@@ -16,7 +16,7 @@ export const productRewiewsService = {
   ) => {
     if (rating < 1 || rating > 10 || review.trim() == '') return;
 
-    return await axios.post('/api/ratings', {
+    return await axios.post('api/ratings', {
       review: review,
       rating: rating,
       product_id: productId,
@@ -29,13 +29,13 @@ export const productRewiewsService = {
   ) => {
     if (rating < 1 || rating > 10 || review.trim() == '') return;
 
-    return await axios.patch('/api/ratings/' + ratingId, {
+    return await axios.patch('api/ratings/' + ratingId, {
       review: review,
       rating: rating,
     });
   },
 
   deleteProductReviews: async (ratingId: number) => {
-    return await axios.delete('/api/ratings/' + ratingId);
+    return await axios.delete('api/ratings/' + ratingId);
   },
 };
