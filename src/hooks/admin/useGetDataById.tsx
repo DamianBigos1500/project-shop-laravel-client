@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 export default function useGetDataById(
   name: string,
   getDataByIdService: (dataId: any) => Promise<AxiosResponse>,
-  dataId: number | null | string
+  dataId: number | null | string | string[]
 ) {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
