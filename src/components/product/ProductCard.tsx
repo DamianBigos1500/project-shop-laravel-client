@@ -21,8 +21,9 @@ type propsType = {
 
 export default function ProductCard({ product }: propsType) {
   const { addItemToCart, addCartLoading } = useCartContext();
+
   const ratingsLength =
-    product.ratings.length == 0 ? 1 : product.ratings.length;
+    (product.ratings?.length == 0 ? 1 : product.ratings?.length) ?? 0;
   const starsSum = calculateRatingsStar(product.ratings);
   const stars = starsSum == 0 ? 0 : Math.round(starsSum / ratingsLength) / 2;
 
@@ -60,7 +61,7 @@ export default function ProductCard({ product }: propsType) {
             {product.name.toUpperCase()}
           </div>
           {/* Stars */}
-          <RatingStars stars={stars} reviews={product.ratings.length} />
+          <RatingStars stars={stars} reviews={product.ratings?.length} />
 
           {/* Price */}
           <div className="flex items-center gap-4">
