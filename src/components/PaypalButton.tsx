@@ -13,7 +13,7 @@ const initialOptions: ReactPayPalScriptOptions = {
 };
 
 type propsType = {
-  createOrderData(): orderType;
+  createOrderData(): any;
   setOrderDataPaypal(id: number): void;
   totalValue: string | number;
 };
