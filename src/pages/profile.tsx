@@ -47,7 +47,7 @@ function profile() {
             <div className="col-span-12 md:border-solid md:border-l md:border-black md:border-opacity-25 h-full pb-12 md:col-span-10">
               <div className="px-4 pt-4">
                 {subsite === 1 && <ProfileInfo user={user}></ProfileInfo>}
-                {subsite === 2 && <OrderInfo user={user}></OrderInfo>}
+                {subsite === 2 && <OrderInfo ></OrderInfo>}
               </div>
             </div>
           </div>

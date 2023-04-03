@@ -1,7 +1,7 @@
 import React from 'react';
 
 type propsType = {
-  subsite: number;
+  subsite?: number;
   setSubsite(siteNumber: number): void;
 };
 
