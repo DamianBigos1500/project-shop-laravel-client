@@ -5,7 +5,6 @@ import { BiCategory } from 'react-icons/bi';
 import { BsTelephoneForward } from 'react-icons/bs';
 import { motion, AnimatePresence } from 'framer-motion';
 import useScrollPosition from '@/hooks/useScrollPosition';
-import Sidebar from '@/components/sidebar/sidebar';
 
 const navigation = [
   { href: '/', name: 'Home' },
