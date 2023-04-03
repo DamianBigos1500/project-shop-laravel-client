@@ -1,6 +1,9 @@
 import replaceProductDetails from '@/utils/replaceProductDetails';
 import { useState } from 'react';
-import { postProductReviewsType, productRewiewsService } from 'src/services/productReviews.service';
+import {
+  postProductReviewsType,
+  productRewiewsService,
+} from 'src/services/productReviews.service';
 
 export default function useRatings() {
   const [error, setError] = useState<null | string>(null);
@@ -24,7 +27,7 @@ export default function useRatings() {
   const updateReview = async (
     ratingId: number,
     productId: number,
-    { ...data }: postProductReviewsType
+    { ...data }: postProductReviewsType | any
   ) => {
     setIsLoading(true);
     try {
