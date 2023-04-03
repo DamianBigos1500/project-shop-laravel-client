@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 
 type queryParamsType = {};
 type optionsType = {
-  clearQuery: null | boolean;
-  replace: null | boolean;
+  clearQuery?: null | boolean;
+  replace?: null | boolean;
 };
 
 export default function useSearch() {
