@@ -2,7 +2,6 @@ import React from 'react';
 import useAuthContext from '../../../context/useAuthContext';
 import Link from 'next/link';
 import { BiCategory } from 'react-icons/bi';
-import { BsTelephoneForward } from 'react-icons/bs';
 import { motion, AnimatePresence } from 'framer-motion';
 import useScrollPosition from '@/hooks/useScrollPosition';
 

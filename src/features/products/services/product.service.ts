@@ -2,7 +2,7 @@ import axios from '@/lib/axios';
 
 export const productService = {
   getProducts: async (query: object | null = null) => {
-    return await axios.get('http://localhost:8000/api/products', {
+    return await axios.get('/api/products', {
       params: query,
     });
   },
@@ -12,7 +12,7 @@ export const productService = {
   },
 
   getProductById: async (id: string | string[]) => {
-    return await axios.get('http://localhost:8000/api/products/' + id);
+    return await axios.get('/api/products/' + id);
   },
 
   getProductsByCategory: async (
