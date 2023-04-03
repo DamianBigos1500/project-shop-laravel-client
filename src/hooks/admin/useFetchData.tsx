@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 export default function useFetchData(
   name: string,
   getDataService: () => Promise<AxiosResponse>,
-  deleteDataService: (dataId: number) => void
+  deleteDataService: any
 ) {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(false);
