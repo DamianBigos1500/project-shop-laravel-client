@@ -8,7 +8,7 @@ import React from 'react';
 import { productsAdminService } from 'src/services/admin/productsAdmin.service';
 
 type pageProps = {
-  productId: string | number | string[];
+  productId: string | number;
 };
 
 export default function index({ productId }: pageProps) {
