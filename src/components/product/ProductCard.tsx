@@ -34,9 +34,7 @@ export default function ProductCard({ product }: propsType) {
         className="relative h-[24rem] cursor-pointer overflow-hidden"
         onClick={() => navigateToProductDetails(product.id)}
       >
-        <Image
-          width={384}
-          height={384}
+        <img
           src={createImageUrl(product.images[0].filename)}
           className="w-full h-full object-cover"
           alt={''}
