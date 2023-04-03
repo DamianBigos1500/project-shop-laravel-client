@@ -13,7 +13,11 @@ export default function Search() {
 
   const handleSearch = (e: onSubmitType) => {
     e.preventDefault();
-    filterSearch('/details', { search: searchInput }, true);
+    filterSearch(
+      '/details',
+      { search: searchInput },
+      { replace: true, clearQuery: true }
+    );
     setIsFocused(false);
   };
 
