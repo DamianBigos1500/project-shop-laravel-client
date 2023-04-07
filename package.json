@@ -5,6 +5,7 @@
     "build": "next build",
     "start": "next start"
   },
+  "proxy": "https://project-shop-laravel-server-main.vercel.app",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
