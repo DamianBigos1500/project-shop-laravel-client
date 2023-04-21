@@ -1,6 +1,7 @@
 import Axios from 'axios';
-// process.env.NEXT_PUBLIC_BACKEND_URL
+
 const baseUrl = 'https://project-shop-laravel-server-main.vercel.app/';
+// const baseUrl = 'http://localhost:8000/';
 
 const option = {
   headers: {
