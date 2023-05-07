@@ -7,9 +7,10 @@ import FeaturedProductCard from '@/components/FeaturedProductCard';
 
 type propsType = {
   products: productType[];
+  advertiseCarousel: any;
 };
 
-export default function index({ products }: propsType) {
+export default function index({ products, advertiseCarousel }: propsType) {
   return (
     <>
       <Head>
@@ -17,7 +18,7 @@ export default function index({ products }: propsType) {
       </Head>
 
       <GuestLayout>
-        <HomePageCarousel />
+        <HomePageCarousel advertiseCarousel={advertiseCarousel} />
 
         <div className="mx-7xl">
           <div className="mt-10 mb-6 font-semibold text-xl">
@@ -39,12 +40,15 @@ export async function getStaticProps() {
     const res = await axios.get('http://localhost:8000/api/index');
 
     return {
-      props: { products: res.data.products },
+      props: {
+        products: res.data?.products,
+        advertiseCarousel: res.data?.advertiseCarousel,
+      },
       revalidate: 300,
     };
   } catch (error) {}
   return {
-    props: { products: [] },
+    props: { products: [], advertiseCarousel: [] },
     revalidate: 300,
   };
 }

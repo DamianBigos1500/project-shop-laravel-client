@@ -33,7 +33,7 @@ function dashboard() {
             <div className="category-shadow rounded-lg p-4 flex flex-col w-full">
               <span className="font-semibold">Total Revenue: </span>
               <span className="h-40 text-4xl flex items-center justify-center">
-                $1231332
+                $45192
               </span>
             </div>
           </div>
