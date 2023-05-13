@@ -58,43 +58,41 @@ export default function HomePageCarousel({ advertiseCarousel }: any) {
     setPage([page + newDirection, newDirection]);
   };
 
-  console.log(advertiseCarousel);
+  if (advertiseCarousel.length === 0) return <div></div>;
+
   return (
     <div className="mt-8 flex lg:flex-row flex-col-reverse ">
       <div className="relative h-[20rem] w-full overflow-hidden">
-     
-          <AnimatePresence initial={false} custom={direction}>
-            <motion.img
-              key={page}
-              src={createImageUrl(
-                advertiseCarousel[imageIndex].images.filename
-              )}
-              onClick={() => navigateToProductDetails(
-                advertiseCarousel[imageIndex].product_id
-              )}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: 'spring', stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 },
-              }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={1}
-              onDragEnd={(e, { offset, velocity }) => {
-                const swipe = swipePower(offset.x, velocity.x);
-                if (swipe < -swipeConfidenceThreshold) {
-                  paginate(1);
-                } else if (swipe > swipeConfidenceThreshold) {
-                  paginate(-1);
-                }
-              }}
-              className="absolute inset-0 object-cover w-full h-full cursor-pointer"
-            ></motion.img>
-          </AnimatePresence>
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.img
+            key={page}
+            src={createImageUrl(advertiseCarousel[imageIndex].images.filename)}
+            onClick={() =>
+              navigateToProductDetails(advertiseCarousel[imageIndex].product_id)
+            }
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: 'spring', stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
+              if (swipe < -swipeConfidenceThreshold) {
+                paginate(1);
+              } else if (swipe > swipeConfidenceThreshold) {
+                paginate(-1);
+              }
+            }}
+            className="absolute inset-0 object-cover w-full h-full cursor-pointer"
+          ></motion.img>
+        </AnimatePresence>
         <div
           className="absolute z-10 top-[50%] translate-y-[-50%] right-2 rounded-full bg-white/70 p-4 cursor-pointer"
           onClick={() => paginate(1)}
