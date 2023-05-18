@@ -1,7 +1,6 @@
 import Axios from 'axios';
 
-// const baseUrl = 'https://project-shop-laravel-server-main.vercel.app/';
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+const baseUrl = 'http://damianbigos1500.alwaysdata.net/'
 
 const option = {
   headers: {
