@@ -18,7 +18,7 @@ export default function ImagesDisplay({ images }: propsType) {
   return (
     <div className=" md:row-start-1 md:row-end-3 row-start-2 row-end-3">
       <div className="grid grid-cols-6 grid-row-7 gap-2 mt-2">
-        <Image
+        <img
           onClick={(_e) => openModal()}
           src={
             createImageUrl(images[imageShow].filename)
@@ -32,7 +32,7 @@ export default function ImagesDisplay({ images }: propsType) {
         {images.map((image: imageType, index: number) => {
           if (index >= 6) return;
           return (
-            <Image
+            <img
               key={index}
               src={createImageUrl(images[index].filename)}
               onClick={(_e) => openModal()}

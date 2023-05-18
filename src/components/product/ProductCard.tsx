@@ -42,7 +42,7 @@ export default function ProductCard({ product }: propsType) {
           alt={''}
         />
         {product?.images[1] && (
-          <Image
+          <img
             width={384}
             height={384}
             src={createImageUrl(product?.images[1].filename)}

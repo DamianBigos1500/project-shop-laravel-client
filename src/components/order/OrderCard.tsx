@@ -19,7 +19,7 @@ export default function OrderCard({ orderItem }: propsType) {
             <span className="font-semibold">{orderItem.quantity} x</span>
           </div>
           <div className="w-20 h-32 overflow-hidden flex justify-center items-center">
-            <Image
+            <img
               height={100}
               width={80}
               className="object-cover w-20 h-28"

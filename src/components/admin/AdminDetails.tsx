@@ -44,7 +44,7 @@ AdminDetails.MultipleImages = ({
       <div className="flex gap-6 flex-wrap">
         {images.map((image: imageType) => (
           <div className="w-48 h-48 " key={image.id}>
-            <Image
+            <img
               width={192}
               height={192}
               className="w-48 h-48 object-cover object-center"
@@ -72,7 +72,7 @@ AdminDetails.Image = ({
       <div className="flex gap-6 flex-wrap">
         <div className="w-48 h-48 rounded-full overflow-hidden">
           {imageSrc && (
-            <Image
+            <img
               width={192}
               height={192}
               className="w-48 h-48 object-cover"

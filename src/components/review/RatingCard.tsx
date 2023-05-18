@@ -35,7 +35,7 @@ export default function RatingCard({ rating, productId }: propsType) {
     <div className="p-10 shadow-2xl rounded-md overflow-hidden">
       <div className="flex items-center justify-between">
         <div className="flex">
-          <Image
+          <img
             className="w-16 h-16 object-cover rounded-full"
             src={createImageUrl(rating.user?.profile_image?.filename)}
             alt={''}

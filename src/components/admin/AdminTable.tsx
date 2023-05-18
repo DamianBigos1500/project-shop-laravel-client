@@ -65,7 +65,7 @@ Table.TbodyTd = ({ children }: childrenType) => {
 Table.TbodyImg = ({ url }: { url: string }) => {
   return (
     <td className="p-1 h-full ">
-      <Image
+      <img
         src={createImageUrl(url)}
         className="w-10 h-10 rounded-full mx-auto object-cover"
         alt={''}

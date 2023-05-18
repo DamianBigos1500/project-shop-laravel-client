@@ -52,7 +52,7 @@ export default function ImageModal({
               className={`"text-center text-lg ${showGalery && 'scale-[-1]'}`}
             />
           </div>
-          <Image
+          <img
             width={2048}
             height={2048}
             src={createImageUrl(images[activeImage].filename)}
@@ -89,7 +89,7 @@ export default function ImageModal({
             >
               <div className="p-5 grid grid-cols-4 gap-2 ">
                 {images.map((image: imageType, index: number) => (
-                  <Image
+                  <img
                     height={96}
                     width={80}
                     key={image.id}

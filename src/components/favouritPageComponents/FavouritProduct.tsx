@@ -37,7 +37,7 @@ export default function FavouritProduct({
             className="cursor-pointer text-[1.4rem] text-red-600"
           />
         </div>
-        <Image
+        <img
           width={112}
           height={128}
           onClick={() => navigateToProductDetails(product.id)}

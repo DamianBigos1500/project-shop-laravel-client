@@ -40,7 +40,7 @@ export default function CartItemCard({ cartItem }: propsType) {
     <>
       <div className="flex justify-between sm:flex-row flex-col p-2">
         <div className=" flex items-center">
-          <Image
+          <img
             width={112}
             height={128}
             onClick={() => navigateToProductDetails(cartItem.id)}

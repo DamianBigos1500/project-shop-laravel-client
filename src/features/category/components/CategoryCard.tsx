@@ -19,7 +19,7 @@ export default function CategoryCard({ category }: propTypes) {
       className="group h-[16rem] shadow-xl rounded-lg overflow-hidden hover:scale-105 transition-transform duration-200 cursor-pointer"
       onClick={navigateToCategoryProducts}
     >
-      <Image
+      <img
         src={createImageUrl(category.category_image?.filename)}
         className="h-[70%] w-full object-cover"
         width={320}

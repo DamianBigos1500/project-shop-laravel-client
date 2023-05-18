@@ -17,7 +17,7 @@ export default function SearchProductCard({ product }: propsType) {
     >
       <div className="flex">
         <div className=" h-full w-20">
-          <Image
+          <img
             src={createImageUrl(product.images[0].filename)
             }
             width={80}

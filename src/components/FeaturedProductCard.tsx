@@ -18,7 +18,7 @@ export default function FeaturedProductCard({ product }: propsType) {
       key={product.id}
       className="rounded-xl overflow-hidden w-full transition custom-shadow z-0"
     >
-      <Image
+      <img
         src={createImageUrl(product?.images[0].filename)}
         className="w-full h-[16rem] object-cover cursor-pointer"
         onClick={() => navigateToProductDetails(product.id)}

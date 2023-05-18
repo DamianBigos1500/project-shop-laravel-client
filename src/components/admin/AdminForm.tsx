@@ -100,7 +100,7 @@ AdminForm.MultipleImages = ({
       <div className="flex gap-6 flex-wrap">
         {images.map((image: any) => (
           <div className="w-48 h-48 relative" key={image}>
-            <Image
+            <img
               width={192}
               height={192}
               className="w-48 h-48 object-cover"
@@ -135,7 +135,7 @@ AdminForm.UpdateImages = ({
       <div className="flex gap-6 flex-wrap">
         {images.map((image: imageType) => (
           <div className="w-48 h-48 relative" key={image.id}>
-            <Image
+            <img
               width={192}
               height={192}
               className="w-48 h-48  object-cover"
