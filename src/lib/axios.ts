@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-const baseUrl = 'http://damianbigos1500.alwaysdata.net/'
+const baseUrl = 'https://damianbigos1500.alwaysdata.net/'
 
 const option = {
   headers: {
