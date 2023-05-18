@@ -3,6 +3,7 @@ import { childrenType } from '@/types/childrenType';
 import { useSignal } from '@preact/signals-react';
 import { CartService } from '../services/cart.service';
 import { addToCartType, cartItemType } from '@/types/cartItemType';
+import csrf from '@/lib/csrf';
 
 export const CartContext = createContext<any>({});
 
@@ -14,6 +15,8 @@ export function CartProvider({ children }: childrenType) {
   const [addCartLoading, setAddCartLoading] = useState<number>(0);
 
   async function getData() {
+    await csrf();
+
     setLoading(true);
 
     try {
@@ -25,6 +28,7 @@ export function CartProvider({ children }: childrenType) {
   }
 
   const addItemToCart = async ({ product_id, quantity = 1 }: addToCartType) => {
+    await csrf();
     setAddCartLoading(product_id);
 
     let returnedQty = quantity;
@@ -39,6 +43,7 @@ export function CartProvider({ children }: childrenType) {
   };
 
   const removeItems = async () => {
+    await csrf();
     try {
       await CartService.clearCart();
       setCartItems([]);
@@ -48,6 +53,7 @@ export function CartProvider({ children }: childrenType) {
   };
 
   const removeItemById = async (productId: number) => {
+    await csrf();
     try {
       const res = await CartService.deleteCartItem(productId);
       setCart(res.data);

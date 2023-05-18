@@ -1,3 +1,4 @@
+import csrf from '@/lib/csrf';
 import { favouritCollectionType } from '@/types/favouritCollectionType';
 import { productType } from '@/types/productType';
 import { useEffect, useState } from 'react';
@@ -14,6 +15,8 @@ export default function useFavouritItems() {
   }, []);
 
   const getFavouritItems = async () => {
+    await csrf();
+
     setLoading(true);
     try {
       const res = await favouritService.getFavourit();
@@ -24,6 +27,8 @@ export default function useFavouritItems() {
   };
 
   const addItemAsFavourit = async ({ ...data }: postFavouritItemType) => {
+    await csrf();
+
     console.log({ ...data });
     try {
       await favouritItemService.createFavouritItem({ ...data });
@@ -31,6 +36,8 @@ export default function useFavouritItems() {
   };
 
   const deleteFavouritItem = async ({ ...data }: postFavouritItemType) => {
+    await csrf();
+
     try {
       await favouritItemService.deleteFavouritItem({ ...data });
     } catch (error) {
@@ -50,6 +57,8 @@ export default function useFavouritItems() {
   };
 
   const addFavouritCollection = async (listName: string) => {
+    await csrf();
+
     try {
       const { data } = await favouritService.createFavourit(listName);
       const newItem = { ...data.favourit, products: [] };
@@ -63,6 +72,8 @@ export default function useFavouritItems() {
   };
 
   const removeFavouritCollection = async (collectionId: number) => {
+    await csrf();
+
     try {
       await favouritService.deleteFavourit(collectionId);
       setFavourit((prev: favouritCollectionType[]) =>

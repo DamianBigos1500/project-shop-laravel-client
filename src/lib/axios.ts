@@ -1,6 +1,7 @@
 import Axios from 'axios';
 
 const baseUrl = 'https://damianbigos1500.alwaysdata.net/'
+// const baseUrl = 'http://localhost:8000';
 
 const option = {
   headers: {
