@@ -37,7 +37,7 @@ export default function index({ products, advertiseCarousel }: propsType) {
 
 export async function getStaticProps() {
   try {
-    const res = await axios.get('http://localhost:8000/api/index');
+    const res = await axios.get('api/index');
 
     return {
       props: {

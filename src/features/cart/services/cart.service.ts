@@ -10,16 +10,8 @@ export const CartService = {
     return await axios.get('api/cart-count');
   },
 
-  addToCart: async ({ product_id, quantity }: addToCartType, op: any) => {
-    return await axios.post(
-      'api/cart',
-      { product_id, quantity },
-      {
-        headers: {
-          'X-XSRF-TOKEN': op.csrf_token,
-        },
-      }
-    );
+  addToCart: async ({ product_id, quantity }: addToCartType) => {
+    return await axios.post('api/cart', { product_id, quantity });
   },
 
   moveCartToDb: async () => {

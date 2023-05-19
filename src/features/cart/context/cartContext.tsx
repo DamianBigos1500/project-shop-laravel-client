@@ -28,12 +28,12 @@ export function CartProvider({ children }: childrenType) {
   }
 
   const addItemToCart = async ({ product_id, quantity = 1 }: addToCartType) => {
-    const csrf_token = await csrf();
+    await csrf();
     setAddCartLoading(product_id);
 
     let returnedQty = quantity;
     try {
-      const res = await CartService.addToCart({ product_id, quantity }, {csrf_token});
+      const res = await CartService.addToCart({ product_id, quantity });
       setCart(res.data);
 
       returnedQty = res.data.itemQty;
