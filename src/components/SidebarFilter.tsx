@@ -6,6 +6,7 @@ import { useRef, useState } from 'react';
 import useSearch from '@/hooks/useSearch';
 import { onChangeType } from '@/types/onChangeType';
 import { useRouter } from 'next/router';
+import { useMediaQuery } from 'react-responsive';
 
 type propsType = {
   isOpen: boolean;
@@ -13,6 +14,7 @@ type propsType = {
 };
 
 export default function SidebarFilter({ isOpen, category }: propsType) {
+  const isTab = useMediaQuery({ query: '(max-width: 1024px)' });
   const categoryRef = useRef<any>();
   const subCategoryRef = useRef<any>();
   const priceFromRef = useRef<any>();
@@ -25,7 +27,34 @@ export default function SidebarFilter({ isOpen, category }: propsType) {
     router.query.category ?? category?.parent?.id
   );
 
-  console.log(category?.parent?.id);
+  const Sidebar_animation = isTab
+    ? {
+        open: {
+          width: '100%',
+          height: '100%',
+
+        },
+        closed: {
+          width: 0,
+          height: 0,
+          display: 'none'
+        },
+      }
+    : {
+        open: {
+          width: '18rem',
+          transition: {
+            damping: 40,
+          },
+        },
+        closed: {
+          width: 0,
+          transition: {
+            delay: 0.2,
+            damping: 40,
+          },
+        },
+      };
 
   const handleFilter = () => {
     filterSearch(
@@ -43,12 +72,12 @@ export default function SidebarFilter({ isOpen, category }: propsType) {
 
   return (
     <motion.div
-      className="relative flex h-full flex-col overflow-y-auto bg-white py-4 pb-12 "
+      className="relative flex h-full w-full flex-col overflow-y-auto bg-white py-4 pb-12 "
       variants={Sidebar_animation}
       animate={isOpen ? 'open' : 'closed'}
     >
       <div
-        className={`mt-4 border-t border-gray-200 duration-200 ${
+        className={`mt-4 border-t border-gray-200 duration-200 w-full ${
           !isOpen && 'opacity-0 w-0'
         }`}
       >
@@ -133,19 +162,3 @@ export default function SidebarFilter({ isOpen, category }: propsType) {
     </motion.div>
   );
 }
-
-const Sidebar_animation = {
-  open: {
-    width: '18rem',
-    transition: {
-      damping: 40,
-    },
-  },
-  closed: {
-    width: 0,
-    transition: {
-      delay: 0.2,
-      damping: 40,
-    },
-  },
-};

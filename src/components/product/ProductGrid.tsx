@@ -32,7 +32,7 @@ export default function ProductGrid({ products, category }: propsType) {
 
       <AnimatePresence initial={false}>
         <div className="flex lg:flex-row flex-col">
-          <div className="lg:mr-8 mb-8">
+          <div className="lg:mr-8 mb-8 ">
             <SidebarFilter isOpen={isOpen} category={category} />
           </div>
           <div className="flex flex-col">
