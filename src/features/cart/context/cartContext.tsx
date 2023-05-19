@@ -3,7 +3,7 @@ import { childrenType } from '@/types/childrenType';
 import { useSignal } from '@preact/signals-react';
 import { CartService } from '../services/cart.service';
 import { addToCartType, cartItemType } from '@/types/cartItemType';
-import csrf from '@/lib/csrf';
+import csrf, { custom_csrf } from '@/lib/csrf';
 
 export const CartContext = createContext<any>({});
 
@@ -28,12 +28,17 @@ export function CartProvider({ children }: childrenType) {
   }
 
   const addItemToCart = async ({ product_id, quantity = 1 }: addToCartType) => {
-    await csrf();
+    const { token }: any = await custom_csrf();
+    console.log(token);
+
     setAddCartLoading(product_id);
 
     let returnedQty = quantity;
     try {
-      const res = await CartService.addToCart({ product_id, quantity });
+      const res = await CartService.addToCart(
+        { product_id, quantity },
+        { token }
+      );
       setCart(res.data);
 
       returnedQty = res.data.itemQty;
